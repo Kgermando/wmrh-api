@@ -1,0 +1,136 @@
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+@Entity('preferences')
+export class Preference {
+
+    @PrimaryGeneratedColumn()
+    id: number;  
+    
+    // Infos entreprise 
+    @Column()
+    company_name: string;
+
+    @Column()
+    nbr_employe: string;
+
+    @Column()
+    cnss: string;
+
+    @Column()
+    numero_taxe: string;
+
+    @Column()
+    rccm: string;
+
+    @Column()
+    idNat: string;
+
+    @Column()
+    numero_impot: string;
+
+    @Column()
+    email: string;
+
+    @Column()
+    telephone: string;
+
+    @Column()
+    adresse: string;
+
+    // Date de paie
+    @Column()
+    dateDePaie : Date;
+
+    // Impot societe
+    @Column()
+    cnss_qpp : number;
+
+    @Column()
+    inpp : number;
+
+    @Column()
+    onem : number;
+
+    // Parametre de deduction
+    @Column()
+    cotisation_syndicale : number;
+
+    @Column()
+    cnss_qpo : number;
+
+    // Autres beneficiaires
+    @Column()
+    allocation_logement : number;
+
+    @Column()
+    allocation_transport : number; 
+
+    @Column()
+    nbr_max_enfant_courvert : number;
+
+    @Column()
+    allocation_familliale : number;
+
+    @Column()
+    allocation_epouse : number;
+
+    // Taux
+    @Column()
+    monnaie : string;
+
+    @Column()
+    nbre_heure_travail : number;
+
+    @Column()
+    taux_dollard : number;
+
+    // Jours feries
+    @Column()
+    new_year: Date;
+
+    @Column()
+    noel: Date;
+
+    @Column()
+    martyr_day: Date;
+
+    @Column()
+    kabila_day: Date;
+
+    @Column()
+    lumumba_day: Date;
+
+    @Column()
+    labour_day: Date;
+
+    @Column()
+    liberation_day: Date;
+
+    @Column()
+    indepence_day: Date;
+
+    @Column()
+    parent_day: Date;
+
+    @Column()
+    kimbangu_day: Date;
+
+    @Column()    
+    signature: string;
+
+    @Column()
+    created: Date;
+
+    @Column()
+    update_created : Date;
+
+    @Column()
+    entreprise: string;
+    
+    @Column()
+    code_entreprise: string;
+
+    @Column()
+    responsable: string;
+
+}
