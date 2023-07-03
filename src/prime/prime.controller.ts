@@ -31,7 +31,7 @@ export class PrimeController {
         return this.primeService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.primeService.findOne({id});
     }

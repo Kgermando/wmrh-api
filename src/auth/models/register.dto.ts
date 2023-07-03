@@ -53,6 +53,9 @@ export class RegisterDto {
     numero_cnss: string;
 
     @IsNotEmpty()
+    category: string;
+
+    @IsNotEmpty()
     role: string;  
    
  

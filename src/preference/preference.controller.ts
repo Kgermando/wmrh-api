@@ -11,6 +11,11 @@ export class PreferenceController {
         private preferenceService: PreferenceService
     ) {}
 
+    @Get('preference/:code_entreprise')
+    async preference(@Param('code_entreprise') code_entreprise: string) {
+        return this.preferenceService.preference(code_entreprise);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
@@ -33,7 +38,7 @@ export class PreferenceController {
         return this.preferenceService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.preferenceService.findOne({id});
     }

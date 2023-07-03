@@ -58,6 +58,9 @@ export class User {
     @Column({nullable: true})
     numero_cnss: string;
 
+    @Column({default: 'Manoeuvres Ordinaires (MO)'})
+    category: string;
+
     @Column()
     role: number; // droit d'acces au logiciel de 0 à 5
   
@@ -131,8 +134,5 @@ export class User {
     
     @Column()
     code_entreprise: string;
-
-    @Column()
-    responsable: string;
 
 }

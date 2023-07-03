@@ -48,8 +48,10 @@ export class UserUpdateDto {
 
     numero_cnss?: string;
 
+    category?: string; 
 
-    role?: string;
+
+    role?: number;
 
 
     departement?: string;
@@ -109,6 +111,5 @@ export class UserUpdateDto {
     entreprise?: string;
      
     code_entreprise?: string;
- 
-    responsable?: string;
+    
 }

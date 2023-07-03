@@ -34,7 +34,7 @@ export class ServicePrefController {
         return this.servicePrefService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.servicePrefService.findOne({id});
     }

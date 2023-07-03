@@ -54,8 +54,10 @@ export class UserCreateDto {
     numero_cnss: string;
 
     @IsNotEmpty()
-    role: string;  
-   
+    category: string;
+
+    @IsNotEmpty()
+    role: number;  
  
     departement: string;
 
@@ -116,7 +118,4 @@ export class UserCreateDto {
     
     @IsNotEmpty()
     code_entreprise: string;
-
-    @IsNotEmpty()
-    responsable: string;
 }

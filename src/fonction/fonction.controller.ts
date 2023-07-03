@@ -35,7 +35,7 @@ export class FonctionController {
         return this.fonctionService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.fonctionService.findOne({id});
     }

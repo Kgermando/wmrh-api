@@ -36,7 +36,7 @@ export class CandidatureController {
         return this.candidatureService.findOne({id});
     }
 
-    @Put(':id')
+    @Put('get/:id')
     async update(
         @Param('id') id: number,
         @Body() body: CandidatureCreateDto

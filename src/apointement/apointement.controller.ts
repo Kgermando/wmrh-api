@@ -39,7 +39,7 @@ export class ApointementController {
         return this.apointementService.findOne({id});
     }
 
-    @Put(':id')
+    @Put('get/:id')
     async update(
         @Param('id') id: number,
         @Body() body: ApointementUpdateDto

@@ -35,7 +35,7 @@ export class PosteController {
         return this.posteService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.posteService.findOne({id});
     }

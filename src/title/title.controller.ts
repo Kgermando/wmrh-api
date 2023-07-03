@@ -34,7 +34,7 @@ export class TitleController {
         return this.titleService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.titleService.findOne({id});
     }

@@ -12,8 +12,8 @@ export class UserService extends AbstractService {
         super(userRepository); 
     }
 
-    async paginate(page: number = 1, code): Promise<any> {
-        const {data, meta} = await super.paginate(page, code);
+    async paginate(page: number = 1, code_entreprise): Promise<any> {
+        const {data, meta} = await super.paginate(page, code_entreprise);
         
         return {
             data: data.map(user => {

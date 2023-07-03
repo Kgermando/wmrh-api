@@ -34,7 +34,7 @@ export class DepartementController {
         return this.departementService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.departementService.findOne({id});
     }

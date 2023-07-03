@@ -32,7 +32,7 @@ export class PenaliteController {
         return this.penaliteService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
         return this.penaliteService.findOne({id});
     }

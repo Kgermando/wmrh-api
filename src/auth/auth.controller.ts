@@ -43,6 +43,7 @@ export class AuthController {
             matricule: body.matricule,
             numero_cnss: body.numero_cnss,
             role: body.role,
+            category: body.category,
             departement: body.departement,
             title: body.title,
             fonction: body.fonction,
@@ -65,7 +66,6 @@ export class AuthController {
             syndicat: body.syndicat,
             entreprise: body.entreprise,
             code_entreprise: body.code_entreprise,
-            responsable: body.responsable,
         }
         );
     }

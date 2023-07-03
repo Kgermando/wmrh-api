@@ -38,17 +38,18 @@ export class UserController {
     async create(@Body() body: UserCreateDto): Promise<User> {
       const password = await bcrypt.hash('1234', 12); 
       return this.userService.create({ 
-        body, 
+        ...body, 
         password, 
       });
   }
 
-  @Get(':id')
+  @Get('get/:id')
   async get(@Param('id') id: number) {
     return this.userService.findOne({where: {id}});
   }
 
 
+  // User lui meme modifie
   @Put('info')
   async updateInfo(
     @Req() request: Request,
@@ -63,7 +64,7 @@ export class UserController {
 
   @Put('password')  
   async updatePassword(
-    @Req() request: Request,
+    @Req() request: Request, 
     @Body('password') password: string,
     @Body('password_confirm') password_confirm: string,
   ) {
@@ -76,12 +77,13 @@ export class UserController {
 
     await this.userService.update(id, {
       password: hashed
-    }); 
+    });
     
     return this.userService.findOne({where: {id}});
   }
 
 
+    // Modification des infos user par l'admin
   @Put(':id')
   async update(
     @Param('id') id: number,
