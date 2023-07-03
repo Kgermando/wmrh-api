@@ -36,7 +36,7 @@ export class SiteLocationController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.siteLocationService.findOne({id});
+        return this.siteLocationService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -45,7 +45,7 @@ export class SiteLocationController {
         @Body() body: SiteLocationUpdateDto
     ) {
         await this.siteLocationService.update(id, body);
-        return this.siteLocationService.findOne({id});
+        return this.siteLocationService.findOne({where: {id}});
     }
 
     @Delete(':id')

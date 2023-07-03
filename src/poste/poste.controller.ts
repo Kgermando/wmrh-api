@@ -37,7 +37,7 @@ export class PosteController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.posteService.findOne({id});
+        return this.posteService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -46,7 +46,7 @@ export class PosteController {
         @Body() body: PosteUpdateDto
     ) {
         await this.posteService.update(id, body);
-        return this.posteService.findOne({id});
+        return this.posteService.findOne({where: {id}});
     }
 
     @Delete(':id')

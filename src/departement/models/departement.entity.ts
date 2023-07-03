@@ -23,7 +23,4 @@ export class Departement {
     
     @Column()
     code_entreprise: string;
-
-    @Column()
-    responsable: string;
 }

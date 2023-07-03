@@ -37,7 +37,7 @@ export class FonctionController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.fonctionService.findOne({id});
+        return this.fonctionService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -46,7 +46,7 @@ export class FonctionController {
         @Body() body: FonctionUpdateDto
     ) {
         await this.fonctionService.update(id, body);
-        return this.fonctionService.findOne({id});
+        return this.fonctionService.findOne({where: {id}});
     }
 
     @Delete(':id')

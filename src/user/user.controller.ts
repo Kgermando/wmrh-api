@@ -91,7 +91,7 @@ export class UserController {
   ) { 
 
     await this.userService.update(id, {
-      body, 
+      ...body, 
     }); 
     return this.userService.findOne({where: {id}});
   }

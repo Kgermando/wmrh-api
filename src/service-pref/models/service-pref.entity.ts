@@ -22,8 +22,5 @@ export class ServicePref {
     entreprise: string;
     
     @Column()
-    code_entreprise: string;
-
-    @Column()
-    responsable: string;
+    code_entreprise: string; 
 }

@@ -23,8 +23,5 @@ export class SiteLocationCreateDto {
     entreprise: string;
     
     @IsNotEmpty()
-    code_entreprise: string;
-
-    @IsNotEmpty()
-    responsable: string;
+    code_entreprise: string; 
 }

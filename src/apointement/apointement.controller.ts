@@ -36,7 +36,7 @@ export class ApointementController {
 
     @Get(':id')
     async get(@Param('id') id: number) {
-        return this.apointementService.findOne({id});
+        return this.apointementService.findOne({where: {id}});
     }
 
     @Put('get/:id')
@@ -45,7 +45,7 @@ export class ApointementController {
         @Body() body: ApointementUpdateDto
     ) {
         await this.apointementService.update(id, body);
-        return this.apointementService.findOne({id});
+        return this.apointementService.findOne({where: {id}});
     }
 
     @Delete(':id')

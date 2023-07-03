@@ -36,7 +36,7 @@ export class DepartementController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.departementService.findOne({id});
+        return this.departementService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -45,7 +45,7 @@ export class DepartementController {
         @Body() body: DepartementUpdateDto
     ) {
         await this.departementService.update(id, body);
-        return this.departementService.findOne({id});
+        return this.departementService.findOne({where: {id}});
     }
 
     @Delete(':id')

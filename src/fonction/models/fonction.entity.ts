@@ -23,7 +23,4 @@ export class Fonction {
     
     @Column()
     code_entreprise: string;
-
-    @Column()
-    responsable: string;
 }

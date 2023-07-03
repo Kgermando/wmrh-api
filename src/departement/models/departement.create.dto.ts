@@ -18,7 +18,4 @@ export class DepartementCreateDto {
     
     @IsNotEmpty()
     code_entreprise: string;
-
-    @IsNotEmpty()
-    responsable: string;
 }

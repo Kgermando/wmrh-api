@@ -14,7 +14,4 @@ export class DepartementUpdateDto {
     
  
     code_entreprise?: string;
-
- 
-    responsable?: string;
 }

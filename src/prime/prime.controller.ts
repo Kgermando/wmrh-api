@@ -33,7 +33,7 @@ export class PrimeController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.primeService.findOne({id});
+        return this.primeService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -42,7 +42,7 @@ export class PrimeController {
         @Body() body: PrimeCreateDto
     ) {
         await this.primeService.update(id, body);
-        return this.primeService.findOne({id});
+        return this.primeService.findOne({where: {id}});
     }
 
     @Delete(':id')

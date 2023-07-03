@@ -36,7 +36,7 @@ export class TitleController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.titleService.findOne({id});
+        return this.titleService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -45,7 +45,7 @@ export class TitleController {
         @Body() body: TitleUpdateDto
     ) {
         await this.titleService.update(id, body);
-        return this.titleService.findOne({id});
+        return this.titleService.findOne({where: {id}});
     }
 
     @Delete(':id')

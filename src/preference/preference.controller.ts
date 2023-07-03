@@ -40,7 +40,7 @@ export class PreferenceController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.preferenceService.findOne({id});
+        return this.preferenceService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -49,7 +49,7 @@ export class PreferenceController {
         @Body() body: PreferenceUpdateDto
     ) {
         await this.preferenceService.update(id, body);
-        return this.preferenceService.findOne({id});
+        return this.preferenceService.findOne({where: {id}});
     }
 
     @Delete(':id')

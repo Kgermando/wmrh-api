@@ -14,8 +14,5 @@ export class TitleUpdateDto {
     entreprise?: string;
     
  
-    code_entreprise?: string;
-
- 
-    responsable?: string;
+    code_entreprise?: string; 
 }

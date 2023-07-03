@@ -33,7 +33,7 @@ export class CandidatureController {
 
     @Get(':id')
     async get(@Param('id') id: number) {
-        return this.candidatureService.findOne({id});
+        return this.candidatureService.findOne({where: {id}});
     }
 
     @Put('get/:id')
@@ -42,7 +42,7 @@ export class CandidatureController {
         @Body() body: CandidatureCreateDto
     ) {
         await this.candidatureService.update(id, body);
-        return this.candidatureService.findOne({id});
+        return this.candidatureService.findOne({where: {id}});
     }
 
     @Delete(':id')

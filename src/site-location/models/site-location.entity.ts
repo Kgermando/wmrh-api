@@ -29,7 +29,4 @@ export class SiteLocation {
     
     @Column()
     code_entreprise: string;
-
-    @Column()
-    responsable: string;
 }

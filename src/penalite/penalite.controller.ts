@@ -34,7 +34,7 @@ export class PenaliteController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.penaliteService.findOne({id});
+        return this.penaliteService.findOne({where: {id}});
     }
 
     @Put(':id')
@@ -43,7 +43,7 @@ export class PenaliteController {
         @Body() body: PenaliteUpdateDto
     ) {
         await this.penaliteService.update(id, body);
-        return this.penaliteService.findOne({id});
+        return this.penaliteService.findOne({where: {id}});
     }
 
     @Delete(':id')
