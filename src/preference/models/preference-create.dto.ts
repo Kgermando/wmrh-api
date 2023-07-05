@@ -1,17 +1,17 @@
-import { IsEmail, IsNotEmpty, isEmail } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 
 export class PreferenceCreateDto {
    
     @IsNotEmpty()
-    company_name: string;  
+    company_name: string;
 
     @IsNotEmpty()
-    nbr_employe: string;
+    nbr_employe: number; 
 
     @IsNotEmpty()
-    cnss: string; 
+    cnss: string;
 
-    @IsNotEmpty() 
+    @IsNotEmpty()
     numero_taxe: string;
 
     @IsNotEmpty()
@@ -23,7 +23,7 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     numero_impot: string;
 
-    @IsNotEmpty() 
+    @IsNotEmpty()
     email: string;
 
     @IsNotEmpty()
@@ -32,42 +32,54 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     adresse: string;
 
+    // Date de paie
     @IsNotEmpty()
-    date_paie: Date;
+    date_paie : Date;
+
+    // Impot societe
+    @IsNotEmpty()
+    cnss_qpp : number;
 
     @IsNotEmpty()
-    cnss_qpp: string;
+    inpp : number;
 
     @IsNotEmpty()
-    inpp: string;
+    onem : number;
+
+    // Parametre de deduction
+    @IsNotEmpty()
+    cotisation_syndicale : number;
 
     @IsNotEmpty()
-    cotisation_syndicale: string;
-        
+    cnss_qpo : number;
+
+    // Autres beneficiaires
     @IsNotEmpty()
-    cnss_qpo: string;
+    allocation_logement : number;
 
     @IsNotEmpty()
-    allocation_logement: string;
+    allocation_transport : number; 
 
     @IsNotEmpty()
-    allocation_transport: string;  
+    nbr_max_enfant_courvert : number;
 
     @IsNotEmpty()
-    nbr_max_enfant_courvert: string;
+    allocation_familliale : number;
 
     @IsNotEmpty()
-    allocation_familliale: string;
+    allocation_epouse : number;
+
+    // Taux
+    @IsNotEmpty()
+    monnaie : string;
 
     @IsNotEmpty()
-    allocation_epouse: string;
+    nbre_heure_travail : number;
 
     @IsNotEmpty()
-    nbre_heure_travail: string;
+    taux_dollard : number;
 
-    @IsNotEmpty()
-    taux_dollard: string;  
-
+    // Jours feries
     @IsNotEmpty()
     new_year: Date;
 
@@ -87,7 +99,7 @@ export class PreferenceCreateDto {
     labour_day: Date;
 
     @IsNotEmpty()
-    liberation_day: Date; 
+    liberation_day: Date;
 
     @IsNotEmpty()
     indepence_day: Date;
@@ -98,8 +110,8 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     kimbangu_day: Date;
 
-    @IsNotEmpty()
-    signature: string;  
+    @IsNotEmpty()    
+    signature: string;
 
     @IsNotEmpty()
     created: Date;
@@ -111,8 +123,5 @@ export class PreferenceCreateDto {
     entreprise: string;
     
     @IsNotEmpty()
-    code_entreprise: string;
-
-    @IsNotEmpty()
-    responsable: string;
+    code_entreprise: string; 
 }

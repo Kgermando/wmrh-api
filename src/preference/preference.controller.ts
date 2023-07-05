@@ -12,24 +12,10 @@ export class PreferenceController {
     ) {}
 
     @Get('preference/:code_entreprise')
-    async preference(@Param('code_entreprise') code_entreprise: string) {
-        return this.preferenceService.preference(code_entreprise);
+    async preference(@Param('code_entreprise') code_entreprise: string) { 
+        return this.preferenceService.preference({where: {code_entreprise}});
     }
 
-    @Get('get-all/:code_entreprise')
-    async getAll(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.preferenceService.all(code_entreprise);
-    }
-
-    @Get(':code_entreprise')
-    async all(
-        @Query('page') page = 1,
-        @Param('code_entreprise') code_entreprise: string,
-        ) {
-        return this.preferenceService.paginate(page, code_entreprise);
-    }
 
     @Post()
     async create(
@@ -38,22 +24,40 @@ export class PreferenceController {
         return this.preferenceService.create(body);
     }
 
-    @Get('get/:id')
-    async get(@Param('id') id: number) {
-        return this.preferenceService.findOne({where: {id}});
-    }
-
-    @Put(':id')
+ 
+    @Put(':code_entreprise')
     async update(
-        @Param('id') id: number,
+        @Param('code_entreprise') code_entreprise: string,
         @Body() body: PreferenceUpdateDto
     ) {
-        await this.preferenceService.update(id, body);
-        return this.preferenceService.findOne({where: {id}});
+        await this.preferenceService.updatePref({code_entreprise}, body);
+        return this.preferenceService.preference({where: {code_entreprise}});
     }
 
     @Delete(':id')
     async delete(@Param('id') id: number) {
         return this.preferenceService.delete(id);
     }
+
+
+    // @Get('get-all/:code_entreprise')
+    // async getAll(
+    //   @Param('code_entreprise') code_entreprise: string,
+    // ) {
+    //   return this.preferenceService.all(code_entreprise);
+    // }
+
+    // @Get(':code_entreprise')
+    // async all(
+    //     @Query('page') page = 1,
+    //     @Param('code_entreprise') code_entreprise: string
+    //     ) {
+    //     return this.preferenceService.paginate(page, code_entreprise);
+    // }
+
+       // @Get('get/:id')
+    // async get(@Param('id') id: number) {
+    //     return this.preferenceService.findOne({where: {id}});
+    // }
+
 }

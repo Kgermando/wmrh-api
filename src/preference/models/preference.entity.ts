@@ -11,7 +11,7 @@ export class Preference {
     company_name: string;
 
     @Column()
-    nbr_employe: string;
+    nbr_employe: number; 
 
     @Column()
     cnss: string;
@@ -23,7 +23,7 @@ export class Preference {
     rccm: string;
 
     @Column()
-    idNat: string;
+    id_nat: string;
 
     @Column()
     numero_impot: string;
@@ -39,7 +39,7 @@ export class Preference {
 
     // Date de paie
     @Column()
-    dateDePaie : Date;
+    date_paie : Date;
 
     // Impot societe
     @Column()
@@ -128,9 +128,6 @@ export class Preference {
     entreprise: string;
     
     @Column()
-    code_entreprise: string;
-
-    @Column()
-    responsable: string;
+    code_entreprise: string; 
 
 }
