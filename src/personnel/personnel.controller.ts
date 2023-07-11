@@ -30,9 +30,17 @@ export class PersonnelController {
     async all(
         @Query('page') page = 1,
         @Param('code_entreprise') code_entreprise: string,
-        ) {
-        return this.personneService.paginate(page, code_entreprise);
+      ) {
+      return this.personneService.paginate(page, code_entreprise);
     }
+
+    @Get('get-syndicat/:code_entreprise')
+    async getSyndicat(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.personneService.getSyndicat(code_entreprise);
+    }
+
 
     @Post()
     async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {

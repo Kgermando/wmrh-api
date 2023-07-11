@@ -45,5 +45,12 @@ export class PersonnelService extends AbstractService {
     async presence(condition): Promise<any> {
         return await this.repository.findOne(condition)
     }
+
+    getSyndicat(code_entreprise): Promise<any[]> {
+        return this.repository.find(
+            {
+                where: {code_entreprise} && {syndicat: true}
+            }); 
+    }
 }
  
