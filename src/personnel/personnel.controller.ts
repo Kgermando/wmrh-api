@@ -1,20 +1,20 @@
 import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
-import { UserService } from './user.service';
-import * as bcrypt from 'bcrypt';
-import { User } from './models/user.entity';
-import { UserCreateDto } from './models/user-create.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { UserUpdateDto } from './models/user-update.dto';
+import * as bcrypt from 'bcrypt';  
+import { AuthGuard } from 'src/auth/auth.guard'; 
 import { AuthService } from 'src/auth/auth.service';
-import { Request, Response } from 'express'; 
+import { Request } from 'express'; 
+import { PersonnelService } from './personnel.service';
+import { Personnel } from './models/personnel.entity';
+import { PersonnelCreateDto } from './models/personnel-create.dto';
+import { PersonnelUpdateDto } from './models/personnel-update.dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
-@Controller('users')
-export class UserController {
+@Controller('personnels')
+export class PersonnelController {
 
   constructor(
-    private userService: UserService,
+    private personneService: PersonnelService,
     private authService: AuthService,
   ) {}
   
@@ -22,7 +22,7 @@ export class UserController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.userService.all(code_entreprise);
+      return this.personneService.allGet(code_entreprise);
     }
 
 
@@ -31,13 +31,13 @@ export class UserController {
         @Query('page') page = 1,
         @Param('code_entreprise') code_entreprise: string,
         ) {
-        return this.userService.paginate(page, code_entreprise);
+        return this.personneService.paginate(page, code_entreprise);
     }
 
     @Post()
-    async create(@Body() body: UserCreateDto): Promise<User> {
+    async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
       const password = await bcrypt.hash('1234', 12); 
-      return this.userService.create({ 
+      return this.personneService.create({ 
         ...body, 
         password, 
       });
@@ -45,7 +45,12 @@ export class UserController {
 
   @Get('get/:id')
   async get(@Param('id') id: number) {
-    return this.userService.findOne({where: {id}});
+    return this.personneService.findGetOne({id});
+  }
+
+  @Get('presence/:matricule')
+  async presence(@Param('matricule') matricule: string) {
+    return this.personneService.presence({where: {matricule}});
   }
 
 
@@ -53,12 +58,12 @@ export class UserController {
   @Put('info')
   async updateInfo(
     @Req() request: Request,
-    @Body() body: UserUpdateDto ) {
-    const id = await this.authService.userId(request);
+    @Body() body: PersonnelUpdateDto ) {
+    const id = await this.authService.personnelId(request);
 
-    await this.userService.update(id, body); 
+    await this.personneService.update(id, body); 
     
-    return this.userService.findOne({where: {id}});
+    return this.personneService.findOne({where: {id}});
   }
 
 
@@ -71,15 +76,15 @@ export class UserController {
     if(password !== password_confirm) {
       throw new BadRequestException("Mot de passe de correspond pas.");
   }
-    const id = await this.authService.userId(request);
+    const id = await this.authService.personnelId(request);
 
     const hashed = await bcrypt.hash(password, 12);
 
-    await this.userService.update(id, {
+    await this.personneService.update(id, {
       password: hashed
     });
     
-    return this.userService.findOne({where: {id}});
+    return this.personneService.findOne({where: {id}});
   }
 
 
@@ -87,20 +92,19 @@ export class UserController {
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() body: UserUpdateDto
+    @Body() body: PersonnelUpdateDto
   ) { 
 
-    await this.userService.update(id, {
+    await this.personneService.update(id, {
       ...body, 
     }); 
-    return this.userService.findOne({where: {id}});
+    return this.personneService.findOne({where: {id}});
   }
 
   @Delete(':id')
   async delete(
     @Param(':id') id: number
   ) {
-    return this.userService.delete(id);
+    return this.personneService.delete(id);
   }
 }
- 

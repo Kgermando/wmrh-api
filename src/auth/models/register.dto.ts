@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Apointement } from "src/apointement/models/apointement.entity";
 
 export class RegisterDto {
    
@@ -115,7 +116,7 @@ export class RegisterDto {
     @IsNotEmpty()
     password_confirm: string; 
 
-    statut_presence: boolean;
+    presences: Apointement[];
  
     syndicat: boolean; 
     
@@ -124,7 +125,4 @@ export class RegisterDto {
     
     @IsNotEmpty()
     code_entreprise: string;
-
-    @IsNotEmpty()
-    responsable: string;
 }

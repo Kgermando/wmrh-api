@@ -9,7 +9,7 @@ export class AuthService {
         private jwtService: JwtService,
         ) { }
 
-    async userId(request: Request): Promise<number> {
+    async personnelId(request: Request): Promise<number> {
         const cookie = request.cookies['jwt'];
 
         console.log(cookie);

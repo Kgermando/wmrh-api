@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { CommonModule } from './common/common.module';
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module'; 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
@@ -19,6 +18,7 @@ import { PrimeModule } from './prime/prime.module';
 import { PenaliteModule } from './penalite/penalite.module';
 import { SalaireModule } from './salaire/salaire.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { PersonnelModule } from './personnel/personnel.module';
 
 
 @Module({
@@ -42,8 +42,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
     }),
     CommonModule,
     ImageModule,
+    PersonnelModule,
     AuthModule,
-    UserModule,
     PreferenceModule,
     DepartementModule,
     FonctionModule,
@@ -56,7 +56,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     PrimeModule,
     PenaliteModule,
     SalaireModule,
-    DashboardModule,
+    DashboardModule, 
   ],
 })
 export class AppModule {}

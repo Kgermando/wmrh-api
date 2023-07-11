@@ -1,18 +1,18 @@
 import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Get, NotFoundException, Param, Post, Req, Res, UseGuards, UseInterceptors } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from './models/register.dto';
 import { JwtService } from '@nestjs/jwt';
 import { Request, Response } from 'express'; 
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { PersonnelService } from 'src/personnel/personnel.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
 export class AuthController {
 
     constructor(
-        private userService: UserService,
+        private personnelService: PersonnelService,
         private jwtService: JwtService,
         private authService: AuthService,
         ) { }
@@ -24,7 +24,7 @@ export class AuthController {
         }
         const hashed = await bcrypt.hash(body.password, 12);
 
-        return this.userService.create({
+        return this.personnelService.create({
             photo: body.photo,
             nom: body.nom,
             postnom: body.postnom,
@@ -62,7 +62,7 @@ export class AuthController {
             created: body.created,
             update_created: body.update_created,
             password: hashed,
-            statut_presence: body.statut_presence,
+            presences: body.presences,
             syndicat: body.syndicat,
             entreprise: body.entreprise,
             code_entreprise: body.code_entreprise,
@@ -70,14 +70,14 @@ export class AuthController {
         );
     }
 
-    @Post('login/:code_entreprise')
+    @Post('login')
     async login(
         @Body('matricule') matricule: string,
         @Body('password') password: string,
-        @Param('code_entreprise') code_entreprise: string,
+        @Body('code_entreprise') code_entreprise: string,
         @Res({passthrough: true}) response: Response
     ) {
-        const user = await this.userService.findOne({where: {matricule} && {code_entreprise}}); 
+        const user = await this.personnelService.findOne({where: {matricule} && {code_entreprise}});
 
         if(!user) {
             throw new NotFoundException('Utilisateur non trouvé!');
@@ -104,10 +104,10 @@ export class AuthController {
 
 
     @UseGuards(AuthGuard)
-    @Get('user')
+    @Get('personnel')
     async user(@Req() request: Request) {
-        const id = await this.authService.userId(request);
-        return this.userService.findOne({where: {id}});
+        const id = await this.authService.personnelId(request);
+        return this.personnelService.findOne({where: {id}});
     }
 
     @UseGuards(AuthGuard)

@@ -1,8 +1,9 @@
-import { Exclude } from "class-transformer"; 
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Exclude } from "class-transformer";
+import { Apointement } from "src/apointement/models/apointement.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class User {
+@Entity('personnels')
+export class Personnel {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -123,8 +124,8 @@ export class User {
     @Exclude()
     password: string;
 
-    @Column({nullable: true})
-    statut_presence: boolean;
+    @OneToMany(() => Apointement, (item) => item.personnel, {nullable: false}) 
+    presences: Apointement[];
 
     @Column({default: false})
     syndicat: boolean;

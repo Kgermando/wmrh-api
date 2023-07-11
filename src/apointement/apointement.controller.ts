@@ -12,11 +12,51 @@ export class ApointementController {
         private apointementService: ApointementService
     ) {}
 
+    @Get('get-pie/:code_entreprise/:matricule')
+    async getPie(
+        @Param('code_entreprise') code_entreprise: string,
+        @Param('matricule') matricule: string
+    ) {
+        return this.apointementService.getPie(code_entreprise, matricule);
+    }
+
+    @Get('get-pie-year/:code_entreprise/:matricule')
+    async getPieYEAR(
+        @Param('code_entreprise') code_entreprise: string,
+        @Param('matricule') matricule: string
+    ) {
+        return this.apointementService.getPieYEAR(code_entreprise, matricule);
+    }
+
+    @Get('get-pie-all/:code_entreprise/:matricule')
+    async getPieAll(
+        @Param('code_entreprise') code_entreprise: string,
+        @Param('matricule') matricule: string
+    ) {
+        return this.apointementService.getPieAll(code_entreprise, matricule);
+    }
+
+    @Get('get-matricule/:code_entreprise/:matricule')
+    async getMatricule(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('matricule') matricule: string,
+    ) {
+      return this.apointementService.getMatricule(code_entreprise, matricule);
+    }
+
+    @Get('get-last-item/:code_entreprise/:matricule')
+    async getLastItem(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('matricule') matricule: string,
+    ) {
+      return this.apointementService.getLastItem(code_entreprise, matricule);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.apointementService.all(code_entreprise);
+      return this.apointementService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
@@ -34,12 +74,18 @@ export class ApointementController {
         return this.apointementService.create(body);
     }
 
-    @Get(':id')
-    async get(@Param('id') id: number) {
-        return this.apointementService.findOne({where: {id}});
-    }
+    // @Get('get/:matricule')
+    // async get(@Param('matricule') matricule: string) {
+    //     return this.apointementService.findOne({where: {matricule}});
+    // }
 
-    @Put('get/:id')
+    @Get('get/:id')
+    async get(@Param('id') id: number) {
+        return this.apointementService.findGetOne({id});
+    }
+ 
+    
+    @Put(':id')
     async update(
         @Param('id') id: number,
         @Body() body: ApointementUpdateDto

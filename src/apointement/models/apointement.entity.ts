@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Personnel } from "src/personnel/models/personnel.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('apointements')
 export class Apointement {
@@ -11,6 +12,15 @@ export class Apointement {
 
     @Column()
     apointement: string;
+
+    @Column({default: false})
+    counter: boolean;
+
+    @Column()
+    presence: boolean; // True si la personne est entrée et False si a personne est sortie
+
+    @Column()
+    observation: string;
 
     @Column()
     date_entree: Date;
@@ -33,6 +43,6 @@ export class Apointement {
     @Column()
     code_entreprise: string;
 
-    @Column()
-    responsable: string;
+    @ManyToOne(() => Personnel, (personnel)=> personnel.presences, {nullable: false})
+    personnel: Personnel;
 }
