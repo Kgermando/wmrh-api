@@ -11,4 +11,23 @@ export class PosteService extends AbstractService {
     ) {
         super(posteRepository); 
     }
+
+    allGet(code_entreprise): Promise<any[]> {
+        return this.repository.find({
+            relations: {
+                candidatures: true
+            },
+            where: {code_entreprise},
+            order: {'created': 'DESC'}
+        }); 
+    }
+
+    async findGetOne(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+            relations: {
+                candidatures: true
+            }
+        })
+    }
 }

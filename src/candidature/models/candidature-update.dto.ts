@@ -1,9 +1,10 @@
-export class UserUpdateDto {
+import { Poste } from "src/poste/models/poste.entity";
 
-    post_id?: string;
+export class UserUpdateDto { 
 
-
-    scanUrl?: string;
+    search_profil?: string;
+ 
+    scan_url?: string;
 
 
     full_name?: string;
@@ -15,7 +16,7 @@ export class UserUpdateDto {
     departement?: string;
 
 
-    statut?: boolean;
+    statut?: string;
 
 
     adresse?: string;
@@ -34,6 +35,5 @@ export class UserUpdateDto {
  
     code_entreprise?: string;
 
- 
-    responsable?: string;
+    post?: Poste;
 }

@@ -1,16 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Poste } from "src/poste/models/poste.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('candidatures')
 export class Candidature {
 
     @PrimaryGeneratedColumn()
-    id: number; 
+    id: number;
 
     @Column()
-    post_id: number;
+    search_profil: string; // Profil rechercher
 
     @Column()
-    scanUrl: string;
+    scan_url: string;
 
     @Column()
     full_name: string;
@@ -22,7 +23,7 @@ export class Candidature {
     departement: string;
 
     @Column()
-    statut: boolean;
+    statut: string; 
 
     @Column()    
     signature: string;
@@ -39,6 +40,6 @@ export class Candidature {
     @Column()
     code_entreprise: string;
 
-    @Column()
-    responsable: string;
+    @ManyToOne(() => Poste, (poste)=> poste.candidatures)
+    post: Poste;
 }

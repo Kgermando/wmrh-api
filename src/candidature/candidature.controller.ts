@@ -31,12 +31,12 @@ export class CandidatureController {
         return this.candidatureService.create(body);
     }
 
-    @Get(':id')
+    @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.candidatureService.findOne({where: {id}});
+        return this.candidatureService.findGetOne({id});
     }
 
-    @Put('get/:id')
+    @Put(':id')
     async update(
         @Param('id') id: number,
         @Body() body: CandidatureCreateDto

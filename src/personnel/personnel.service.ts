@@ -15,9 +15,10 @@ export class PersonnelService extends AbstractService {
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
             relations: {
-                presences: true,
+                presences: true
             },
-            where: {code_entreprise}
+            where: {code_entreprise},
+            order: {'created': 'DESC'}
         }); 
     }
 
@@ -25,7 +26,7 @@ export class PersonnelService extends AbstractService {
         return await this.repository.findOne({
             where: condition,
             relations: {
-                presences: true,
+                presences: true
             }
         })
     }

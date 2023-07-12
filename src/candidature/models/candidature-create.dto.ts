@@ -1,12 +1,12 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Poste } from "src/poste/models/poste.entity";
 
-export class CandidatureCreateDto {
-   
+export class CandidatureCreateDto { 
     @IsNotEmpty()
-    post_id: number;  
+    search_profil: string;
 
     @IsNotEmpty()
-    scanUrl: string;
+    scan_url: string; 
 
     @IsNotEmpty()
     full_name: string;
@@ -18,7 +18,7 @@ export class CandidatureCreateDto {
     departement: string; 
 
     @IsNotEmpty()
-    statut: boolean;
+    statut: string;
 
     @IsNotEmpty()
     signature: string;  
@@ -35,6 +35,5 @@ export class CandidatureCreateDto {
     @IsNotEmpty()
     code_entreprise: string;
 
-    @IsNotEmpty()
-    responsable: string;
+    post: Poste;
 }

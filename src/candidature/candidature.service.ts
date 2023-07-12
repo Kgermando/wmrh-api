@@ -12,4 +12,23 @@ export class CandidatureService extends AbstractService {
         super(candidatureRepository); 
     }
 
+    allGet(code_entreprise): Promise<any[]> {
+        return this.repository.find({
+            relations: {
+                post: true
+            },
+            where: {code_entreprise},
+            order: {'created': 'DESC'}
+        }); 
+    }
+
+    async findGetOne(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+            relations: {
+                post: true
+            }
+        })
+    }
+
 }

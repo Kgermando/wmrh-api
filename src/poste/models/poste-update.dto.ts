@@ -1,14 +1,16 @@
+import { Candidature } from "src/candidature/models/candidature.entity";
+
 export class PosteUpdateDto {
 
     search_profil?: string; 
 
-    sexe?: string; 
-
-    salaire?: string;
+    resume?: string;  
 
     type_contrat?: string; 
 
-    statut?: boolean; 
+    statut?: string;
+
+    echeance?: Date;
 
     signature?: string; 
 
@@ -21,6 +23,5 @@ export class PosteUpdateDto {
  
     code_entreprise?: string;
 
- 
-    responsable?: string;
+    candidatures?: Candidature[];
 }

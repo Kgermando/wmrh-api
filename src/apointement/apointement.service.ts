@@ -16,9 +16,10 @@ export class ApointementService extends AbstractService {
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
             relations: {
-                personnel: true,
+                personnel: true
             },
-            where: {code_entreprise}
+            where: {code_entreprise},
+            order: {'date_entree': 'DESC'}
         }); 
     }
 
@@ -26,7 +27,7 @@ export class ApointementService extends AbstractService {
         return await this.repository.findOne({
             where: condition,
             relations: {
-                personnel: true,
+                personnel: true
             }
         })
     }

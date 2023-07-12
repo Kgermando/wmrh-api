@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Candidature } from "src/candidature/models/candidature.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('postes')
 export class Poste {
@@ -10,16 +11,16 @@ export class Poste {
     search_profil: string; // Profil rechercher
 
     @Column()
-    sexe: string;  // Homme, Femme, les deux
-
-    @Column() 
-    salaire: string; // Facultatif
+    resume: string;    
 
     @Column()
     type_contrat: string;  
 
     @Column()
-    statut: boolean;  // Offre disponible True or false
+    statut: string;  // Offre disponible True or false
+
+    @Column()
+    echeance: Date;
 
     @Column()    
     signature: string;
@@ -36,6 +37,8 @@ export class Poste {
     @Column()
     code_entreprise: string;
 
-    @Column()
-    responsable: string;
+    @OneToMany(() => Candidature, (item) => item.post, {nullable: false}) 
+    candidatures: Candidature[];
+
+
 }

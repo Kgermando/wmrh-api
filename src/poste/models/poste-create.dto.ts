@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Candidature } from "src/candidature/models/candidature.entity";
 
 export class PosteCreateDto {
 
@@ -6,16 +7,16 @@ export class PosteCreateDto {
     search_profil: string;  
 
     @IsNotEmpty()
-    sexe: string;
-
-    @IsNotEmpty()
-    salaire: string;
+    resume: string; 
 
     @IsNotEmpty()
     type_contrat: string;
 
     @IsNotEmpty() 
-    statut: boolean; 
+    statut: string;
+
+    @IsNotEmpty()
+    echeance: Date;
 
     @IsNotEmpty()
     signature: string;  
@@ -32,6 +33,6 @@ export class PosteCreateDto {
     @IsNotEmpty()
     code_entreprise: string;
 
-    @IsNotEmpty()
-    responsable: string;
+    candidatures: Candidature[];
+
 }
