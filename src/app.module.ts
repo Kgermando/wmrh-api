@@ -20,6 +20,7 @@ import { SalaireModule } from './salaire/salaire.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PersonnelModule } from './personnel/personnel.module';
 import { AvanceSalaireModule } from './avance-salaire/avance-salaire.module';
+import { HeuresSuppModule } from './heures-supp/heures-supp.module';
 
 
 @Module({
@@ -58,7 +59,8 @@ import { AvanceSalaireModule } from './avance-salaire/avance-salaire.module';
     PenaliteModule,
     SalaireModule,
     DashboardModule,
-    AvanceSalaireModule, 
+    AvanceSalaireModule,
+    HeuresSuppModule, 
   ],
 })
 export class AppModule {}

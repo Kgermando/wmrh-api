@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
 import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -131,7 +132,10 @@ export class Personnel {
     penalites: Penalite[];
 
     @OneToMany(() => AvanceSalaire, (item) => item.personnel, {nullable: false})
-    avances_salaires: AvanceSalaire[]; 
+    avances_salaires: AvanceSalaire[];
+
+    @OneToMany(() => HeureSupp, (item) => item.personnel, {nullable: false})
+    heures_supp: HeureSupp[]; 
    
     @Column()
     signature: string; // celui qui fait le document

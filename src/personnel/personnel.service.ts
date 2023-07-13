@@ -19,6 +19,7 @@ export class PersonnelService extends AbstractService {
                 primes: true,
                 penalites: true,
                 avances_salaires: true,
+                heures_supp: true,
             },
             where: {code_entreprise},
             order: {'created': 'DESC'}
@@ -34,6 +35,7 @@ export class PersonnelService extends AbstractService {
                 primes: true,
                 penalites: true,
                 avances_salaires: true,
+                heures_supp: true,
             }
         })
     }

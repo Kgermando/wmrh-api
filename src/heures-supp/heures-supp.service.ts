@@ -2,14 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
 import { Repository } from 'typeorm';
-import { Prime } from './models/prime.entity';
+import { HeureSupp } from './models/heures-supp.entity';
 
 @Injectable()
-export class PrimeService extends AbstractService {
+export class HeuresSuppService extends AbstractService {
     constructor(
-        @InjectRepository(Prime) private readonly primeRepository: Repository<Prime>
+        @InjectRepository(HeureSupp) private readonly heureSuppRepository: Repository<HeureSupp>
     ) {
-        super(primeRepository); 
+        super(heureSuppRepository); 
     }
 
     allGet(code_entreprise): Promise<any[]> {
