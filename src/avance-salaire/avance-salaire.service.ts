@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
 import { Repository } from 'typeorm';
-import { Penalite } from './models/pernalite.entity';
+import { AvanceSalaire } from './models/avance-salaire.entity';
 
 @Injectable()
-export class PenaliteService extends AbstractService {
+export class AvanceSalaireService extends AbstractService {
     constructor(
-        @InjectRepository(Penalite) private readonly fonctionRepository: Repository<Penalite>
+        @InjectRepository(AvanceSalaire) private readonly fonctionRepository: Repository<AvanceSalaire>
     ) {
         super(fonctionRepository); 
     }

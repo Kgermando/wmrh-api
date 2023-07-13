@@ -1,5 +1,8 @@
 import { Exclude } from "class-transformer";
 import { Apointement } from "src/apointement/models/apointement.entity";
+import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { Penalite } from "src/penalite/models/pernalite.entity";
+import { Prime } from "src/prime/models/prime.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('personnels')
@@ -112,23 +115,32 @@ export class Personnel {
     cv_url: string; // CV scan 
 
     @Column()
+    @Exclude()
+    password: string;
+
+    @Column({default: false})
+    syndicat: boolean; 
+
+    @OneToMany(() => Apointement, (item) => item.personnel, {nullable: false})
+    presences: Apointement[];
+
+    @OneToMany(() => Prime, (item) => item.personnel, {nullable: false})
+    primes: Prime[];
+
+    @OneToMany(() => Penalite, (item) => item.personnel, {nullable: false})
+    penalites: Penalite[];
+
+    @OneToMany(() => AvanceSalaire, (item) => item.personnel, {nullable: false})
+    avances_salaires: AvanceSalaire[]; 
+   
+    @Column()
     signature: string; // celui qui fait le document
 
     @Column()
     created: Date;
 
     @Column()
-    update_created : Date;
-
-    @Column()
-    @Exclude()
-    password: string;
-
-    @OneToMany(() => Apointement, (item) => item.personnel, {nullable: false}) 
-    presences: Apointement[];
-
-    @Column({default: false})
-    syndicat: boolean;
+    update_created : Date; 
 
     @Column()
     entreprise: string;

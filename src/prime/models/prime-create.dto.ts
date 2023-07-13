@@ -1,17 +1,19 @@
 import { IsNotEmpty } from "class-validator";
+import { Personnel } from "src/personnel/models/personnel.entity";
 
-export class PrimeCreateDto { 
-    @IsNotEmpty()
-    user_id: string;
+export class PrimeCreateDto {
 
     @IsNotEmpty()
-    observation: string; 
+    intitule: string; 
 
     @IsNotEmpty()
     montant: number; 
 
     @IsNotEmpty()
-    signature: string;  
+    personnel: Personnel;
+
+    @IsNotEmpty()
+    signature: string;
 
     @IsNotEmpty()
     created: Date;
@@ -24,7 +26,4 @@ export class PrimeCreateDto {
     
     @IsNotEmpty()
     code_entreprise: string;
-
-    @IsNotEmpty()
-    responsable: string;
 }

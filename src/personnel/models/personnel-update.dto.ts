@@ -1,4 +1,7 @@
 import { Apointement } from "src/apointement/models/apointement.entity";
+import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { Penalite } from "src/penalite/models/pernalite.entity";
+import { Prime } from "src/prime/models/prime.entity";
 
 export class PersonnelUpdateDto {
 
@@ -69,16 +72,22 @@ export class PersonnelUpdateDto {
 
     cv_url?: string; 
 
+    syndicat?: boolean; 
+
+    presences?: Apointement [];
+
+    primes?: Prime[];
+
+    penalites?: Penalite[];
+
+    avances_salaires?: AvanceSalaire[];  
+
     signature?: string; 
 
     created?: Date; 
 
-    update_created?: Date;
-
-    presences?: Apointement [];
-
-    syndicat?: boolean;
-
+    update_created?: Date; 
+    
     entreprise?: string;
      
     code_entreprise?: string;

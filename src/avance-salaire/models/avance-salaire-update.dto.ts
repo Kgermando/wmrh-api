@@ -1,9 +1,11 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 
-export class PrimeUpdateDto { 
+export class AvanceSalaireUpdateDto { 
     intitule?: string;
 
-    montant?: number; 
+    montant?: number;
+
+    observation?: string;
 
     personnel?: Personnel;
 

@@ -26,7 +26,10 @@ export class Apointement {
     date_entree: Date;
 
     @Column()
-    date_sortie: Date;
+    date_sortie: Date;  
+
+    @ManyToOne(() => Personnel, (personnel)=> personnel.presences)
+    personnel: Personnel;
 
     @Column()    
     signature: string;
@@ -43,6 +46,4 @@ export class Apointement {
     @Column()
     code_entreprise: string;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.presences, {nullable: false})
-    personnel: Personnel;
 }

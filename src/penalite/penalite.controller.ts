@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PenaliteService } from './penalite.service';
 import { PenaliteCreateDto } from './models/pernalite-create.dto';
 import { PenaliteUpdateDto } from './models/pernalite-update.dto';
 
+@UseInterceptors(ClassSerializerInterceptor)
+@UseGuards(AuthGuard)
 @Controller('penalites')
 export class PenaliteController {
     constructor(
@@ -14,7 +16,7 @@ export class PenaliteController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.penaliteService.all(code_entreprise);
+      return this.penaliteService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
@@ -34,7 +36,7 @@ export class PenaliteController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.penaliteService.findOne({where: {id}});
+        return this.penaliteService.findGetOne({id});
     }
 
     @Put(':id')

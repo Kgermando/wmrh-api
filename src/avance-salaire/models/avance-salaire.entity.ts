@@ -1,22 +1,24 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('penalites')
-export class Penalite {
-
+@Entity('avance-salaires')
+export class AvanceSalaire {
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number; 
 
     @Column()
-    intitule: string; // Santions ou fautes commise
+    intitule: string; // Prime de travaill, prime de risque, ...
 
     @Column()
     montant: number;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.penalites)
+    @Column()
+    observation: string;
+
+    @ManyToOne(() => Personnel, (personnel)=> personnel.avances_salaires)
     personnel: Personnel;
 
-    @Column()    
+    @Column()
     signature: string;
 
     @Column()

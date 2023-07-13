@@ -1,9 +1,7 @@
 import { IsNotEmpty } from "class-validator";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
-export class PenaliteCreateDto { 
-    @IsNotEmpty()
-    user_id: string;
+export class AvanceSalaireCreateDto {
 
     @IsNotEmpty()
     intitule: string; 
@@ -12,10 +10,13 @@ export class PenaliteCreateDto {
     montant: number; 
 
     @IsNotEmpty()
+    observation: string; 
+
+    @IsNotEmpty()
     personnel: Personnel;
 
     @IsNotEmpty()
-    signature: string;  
+    signature: string;
 
     @IsNotEmpty()
     created: Date;

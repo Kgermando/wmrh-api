@@ -1,9 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PrimeService } from './prime.service';
 import { PrimeCreateDto } from './models/prime-create.dto';
+import { PrimeUpdateDto } from './models/prime-update.dto';
 
-@Controller('prime')
+@UseInterceptors(ClassSerializerInterceptor)
+@UseGuards(AuthGuard)
+@Controller('primes')
 export class PrimeController {
     constructor(
         private primeService: PrimeService
@@ -13,7 +16,7 @@ export class PrimeController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.primeService.all(code_entreprise);
+      return this.primeService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
@@ -33,13 +36,13 @@ export class PrimeController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.primeService.findOne({where: {id}});
+        return this.primeService.findGetOne({id});
     }
 
     @Put(':id')
     async update(
         @Param('id') id: number,
-        @Body() body: PrimeCreateDto
+        @Body() body: PrimeUpdateDto
     ) {
         await this.primeService.update(id, body);
         return this.primeService.findOne({where: {id}});

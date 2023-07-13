@@ -1,21 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Personnel } from "src/personnel/models/personnel.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('primes')
 export class Prime {
 
     @PrimaryGeneratedColumn()
-    id: number;
+    id: number; 
 
     @Column()
-    user_id: string;
-
-    @Column()
-    observation: string; // Prime de travaill, prime ...
+    intitule: string; // Prime de travaill, prime de risque, ...
 
     @Column()
     montant: number;
 
-    @Column()    
+    @ManyToOne(() => Personnel, (personnel)=> personnel.primes)
+    personnel: Personnel;
+
+    @Column()
     signature: string;
 
     @Column()
@@ -29,7 +30,5 @@ export class Prime {
     
     @Column()
     code_entreprise: string;
-
-    @Column()
-    responsable: string;
+    
 }

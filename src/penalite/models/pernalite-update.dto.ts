@@ -1,10 +1,12 @@
-export class PenaliteUpdateDto {
+import { Personnel } from "src/personnel/models/personnel.entity";
 
-    user_id?: string;
- 
-    observation?: string;
+export class PenaliteUpdateDto { 
 
-    montant?: number; 
+    intitule?: string;
+
+    montant?: number;
+
+    personnel?: Personnel;
 
     signature?: string; 
 
@@ -13,10 +15,6 @@ export class PenaliteUpdateDto {
     update_created?: Date; 
 
     entreprise?: string;
-    
  
-    code_entreprise?: string;
-
- 
-    responsable?: string;
+    code_entreprise?: string; 
 }
