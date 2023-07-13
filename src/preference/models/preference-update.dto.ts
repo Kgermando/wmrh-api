@@ -34,12 +34,12 @@ export class PreferenceUpdateDto {
     indepence_day?: Date; 
     parent_day?: Date; 
     kimbangu_day?: Date;
-    prime_ancien_0?: string; 
-    prime_ancien_5?: string; 
-    prime_ancien_10?: string; 
-    prime_ancien_15?: string; 
-    prime_ancien_20?: string; 
-    prime_ancien_25?: string; 
+    prime_ancien_0?: number; 
+    prime_ancien_5?: number; 
+    prime_ancien_10?: number; 
+    prime_ancien_15?: number; 
+    prime_ancien_20?: number; 
+    prime_ancien_25?: number; 
     signature?: string;    
     created?: Date; 
     update_created?: Date; 
