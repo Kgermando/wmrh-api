@@ -77,7 +77,7 @@ export class AuthController {
         @Body('code_entreprise') code_entreprise: string,
         @Res({passthrough: true}) response: Response
     ) {
-        const user = await this.personnelService.findOne({where: {matricule} && {code_entreprise}});
+        const user = await this.personnelService.findOne({ where: { matricule: matricule, code_entreprise: code_entreprise } })
 
         if(!user) {
             throw new NotFoundException('Utilisateur non trouvé!');

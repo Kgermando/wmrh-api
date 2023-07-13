@@ -33,9 +33,15 @@ export class PreferenceUpdateDto {
     liberation_day?: Date; 
     indepence_day?: Date; 
     parent_day?: Date; 
-    kimbangu_day?: Date; 
+    kimbangu_day?: Date;
+    prime_ancien_0?: string; 
+    prime_ancien_5?: string; 
+    prime_ancien_10?: string; 
+    prime_ancien_15?: string; 
+    prime_ancien_20?: string; 
+    prime_ancien_25?: string; 
     signature?: string;    
     created?: Date; 
     update_created?: Date; 
-    entreprise?: string;  
+    entreprise?: string;
 }

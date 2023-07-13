@@ -115,7 +115,26 @@ export class Preference {
     @Column()
     kimbangu_day: Date;
 
-    @Column()    
+    // Anciennete
+    @Column()
+    prime_ancien_0: number;
+
+    @Column()
+    prime_ancien_5: number;
+
+    @Column()
+    prime_ancien_10: number;
+
+    @Column()
+    prime_ancien_15: number;
+
+    @Column()
+    prime_ancien_20: number;
+
+    @Column()
+    prime_ancien_25: number;
+
+    @Column()
     signature: string;
 
     @Column()
@@ -128,6 +147,6 @@ export class Preference {
     entreprise: string;
     
     @Column()
-    code_entreprise: string; 
+    code_entreprise: string;
 
 }

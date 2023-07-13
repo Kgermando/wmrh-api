@@ -21,6 +21,7 @@ export class PersonnelService extends AbstractService {
             order: {'created': 'DESC'}
         }); 
     }
+    
 
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({

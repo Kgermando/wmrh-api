@@ -110,6 +110,24 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     kimbangu_day: Date;
 
+    @IsNotEmpty()
+    prime_ancien_0: string;
+
+    @IsNotEmpty()
+    prime_ancien_5: string;
+
+    @IsNotEmpty()
+    prime_ancien_10: string;
+
+    @IsNotEmpty()
+    prime_ancien_15: string;
+
+    @IsNotEmpty()
+    prime_ancien_20: string;
+
+    @IsNotEmpty()
+    prime_ancien_25: string; 
+
     @IsNotEmpty()    
     signature: string;
 
