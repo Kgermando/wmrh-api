@@ -13,11 +13,11 @@ export class Apointement {
     @Column()
     apointement: string;
 
-    @Column({default: false})
-    counter: boolean;
+    // @Column({default: false})
+    // counter: boolean;
 
-    @Column()
-    presence: boolean; // True si la personne est entrée et False si a personne est sortie
+    // @Column()
+    // presence: boolean; // True si la personne est entrée et False si a personne est sortie
 
     @Column()
     observation: string;

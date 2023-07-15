@@ -9,11 +9,11 @@ export class ApointementCreateDto {
     @IsNotEmpty()
     apointement: string;
 
-    @IsNotEmpty()
-    counter: boolean;
+    // @IsNotEmpty()
+    // counter: boolean;
 
-    @IsNotEmpty()
-    presence: boolean;
+    // @IsNotEmpty()
+    // presence: boolean;
 
     @IsNotEmpty()
     observation: string;
@@ -23,6 +23,8 @@ export class ApointementCreateDto {
 
     @IsNotEmpty()
     date_sortie: Date;
+
+    personnel: Personnel;
 
     @IsNotEmpty()
     signature: string;  
@@ -37,7 +39,5 @@ export class ApointementCreateDto {
     entreprise: string;
     
     @IsNotEmpty()
-    code_entreprise: string;
-
-    personnel: Personnel;
+    code_entreprise: string; 
 }

@@ -52,6 +52,20 @@ export class ApointementController {
       return this.apointementService.getLastItem(code_entreprise, matricule);
     }
 
+    @Get('get-item-p-a-aa/:code_entreprise')
+    async getItemsPAAA(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.apointementService.getItemsPAAA(code_entreprise);
+    }
+
+    @Get('get-item-conge/:code_entreprise')
+    async getItemsCongE(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.apointementService.getItemsCongE(code_entreprise);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,

@@ -19,7 +19,7 @@ export class ApointementService extends AbstractService {
                 personnel: true
             },
             where: {code_entreprise},
-            order: {'date_entree': 'DESC'}
+            order: {'created': 'DESC'}
         }); 
     }
 
@@ -33,10 +33,10 @@ export class ApointementService extends AbstractService {
     }
 
     getMatricule(code_entreprise, matricule): Promise<any[]> {
-        return this.repository.find(
-            {
-                where: {code_entreprise} && {matricule}
-            }); 
+        return this.repository.find({ 
+            where: {code_entreprise} && {matricule},
+            order: {'created': 'DESC'}
+        }); 
     }
 
     getLastItem(code_entreprise, matricule) {
@@ -47,7 +47,7 @@ export class ApointementService extends AbstractService {
             matricule='${matricule}' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            ORDER BY date_entree DESC LIMIT 1;
+            ORDER BY created DESC LIMIT 1;
         `);
     } 
 
@@ -81,6 +81,31 @@ export class ApointementService extends AbstractService {
             code_entreprise='${code_entreprise}' AND
             matricule='${matricule}'
             GROUP BY apointement;
+        `);
+    }
+
+
+
+    getItemsPAAA(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT apointement, COUNT(*)
+            FROM apointements WHERE 
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY apointement;
+        `);
+    }
+
+
+    getItemsCongE(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT apointement, COUNT(*)
+            FROM apointements WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            date_sortie > CURRENT_DATE
+            GROUP BY apointement, EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 

@@ -11,7 +11,7 @@ export abstract class AbstractService {
 
 
    all(code_entreprise): Promise<any[]> {
-        return this.repository.find({where: {code_entreprise}}); 
+        return this.repository.find({where: {code_entreprise}, order: {'created': 'DESC'}}); 
     }
 
     async paginate(page: number = 1, code_entreprise): Promise<PaginatedResult> {

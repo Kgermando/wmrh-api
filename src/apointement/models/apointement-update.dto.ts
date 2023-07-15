@@ -6,9 +6,9 @@ export class ApointementUpdateDto {
 
     apointement?: string;
 
-    counter?: boolean;
+    // counter?: boolean;
 
-    presence?: boolean;
+    // presence?: boolean;
 
     observation?: string;
 
@@ -16,11 +16,11 @@ export class ApointementUpdateDto {
 
     date_sortie?: Date;
 
+    personnel?: Personnel;
+
     signature?: string;
 
     created?: Date;
 
-    update_created?: Date; 
-
-    personnel?: Personnel;
+    update_created?: Date;  
 }
