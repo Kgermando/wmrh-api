@@ -3,9 +3,6 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class PenaliteCreateDto { 
     @IsNotEmpty()
-    user_id: string;
-
-    @IsNotEmpty()
     intitule: string; 
 
     @IsNotEmpty()
