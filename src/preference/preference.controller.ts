@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { PreferenceService } from './preference.service';
 import { PreferenceCreateDto } from './models/preference-create.dto';

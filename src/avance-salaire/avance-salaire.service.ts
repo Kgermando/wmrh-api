@@ -9,7 +9,7 @@ export class AvanceSalaireService extends AbstractService {
     constructor(
         @InjectRepository(AvanceSalaire) private readonly fonctionRepository: Repository<AvanceSalaire>
     ) {
-        super(fonctionRepository); 
+        super(fonctionRepository);
     }
 
     allGet(code_entreprise): Promise<any[]> {
