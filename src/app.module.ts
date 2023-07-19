@@ -16,11 +16,11 @@ import { ServicePrefModule } from './service-pref/service-pref.module';
 import { ApointementModule } from './apointement/apointement.module';
 import { PrimeModule } from './prime/prime.module';
 import { PenaliteModule } from './penalite/penalite.module';
-import { SalaireModule } from './salaire/salaire.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PersonnelModule } from './personnel/personnel.module';
 import { AvanceSalaireModule } from './avance-salaire/avance-salaire.module';
 import { HeuresSuppModule } from './heures-supp/heures-supp.module';
+import { SalairesModule } from './salaires/salaires.module';
 
 
 @Module({
@@ -57,10 +57,10 @@ import { HeuresSuppModule } from './heures-supp/heures-supp.module';
     ApointementModule,
     PrimeModule,
     PenaliteModule,
-    SalaireModule,
     DashboardModule,
     AvanceSalaireModule,
-    HeuresSuppModule, 
+    HeuresSuppModule,
+    SalairesModule,
   ],
 })
 export class AppModule {}

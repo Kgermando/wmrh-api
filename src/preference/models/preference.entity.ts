@@ -1,3 +1,4 @@
+import { DecimalTransformer } from "src/decimal.transformer";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('preferences')
@@ -32,7 +33,7 @@ export class Preference {
     email: string;
 
     @Column()
-    telephone: string;
+    telephone: string; 
 
     @Column()
     adresse: string;
@@ -41,38 +42,22 @@ export class Preference {
     @Column()
     date_paie : Date;
 
-    // Impot societe
-    @Column()
-    cnss_qpp : number;
+    // Impôt societe
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    cnss_qpp : string;
 
-    @Column()
-    inpp : number;
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    inpp : string;
 
-    @Column()
-    onem : number;
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    onem : string;
 
     // Parametre de deduction
-    @Column()
-    cotisation_syndicale : number;
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    cotisation_syndicale : string;
 
-    @Column()
-    cnss_qpo : number;
-
-    // Autres beneficiaires
-    @Column()
-    allocation_logement : number;
-
-    @Column()
-    allocation_transport : number; 
-
-    @Column()
-    nbr_max_enfant_courvert : number;
-
-    @Column()
-    allocation_familliale : number;
-
-    @Column()
-    allocation_epouse : number;
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    cnss_qpo : string;
 
     // Taux
     @Column()
@@ -133,6 +118,28 @@ export class Preference {
 
     @Column()
     prime_ancien_25: number;
+
+    // Categories
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    categorie_mo: string;
+
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    categorie_ts: string;
+
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    categorie_tsq: string;
+
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    categorie_tq: string;
+
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    categorie_thq: string;
+
+    @Column()
+    nbr_course: number;
+
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    contre_valeur_logement: string;
 
     @Column()
     signature: string;

@@ -2,6 +2,7 @@ import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Prime } from "src/prime/models/prime.entity";
+import { Salaire } from "src/salaires/models/salaire.entity";
 
 export class PersonnelUpdateDto {
 
@@ -29,19 +30,19 @@ export class PersonnelUpdateDto {
 
     etat_civile?: string; 
 
-    nbr_enfant?: string; 
-
-    nbr_dependants?: string; 
-
-    nbr_dependants_max?: string; 
+    nbr_enfants?: number;  
 
     matricule?: string; 
 
     numero_cnss?: string;
 
-    category?: string;  
+    category?: string;
 
-    role?: number; 
+    statut_personnel?: boolean; 
+
+    role?: number;
+    
+    permission?: string; 
 
     departement?: string; 
 
@@ -66,13 +67,13 @@ export class PersonnelUpdateDto {
 
     nom_banque?: string; 
 
-    frais_bancaire?: string; 
-
-    statut_personnel?: boolean; 
+    frais_bancaire?: string;  
 
     cv_url?: string; 
 
-    syndicat?: boolean; 
+    syndicat?: boolean;
+
+
 
     presences?: Apointement [];
 
@@ -80,7 +81,12 @@ export class PersonnelUpdateDto {
 
     penalites?: Penalite[];
 
-    avances_salaires?: AvanceSalaire[];  
+    avances_salaires?: AvanceSalaire[];
+
+    heures_supp: AvanceSalaire[];
+
+    salaires?: Salaire[];
+    
 
     signature?: string; 
 

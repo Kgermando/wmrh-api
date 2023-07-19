@@ -4,6 +4,7 @@ import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Prime } from "src/prime/models/prime.entity";
+import { Salaire } from "src/salaires/models/salaire.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('personnels')
@@ -48,13 +49,7 @@ export class Personnel {
     etat_civile: string;
 
     @Column({nullable: true})
-    nbr_enfant: string;
-
-    @Column({nullable: true})
-    nbr_dependants: string;
-
-    @Column({nullable: true})
-    nbr_dependants_max: string;
+    nbr_enfants: number; 
      
     // Accès
     @Column({unique : true})
@@ -63,11 +58,17 @@ export class Personnel {
     @Column({nullable: true})
     numero_cnss: string;
 
-    @Column({default: 'Manoeuvres Ordinaires (MO)'})
+    @Column({nullable: true})
     category: string;
 
-    @Column()
-    role: number; // droit d'acces au logiciel de 0 à 5
+    @Column({default: false})
+    statut_personnel: boolean;
+
+    @Column({default: 5})
+    role: number; // Show or Hide items can do 0 to 5
+    
+    @Column({nullable: true})
+    permission: string;  // Give access to CRUD  [Create, Read, Update, Delete] C  R U D
   
     // Travail
     @Column({nullable: true})
@@ -93,7 +94,7 @@ export class Personnel {
     date_debut_contrat: Date;
 
     @Column({nullable: true})
-    date_fin_contrat: Date;
+    date_fin_contrat: Date; 
    
     // Salaire
     @Column({nullable: true})
@@ -107,10 +108,7 @@ export class Personnel {
 
     @Column({nullable: true})
     frais_bancaire: string;  // Frais de compte
- 
-    // Profil
-    @Column({nullable: true})
-    statut_personnel: boolean;
+  
 
     @Column({nullable: true})
     cv_url: string; // CV scan 
@@ -135,7 +133,10 @@ export class Personnel {
     avances_salaires: AvanceSalaire[];
 
     @OneToMany(() => HeureSupp, (item) => item.personnel, {nullable: false})
-    heures_supp: HeureSupp[]; 
+    heures_supp: HeureSupp[];
+
+    @OneToMany(() => Salaire, (item) => item.personnel, {nullable: false})
+    salaires: Salaire[];
    
     @Column()
     signature: string; // celui qui fait le document

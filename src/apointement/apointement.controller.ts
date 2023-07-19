@@ -44,6 +44,13 @@ export class ApointementController {
       return this.apointementService.getMatricule(code_entreprise, matricule);
     }
 
+    @Get('get-registre/:code_entreprise')
+    async getRegisterPresence(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.apointementService.registrePresence(code_entreprise);
+    } 
+
     @Get('get-last-item/:code_entreprise/:matricule')
     async getLastItem(
       @Param('code_entreprise') code_entreprise: string,

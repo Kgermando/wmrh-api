@@ -27,7 +27,7 @@ export class PreferenceCreateDto {
     email: string;
 
     @IsNotEmpty()
-    telephone: string;
+    telephone: string; 
 
     @IsNotEmpty()
     adresse: string;
@@ -36,38 +36,22 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     date_paie : Date;
 
-    // Impot societe
+    // Impôt societe
     @IsNotEmpty()
-    cnss_qpp : number;
+    cnss_qpp : string;
 
     @IsNotEmpty()
-    inpp : number;
+    inpp : string;
 
     @IsNotEmpty()
-    onem : number;
+    onem : string;
 
     // Parametre de deduction
     @IsNotEmpty()
-    cotisation_syndicale : number;
+    cotisation_syndicale : string;
 
     @IsNotEmpty()
-    cnss_qpo : number;
-
-    // Autres beneficiaires
-    @IsNotEmpty()
-    allocation_logement : number;
-
-    @IsNotEmpty()
-    allocation_transport : number; 
-
-    @IsNotEmpty()
-    nbr_max_enfant_courvert : number;
-
-    @IsNotEmpty()
-    allocation_familliale : number;
-
-    @IsNotEmpty()
-    allocation_epouse : number;
+    cnss_qpo : string;
 
     // Taux
     @IsNotEmpty()
@@ -110,6 +94,7 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     kimbangu_day: Date;
 
+    // Anciennete
     @IsNotEmpty()
     prime_ancien_0: number;
 
@@ -128,7 +113,29 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     prime_ancien_25: number;
 
-    @IsNotEmpty()    
+    // Categories
+    @IsNotEmpty()
+    categorie_mo: string;
+
+    @IsNotEmpty()
+    categorie_ts: string;
+
+    @IsNotEmpty()
+    categorie_tsq: string;
+
+    @IsNotEmpty()
+    categorie_tq: string;
+
+    @IsNotEmpty()
+    categorie_thq: string;
+
+    @IsNotEmpty()
+    nbr_course: number;
+
+    @IsNotEmpty()
+    contre_valeur_logement: string;
+
+    @IsNotEmpty()
     signature: string;
 
     @IsNotEmpty()
@@ -141,5 +148,5 @@ export class PreferenceCreateDto {
     entreprise: string;
     
     @IsNotEmpty()
-    code_entreprise: string; 
+    code_entreprise: string;
 }
