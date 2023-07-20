@@ -6,6 +6,8 @@ export class SalaireCreateDto {
     @IsNotEmpty()
     personnel: Personnel;
 
+    monnaie: string;
+
  
     alloc_logement: string;
 

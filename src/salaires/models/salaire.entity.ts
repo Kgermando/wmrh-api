@@ -11,6 +11,9 @@ export class Salaire {
     @ManyToOne(() => Personnel, (personnel)=> personnel.salaires)
     personnel: Personnel;
 
+    @Column({default: 'CDF'})
+    monnaie: string;
+
     @Column({default: '0'})
     alloc_logement: string;
 
