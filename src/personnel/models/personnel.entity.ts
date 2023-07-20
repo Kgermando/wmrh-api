@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
 import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { DecimalTransformer } from "src/decimal.transformer";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Prime } from "src/prime/models/prime.entity";
@@ -48,9 +49,9 @@ export class Personnel {
     @Column({nullable: true})
     etat_civile: string;
 
-    @Column({nullable: true})
-    nbr_enfants: number; 
-     
+    @Column({default: 0})
+    nbr_enfants: number;
+    
     // Accès
     @Column({unique : true})
     matricule: string;
@@ -68,7 +69,7 @@ export class Personnel {
     role: number; // Show or Hide items can do 0 to 5
     
     @Column({nullable: true})
-    permission: string;  // Give access to CRUD  [Create, Read, Update, Delete] C  R U D
+    permission: string;  // Give access to CRUD  [Create, Read, Update, Delete] C R U D
   
     // Travail
     @Column({nullable: true})
@@ -96,8 +97,8 @@ export class Personnel {
     @Column({nullable: true})
     date_fin_contrat: Date; 
    
-    // Salaire
-    @Column({nullable: true})
+    // Salaire de base
+    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
     salaire: string;
 
     @Column({nullable: true}) //   Salaire de Base
@@ -119,6 +120,9 @@ export class Personnel {
 
     @Column({default: false})
     syndicat: boolean; 
+
+    @Column({default: 0})
+    is_paie: number; // Le  mois du bulletin deja généré
 
     @OneToMany(() => Apointement, (item) => item.personnel, {nullable: false})
     presences: Apointement[];

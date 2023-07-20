@@ -82,6 +82,8 @@ export class PersonnelCreateDto {
 
     syndicat: boolean; 
 
+    is_paie: number;
+
     presences: Apointement [];
 
     primes: Prime[];

@@ -15,9 +15,10 @@ export class SalaireUpdateDto {
     cnssQPO?: string;
     rni?: string;
     ipr?: string;
-    syncdicat?: string;
+    syndicat?: string;
     penalites?: string; 
     net_a_payer?: string;
+    statut?: string;  // Pending, Generated
     signature?: string;
     created?: Date;
     update_created?: Date; 

@@ -29,13 +29,13 @@ export class Salaire {
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
     prime_anciennete: string;
 
-    @Column()
+    @Column({default: 0})
     heures_supp: number;
 
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
     conge_paye: string;
 
-    @Column()
+    @Column({default: 26})
     nbre_jrs_preste: number; // Nombre de jours presents
 
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
@@ -52,13 +52,16 @@ export class Salaire {
 
     
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
-    syncdicat: string;  // 1 % 
+    syndicat: string;  // 1 % 
  
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
     penalites: string;  // Sanctions sur le salaire net à payer
 
     @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
     net_a_payer: string;
+
+    @Column()
+    statut: string; // Pending, Generated,
 
     @Column()    
     signature: string;

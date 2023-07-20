@@ -69,11 +69,11 @@ export class PersonnelUpdateDto {
 
     frais_bancaire?: string;  
 
-    cv_url?: string; 
+    cv_url?: string;  
 
-    syndicat?: boolean;
+    syndicat?: boolean; 
 
-
+    is_paie?: number;
 
     presences?: Apointement [];
 
