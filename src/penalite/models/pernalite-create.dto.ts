@@ -6,7 +6,7 @@ export class PenaliteCreateDto {
     intitule: string; 
 
     @IsNotEmpty()
-    montant: number; 
+    montant: string; 
 
     @IsNotEmpty()
     personnel: Personnel;

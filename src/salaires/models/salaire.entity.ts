@@ -11,53 +11,53 @@ export class Salaire {
     @ManyToOne(() => Personnel, (personnel)=> personnel.salaires)
     personnel: Personnel;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     alloc_logement: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     alloc_transport: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     alloc_familliale: string;
  
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     salaire_base: string;  // Par jour 
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     primes: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     prime_anciennete: string;
 
     @Column({default: 0})
     heures_supp: number;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     conge_paye: string;
 
     @Column({default: 26})
     nbre_jrs_preste: number; // Nombre de jours presents
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     rbi: string;  // Remuneration brute imposable
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     cnss_qpo: string; // Impôt de 5% => 0.05
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     rni: string;  // Remuneration Nette Imposable
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)
 
     
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     syndicat: string;  // 1 % 
  
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     penalites: string;  // Sanctions sur le salaire net à payer
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     net_a_payer: string;
 
     @Column()

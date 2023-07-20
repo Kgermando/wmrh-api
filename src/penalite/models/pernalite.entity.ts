@@ -11,7 +11,7 @@ export class Penalite {
     intitule: string; // Santions ou fautes commise
 
     @Column()
-    montant: number;
+    montant: string;
 
     @ManyToOne(() => Personnel, (personnel)=> personnel.penalites)
     personnel: Personnel;

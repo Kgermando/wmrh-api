@@ -10,7 +10,7 @@ export class AvanceSalaire {
     intitule: string; // Prime de travaill, prime de risque, ...
 
     @Column()
-    montant: number;
+    montant: string;
 
     @Column()
     observation: string;

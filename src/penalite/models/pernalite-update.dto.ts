@@ -3,7 +3,7 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 export class PenaliteUpdateDto { 
     intitule?: string;
 
-    montant?: number;
+    montant?: string;
 
     personnel?: Personnel;
 

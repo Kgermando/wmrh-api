@@ -98,7 +98,7 @@ export class Personnel {
     date_fin_contrat: Date; 
    
     // Salaire de base
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     salaire: string;
 
     @Column({nullable: true}) //   Salaire de Base

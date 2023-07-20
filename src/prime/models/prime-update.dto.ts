@@ -3,7 +3,7 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 export class PrimeUpdateDto { 
     intitule?: string;
 
-    montant?: number; 
+    montant?: string; 
 
     personnel?: Personnel;
 

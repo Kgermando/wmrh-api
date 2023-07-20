@@ -43,20 +43,20 @@ export class Preference {
     date_paie : Date;
 
     // Impôt societe
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     cnss_qpp : string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     inpp : string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     onem : string;
 
     // Parametre de deduction
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     cotisation_syndicale : string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     cnss_qpo : string;
 
     // Taux
@@ -120,25 +120,25 @@ export class Preference {
     prime_ancien_25: number;
 
     // Categories
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     categorie_mo: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     categorie_ts: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     categorie_tsq: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     categorie_tq: string;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     categorie_thq: string;
 
     @Column()
     nbr_course: number;
 
-    @Column({type: 'decimal', precision: 10, scale: 2, default: 0.0, transformer: new DecimalTransformer})
+    @Column({default: '0'})
     contre_valeur_logement: string;
 
     @Column()

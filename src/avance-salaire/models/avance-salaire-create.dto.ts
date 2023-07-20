@@ -7,7 +7,7 @@ export class AvanceSalaireCreateDto {
     intitule: string; 
 
     @IsNotEmpty()
-    montant: number; 
+    montant: string; 
 
     @IsNotEmpty()
     observation: string; 
