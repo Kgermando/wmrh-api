@@ -53,9 +53,6 @@ export class PreferenceUpdateDto {
     categorie_tsq?: string;
     categorie_tq?: string;
     categorie_thq?: string;
- 
-    nbr_course?: number; 
-    contre_valeur_logement?: string;
 
     signature?: string;
     created?: Date;

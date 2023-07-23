@@ -13,7 +13,7 @@ export class Prime {
     @Column()
     montant: string;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.primes)
+    @ManyToOne(() => Personnel, (personnel)=> personnel.primes, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()

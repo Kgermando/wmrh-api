@@ -13,7 +13,7 @@ export class Penalite {
     @Column()
     montant: string;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.penalites)
+    @ManyToOne(() => Personnel, (personnel)=> personnel.penalites, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()    

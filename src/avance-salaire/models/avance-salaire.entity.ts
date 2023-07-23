@@ -1,7 +1,7 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('avance-salaires')
+@Entity('avance_salaires')
 export class AvanceSalaire {
     @PrimaryGeneratedColumn()
     id: number; 
@@ -15,7 +15,7 @@ export class AvanceSalaire {
     @Column()
     observation: string;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.avances_salaires)
+    @ManyToOne(() => Personnel, (personnel)=> personnel.avances_salaires, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()

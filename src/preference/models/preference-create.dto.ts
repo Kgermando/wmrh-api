@@ -130,12 +130,6 @@ export class PreferenceCreateDto {
     categorie_thq: string;
 
     @IsNotEmpty()
-    nbr_course: number;
-
-    @IsNotEmpty()
-    contre_valeur_logement: string;
-
-    @IsNotEmpty()
     signature: string;
 
     @IsNotEmpty()

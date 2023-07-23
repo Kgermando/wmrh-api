@@ -11,13 +11,7 @@ export class Apointement {
     matricule: string;
 
     @Column()
-    apointement: string;
-
-    // @Column({default: false})
-    // counter: boolean;
-
-    // @Column()
-    // presence: boolean; // True si la personne est entrée et False si a personne est sortie
+    apointement: string; 
 
     @Column()
     observation: string;
@@ -28,7 +22,7 @@ export class Apointement {
     @Column()
     date_sortie: Date;  
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.presences)
+    @ManyToOne(() => Personnel, (personnel)=> personnel.presences, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()    

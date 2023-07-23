@@ -1,7 +1,7 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('heures-supp')
+@Entity('heures_supp')
 export class HeureSupp {
 
     @PrimaryGeneratedColumn()
@@ -13,7 +13,7 @@ export class HeureSupp {
     @Column()
     nbr_heures: number;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.heures_supp)
+    @ManyToOne(() => Personnel, (personnel)=> personnel.heures_supp, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()

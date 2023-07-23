@@ -136,12 +136,6 @@ export class Preference {
     categorie_thq: string;
 
     @Column()
-    nbr_course: number;
-
-    @Column({default: '0'})
-    contre_valeur_logement: string;
-
-    @Column()
     signature: string;
 
     @Column()

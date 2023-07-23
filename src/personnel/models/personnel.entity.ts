@@ -99,7 +99,16 @@ export class Personnel {
    
     // Salaire de base
     @Column({default: '0'})
-    salaire: string;
+    salaire_base: string;
+
+    @Column({default: '0'})
+    alloc_logement: string;
+
+    @Column({default: '0'})
+    alloc_transport: string;
+
+    @Column({default: '0'})
+    alloc_familliale: string;
 
     @Column({nullable: true}) //   Salaire de Base
     compte_bancaire: string;
@@ -124,22 +133,22 @@ export class Personnel {
     @Column({default: 0})
     is_paie: number; // Le  mois du bulletin deja généré
 
-    @OneToMany(() => Apointement, (item) => item.personnel, {nullable: false})
+    @OneToMany(() => Apointement, (item) => item.personnel, {cascade: true})
     presences: Apointement[];
 
-    @OneToMany(() => Prime, (item) => item.personnel, {nullable: false})
+    @OneToMany(() => Prime, (item) => item.personnel, {cascade: true})
     primes: Prime[];
 
-    @OneToMany(() => Penalite, (item) => item.personnel, {nullable: false})
+    @OneToMany(() => Penalite, (item) => item.personnel, {cascade: true})
     penalites: Penalite[];
 
-    @OneToMany(() => AvanceSalaire, (item) => item.personnel, {nullable: false})
+    @OneToMany(() => AvanceSalaire, (item) => item.personnel, {cascade: true})
     avances_salaires: AvanceSalaire[];
 
-    @OneToMany(() => HeureSupp, (item) => item.personnel, {nullable: false})
+    @OneToMany(() => HeureSupp, (item) => item.personnel, {cascade: true})
     heures_supp: HeureSupp[];
 
-    @OneToMany(() => Salaire, (item) => item.personnel, {nullable: false})
+    @OneToMany(() => Salaire, (item) => item.personnel, {cascade: true})
     salaires: Salaire[];
    
     @Column()

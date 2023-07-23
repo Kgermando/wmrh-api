@@ -8,7 +8,7 @@ export class Salaire {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.salaires)
+    @ManyToOne(() => Personnel, (personnel)=> personnel.salaires, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column({default: 'CDF'})
