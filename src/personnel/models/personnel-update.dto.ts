@@ -30,7 +30,7 @@ export class PersonnelUpdateDto {
 
     etat_civile?: string; 
 
-    nbr_enfants?: number;  
+    nbr_dependants?: number;  
 
     matricule?: string; 
 
@@ -56,10 +56,11 @@ export class PersonnelUpdateDto {
 
     type_contrat?: string; 
 
-    date_debut_contrat?: Date;
-
+    date_debut_contrat?: Date; 
 
     date_fin_contrat?: Date; 
+
+    monnaie?: string;
 
     salaire_base?: string;
 

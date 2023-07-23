@@ -14,6 +14,12 @@ export class Salaire {
     @Column({default: 'CDF'})
     monnaie: string;
 
+    @Column()
+    taux_dollard: string;
+
+    @Column({default: 0})
+    nbr_dependants: number;
+
     @Column({default: '0'})
     alloc_logement: string;
 

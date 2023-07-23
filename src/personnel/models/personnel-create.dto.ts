@@ -39,7 +39,7 @@ export class PersonnelCreateDto {
  
     etat_civile: string;
  
-    nbr_enfants: number; 
+    nbr_dependants: number; 
       
     @IsNotEmpty()
     matricule: string;
@@ -69,6 +69,8 @@ export class PersonnelCreateDto {
     date_debut_contrat: Date;
  
     date_fin_contrat: Date;
+
+    monnaie: string;
  
     salaire_base: string;
  

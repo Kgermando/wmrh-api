@@ -1,7 +1,6 @@
 import { Exclude } from "class-transformer";
 import { Apointement } from "src/apointement/models/apointement.entity";
-import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
-import { DecimalTransformer } from "src/decimal.transformer";
+import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity"; 
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Prime } from "src/prime/models/prime.entity";
@@ -50,7 +49,7 @@ export class Personnel {
     etat_civile: string;
 
     @Column({default: 0})
-    nbr_enfants: number;
+    nbr_dependants: number; 
     
     // Accès
     @Column({unique : true})
@@ -96,6 +95,9 @@ export class Personnel {
 
     @Column({nullable: true})
     date_fin_contrat: Date; 
+
+    @Column({default: 'CDF'})
+    monnaie: string;
    
     // Salaire de base
     @Column({default: '0'})

@@ -8,6 +8,10 @@ export class SalaireCreateDto {
 
     monnaie: string;
 
+    taux_dollard : string;
+
+    nbr_dependants: number;
+
  
     alloc_logement: string;
 

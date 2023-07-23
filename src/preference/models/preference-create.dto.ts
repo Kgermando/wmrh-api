@@ -111,23 +111,7 @@ export class PreferenceCreateDto {
     prime_ancien_20: number;
 
     @IsNotEmpty()
-    prime_ancien_25: number;
-
-    // Categories
-    @IsNotEmpty()
-    categorie_mo: string;
-
-    @IsNotEmpty()
-    categorie_ts: string;
-
-    @IsNotEmpty()
-    categorie_tsq: string;
-
-    @IsNotEmpty()
-    categorie_tq: string;
-
-    @IsNotEmpty()
-    categorie_thq: string;
+    prime_ancien_25: number; 
 
     @IsNotEmpty()
     signature: string;

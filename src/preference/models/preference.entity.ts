@@ -117,23 +117,7 @@ export class Preference {
     prime_ancien_20: number;
 
     @Column()
-    prime_ancien_25: number;
-
-    // Categories
-    @Column({default: '0'})
-    categorie_mo: string;
-
-    @Column({default: '0'})
-    categorie_ts: string;
-
-    @Column({default: '0'})
-    categorie_tsq: string;
-
-    @Column({default: '0'})
-    categorie_tq: string;
-
-    @Column({default: '0'})
-    categorie_thq: string;
+    prime_ancien_25: number; 
 
     @Column()
     signature: string;
