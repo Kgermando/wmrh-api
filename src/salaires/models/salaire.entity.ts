@@ -42,6 +42,9 @@ export class Salaire {
     heures_supp: number;
 
     @Column({default: '0'})
+    heureSupplementaireMonnaie: string; 
+
+    @Column({default: '0'})
     conge_paye: string;
 
     @Column({default: 26})

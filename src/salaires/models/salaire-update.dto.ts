@@ -12,6 +12,7 @@ export class SalaireUpdateDto {
     primes?: string;
     prime_anciennete?: string;
     heures_supp?: number;
+    heureSupplementaireMonnaie?: string; 
     conge_paye?: string;
     nbre_jrs_preste?: number;
     rbi?: string;

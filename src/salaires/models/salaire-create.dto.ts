@@ -33,6 +33,9 @@ export class SalaireCreateDto {
  
     heures_supp: number;
 
+    
+    heureSupplementaireMonnaie: string;
+
  
     conge_paye: string;
 
