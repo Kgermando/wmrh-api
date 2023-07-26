@@ -71,6 +71,9 @@ export class Salaire {
 
     @Column({default: '0'})
     avance_slaire: string;
+
+    @Column({default: '0'})
+    prise_en_charge_frais_bancaire: string;
     
     @Column({default: '0'})
     net_a_payer: string;

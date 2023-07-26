@@ -60,6 +60,8 @@ export class SalaireCreateDto {
     penalites: string;  // Sanctions sur le salaire net à payer
 
     avance_slaire: string;
+
+    prise_en_charge_frais_bancaire: string;
     
     net_a_payer: string;
 

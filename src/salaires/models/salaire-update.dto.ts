@@ -22,6 +22,7 @@ export class SalaireUpdateDto {
     syndicat?: string;
     penalites?: string;
     avance_slaire?: string;
+    prise_en_charge_frais_bancaire?: string;
     net_a_payer?: string;
     statut?: string;  // Pending, Generated
     signature?: string;
