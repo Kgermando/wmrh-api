@@ -26,6 +26,7 @@ export class PreferenceUpdateDto {
     monnaie ?: string;
     nbre_heure_travail ?: number;
     taux_dollard ?: number;
+    prise_en_charge_frais_bancaire ?: boolean;
 
     // Jours feries
     new_year?: Date;

@@ -70,6 +70,9 @@ export class Salaire {
     penalites: string;  // Sanctions sur le salaire net à payer
 
     @Column({default: '0'})
+    avance_slaire: string;
+    
+    @Column({default: '0'})
     net_a_payer: string;
 
     @Column()

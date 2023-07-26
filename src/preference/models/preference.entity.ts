@@ -43,7 +43,7 @@ export class Preference {
     date_paie : Date;
 
     // Impôt societe
-    @Column({default: '0'})
+    @Column({default: '13'})
     cnss_qpp : string;
 
     @Column({default: '0'})
@@ -53,10 +53,10 @@ export class Preference {
     onem : string;
 
     // Parametre de deduction
-    @Column({default: '0'})
+    @Column({default: '1'})
     cotisation_syndicale : string;
 
-    @Column({default: '0'})
+    @Column({default: '5'})
     cnss_qpo : string;
 
     // Taux
@@ -68,6 +68,9 @@ export class Preference {
 
     @Column()
     taux_dollard : number;
+
+    @Column({default: false})
+    prise_en_charge_frais_bancaire : boolean;
 
     // Jours feries
     @Column()

@@ -63,6 +63,9 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     taux_dollard : number;
 
+    @IsNotEmpty()
+    prise_en_charge_frais_bancaire : boolean;
+
     // Jours feries
     @IsNotEmpty()
     new_year: Date;

@@ -59,7 +59,8 @@ export class SalaireCreateDto {
  
     penalites: string;  // Sanctions sur le salaire net à payer
 
-     
+    avance_slaire: string;
+    
     net_a_payer: string;
 
     @IsNotEmpty()

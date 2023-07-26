@@ -20,7 +20,8 @@ export class SalaireUpdateDto {
     rni?: string;
     ipr?: string;
     syndicat?: string;
-    penalites?: string; 
+    penalites?: string;
+    avance_slaire?: string;
     net_a_payer?: string;
     statut?: string;  // Pending, Generated
     signature?: string;
