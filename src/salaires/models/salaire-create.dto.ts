@@ -26,7 +26,9 @@ export class SalaireCreateDto {
 
  
     primes: string;
+    
 
+    anciennete_nbr_age: number;
  
     prime_anciennete: string;
 
@@ -37,7 +39,7 @@ export class SalaireCreateDto {
     heureSupplementaireMonnaie: string;
 
  
-    conge_paye: string;
+    conge_paye: number;
 
  
     nbre_jrs_preste: number; // Nombre de jours presents

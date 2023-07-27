@@ -35,6 +35,9 @@ export class Salaire {
     @Column({default: '0'})
     primes: string;
 
+    @Column({default: 0})
+    anciennete_nbr_age: number;
+
     @Column({default: '0'})
     prime_anciennete: string;
 
@@ -44,8 +47,8 @@ export class Salaire {
     @Column({default: '0'})
     heureSupplementaireMonnaie: string; 
 
-    @Column({default: '0'})
-    conge_paye: string;
+    @Column({default: 0})
+    conge_paye: number;
 
     @Column({default: 26})
     nbre_jrs_preste: number; // Nombre de jours presents

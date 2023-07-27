@@ -10,10 +10,11 @@ export class SalaireUpdateDto {
     alloc_familliale?: string;
     salaire_base?: string;
     primes?: string;
+    anciennete_nbr_age?: number;
     prime_anciennete?: string;
     heures_supp?: number;
     heureSupplementaireMonnaie?: string; 
-    conge_paye?: string;
+    conge_paye?: number;
     nbre_jrs_preste?: number;
     rbi?: string;
     cnssQPO?: string;
