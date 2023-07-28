@@ -122,6 +122,16 @@ export class Preference {
     @Column()
     prime_ancien_25: number; 
 
+    // IPR barèmes
+    @Column({default: 0})
+    bareme_3: number;
+
+    @Column({default: 0})
+    bareme_15: number;
+
+    @Column({default: 0})
+    bareme_30: number;
+
     @Column()
     signature: string;
 

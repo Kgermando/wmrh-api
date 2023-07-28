@@ -48,6 +48,11 @@ export class PreferenceUpdateDto {
     prime_ancien_20?: number;
     prime_ancien_25?: number; 
 
+    // IPR barèmes
+    bareme_3?: number; 
+    bareme_15?: number; 
+    bareme_30?: number;
+
     signature?: string;
     created?: Date;
     update_created ?: Date;

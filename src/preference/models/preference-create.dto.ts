@@ -114,7 +114,17 @@ export class PreferenceCreateDto {
     prime_ancien_20: number;
 
     @IsNotEmpty()
-    prime_ancien_25: number; 
+    prime_ancien_25: number;
+
+    // IPR barèmes
+    @IsNotEmpty()
+    bareme_3: number;
+
+    @IsNotEmpty()
+    bareme_15: number;
+
+    @IsNotEmpty()
+    bareme_30: number;
 
     @IsNotEmpty()
     signature: string;
