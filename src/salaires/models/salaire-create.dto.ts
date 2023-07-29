@@ -20,6 +20,9 @@ export class SalaireCreateDto {
 
  
     alloc_familliale: string;
+
+    
+    soins_medicaux: string;
  
  
     salaire_base: string;  // Par jour 
@@ -55,7 +58,9 @@ export class SalaireCreateDto {
  
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)
 
+    impot_elide: string; // Economie de l'impôt ce qui sera sanctionné
  
+    
     syndicat: string;  // 1 % 
  
  

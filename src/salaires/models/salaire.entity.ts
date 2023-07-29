@@ -28,6 +28,9 @@ export class Salaire {
 
     @Column({default: '0'})
     alloc_familliale: string;
+
+    @Column({default: '0'})
+    soins_medicaux: string;
  
     @Column({default: '0'})
     salaire_base: string;  // Par jour 
@@ -65,6 +68,8 @@ export class Salaire {
     @Column({default: '0'})
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)
 
+    @Column({default: '0'})
+    impot_elide: string; // Economie de l'impôt ce qui sera sanctionné
     
     @Column({default: '0'})
     syndicat: string;  // 1 % 

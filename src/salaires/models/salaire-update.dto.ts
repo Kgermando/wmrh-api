@@ -8,6 +8,7 @@ export class SalaireUpdateDto {
     alloc_logement?: string;
     alloc_transport?: string;
     alloc_familliale?: string;
+    soins_medicaux?: string;
     salaire_base?: string;
     primes?: string;
     anciennete_nbr_age?: number;
@@ -20,6 +21,7 @@ export class SalaireUpdateDto {
     cnssQPO?: string;
     rni?: string;
     ipr?: string;
+    impot_elide?: string;
     syndicat?: string;
     penalites?: string;
     avance_slaire?: string;

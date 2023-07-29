@@ -59,11 +59,14 @@ export class Preference {
     @Column({default: '5'})
     cnss_qpo : string;
 
+    @Column({default: '262'})
+    smig: string;
+
     // Taux
     @Column()
     monnaie : string;
 
-    @Column()
+    @Column({default: 6})
     nbre_heure_travail : number;
 
     @Column()
@@ -71,6 +74,15 @@ export class Preference {
 
     @Column({default: false})
     prise_en_charge_frais_bancaire : boolean;
+
+    @Column({default: 6})
+    courses_transport : number;
+
+    @Column({default: '0'})
+    montant_travailler_quadre : string;
+
+    @Column({default: '0'})
+    montant_travailler_non_quadre : string;
 
     // Jours feries
     @Column()

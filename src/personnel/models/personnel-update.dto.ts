@@ -60,15 +60,17 @@ export class PersonnelUpdateDto {
 
     date_fin_contrat?: Date; 
 
-    monnaie?: string;
-
-    salaire_base?: string;
+    monnaie?: string; 
 
     alloc_logement?: string;
  
     alloc_transport?: string;
  
     alloc_familliale?: string;
+
+    soins_medicaux?: string;
+
+    salaire_base?: string;
 
     compte_bancaire?: string; 
 

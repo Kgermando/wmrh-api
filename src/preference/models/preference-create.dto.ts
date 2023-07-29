@@ -53,6 +53,9 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     cnss_qpo : string;
 
+    @IsNotEmpty()
+    smig: string;
+
     // Taux
     @IsNotEmpty()
     monnaie : string;
@@ -65,6 +68,15 @@ export class PreferenceCreateDto {
 
     @IsNotEmpty()
     prise_en_charge_frais_bancaire : boolean;
+
+    @IsNotEmpty()
+    courses_transport: number;
+
+    @IsNotEmpty()
+    montant_travailler_quadre : string;
+
+    @IsNotEmpty()
+    montant_travailler_non_quadre : string;
 
     // Jours feries
     @IsNotEmpty()

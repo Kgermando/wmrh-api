@@ -99,9 +99,7 @@ export class Personnel {
     @Column({default: 'CDF'})
     monnaie: string;
    
-    // Salaire de base
-    @Column({default: '0'})
-    salaire_base: string;
+    
 
     @Column({default: '0'})
     alloc_logement: string;
@@ -112,7 +110,14 @@ export class Personnel {
     @Column({default: '0'})
     alloc_familliale: string;
 
-    @Column({nullable: true}) //   Salaire de Base
+    @Column({default: '0'})
+    soins_medicaux: string;
+
+    // Salaire de base 
+    @Column({default: '0'})
+    salaire_base: string;
+
+    @Column({nullable: true}) 
     compte_bancaire: string;
 
     @Column({nullable: true})
