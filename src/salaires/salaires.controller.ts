@@ -71,6 +71,35 @@ export class SalairesController {
     }
 
 
+    @Get('get-net-a-payer-total/:code_entreprise')
+    async netAPayerTotal(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.salaireService.netAPayerTotal(code_entreprise);
+    }
+
+    @Get('get-ipr-total/:code_entreprise')
+    async iprTotal(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.salaireService.iprTotal(code_entreprise);
+    }
+
+    @Get('get-cnss-qpo-total/:code_entreprise')
+    async cnssQPOTotal(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.salaireService.cnssQPOTotal(code_entreprise);
+    }
+
+    @Get('get-frais-bancaire-total/:code_entreprise')
+    async fraisBancaireTotal(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.salaireService.fraisBancaireTotal(code_entreprise);
+    }
+
+
 
  
 

@@ -166,4 +166,45 @@ export class SalairesService extends AbstractService {
         "id"='${id}';
     `);
     }
+
+
+    netAPayerTotal(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    iprTotal(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(ipr ::FLOAT), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    cnssQPOTotal(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cnss_qpo ::FLOAT), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    fraisBancaireTotal(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(prise_en_charge_frais_bancaire ::FLOAT), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
 }
