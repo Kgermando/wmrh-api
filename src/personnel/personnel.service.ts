@@ -14,14 +14,15 @@ export class PersonnelService extends AbstractService {
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
-            relations: {
-                presences: true,
-                primes: true,
-                penalites: true,
-                avances_salaires: true,
-                heures_supp: true,
-                salaires: true,
-            },
+            // relations: {
+            //     presences: true,
+            //     primes: true,
+            //     penalites: true,
+            //     avances_salaires: true,
+            //     heures_supp: true,
+            //     salaires: true,
+            //     performences: true,
+            // },
             where: {code_entreprise},
             order: {'created': 'DESC'}
         }); 
@@ -38,6 +39,7 @@ export class PersonnelService extends AbstractService {
                 avances_salaires: true,
                 heures_supp: true,
                 salaires: true,
+                performences: true,
             }
         })
     }

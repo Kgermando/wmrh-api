@@ -22,5 +22,5 @@ export class ApointementUpdateDto {
 
     created?: Date;
 
-    update_created?: Date;  
+    update_created: Date;  
 }

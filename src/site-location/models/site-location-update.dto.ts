@@ -15,7 +15,7 @@ export class SiteLocationUpdateDto {
     created?: Date;
 
 
-    update_created?: Date;
+    update_created: Date;
 
     statut_presence?: boolean;
 

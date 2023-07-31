@@ -16,7 +16,7 @@ export class PosteUpdateDto {
 
     created?: Date;
  
-    update_created?: Date;
+    update_created: Date;
 
     entreprise?: string;
     

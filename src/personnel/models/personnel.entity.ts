@@ -3,6 +3,7 @@ import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity"; 
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
+import { Performence } from "src/performence/models/performence.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Salaire } from "src/salaires/models/salaire.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -157,6 +158,10 @@ export class Personnel {
 
     @OneToMany(() => Salaire, (item) => item.personnel, {cascade: true})
     salaires: Salaire[];
+
+    @OneToMany(() => Performence, (item) => item.personnel, {cascade: true})
+    performences: Performence[];
+    
    
     @Column()
     signature: string; // celui qui fait le document

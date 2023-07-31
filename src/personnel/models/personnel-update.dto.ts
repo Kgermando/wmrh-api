@@ -1,6 +1,7 @@
 import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
+import { Performence } from "src/performence/models/performence.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Salaire } from "src/salaires/models/salaire.entity";
 
@@ -95,13 +96,15 @@ export class PersonnelUpdateDto {
     heures_supp: AvanceSalaire[];
 
     salaires?: Salaire[];
+
+    performences?: Performence[];
     
 
     signature?: string; 
 
     created?: Date; 
 
-    update_created?: Date; 
+    update_created: Date; 
     
     entreprise?: string;
      

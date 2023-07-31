@@ -11,7 +11,7 @@ export class PenaliteUpdateDto {
 
     created?: Date; 
 
-    update_created?: Date; 
+    update_created: Date; 
 
     entreprise?: string;
  

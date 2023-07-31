@@ -7,10 +7,10 @@ import { Salaire } from './models/salaire.entity';
 @Injectable()
 export class SalairesService extends AbstractService {
     constructor(
-        @InjectRepository(Salaire) private readonly primeRepository: Repository<Salaire>,
+        @InjectRepository(Salaire) private readonly salaireRepository: Repository<Salaire>,
         @InjectDataSource() private dataSource: DataSource,
     ) {
-        super(primeRepository); 
+        super(salaireRepository); 
     }
 
     allGet(code_entreprise): Promise<any[]> {
