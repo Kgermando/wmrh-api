@@ -14,9 +14,9 @@ export class PosteService extends AbstractService {
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
-            relations: {
-                candidatures: true
-            },
+            // relations: {
+            //     candidatures: true
+            // },
             where: {code_entreprise},
             order: {'created': 'DESC'}
         }); 
