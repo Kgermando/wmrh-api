@@ -355,6 +355,15 @@ export default class DashAllService {
         `);
     }
 
+    async syndicatMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(syndicat ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `); 
+    }
+
  
 
     async primesYear(code_entreprise) {
@@ -403,6 +412,14 @@ export default class DashAllService {
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
+    }
+
+    async syndicatYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(syndicat ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `); 
     }
 
 
@@ -473,6 +490,17 @@ export default class DashAllService {
         `);
     }
 
+    async syndicatAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(syndicat ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
 
 
     // Presences
@@ -503,7 +531,11 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT apointement, COUNT(*) 
             FROM apointements WHERE 
-            code_entreprise='${code_entreprise}' AND
+            code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY apointement;
         `);
     }
@@ -514,7 +546,9 @@ export default class DashAllService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM postes WHERE 
-            code_entreprise='${code_entreprise}';
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -522,7 +556,8 @@ export default class DashAllService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM postes WHERE 
-            code_entreprise='${code_entreprise}';
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -530,7 +565,11 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COUNT(*) 
             FROM postes WHERE 
-            code_entreprise='${code_entreprise}';
+            code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -538,7 +577,10 @@ export default class DashAllService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM candidatures WHERE 
-            code_entreprise='${code_entreprise}';
+            statut='Recrue' AND
+            code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -546,7 +588,9 @@ export default class DashAllService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM candidatures WHERE 
-            code_entreprise='${code_entreprise}';
+            statut='Recrue' AND
+            code_entreprise='${code_entreprise}'AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -554,7 +598,46 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COUNT(*) 
             FROM candidatures WHERE 
-            code_entreprise='${code_entreprise}';
+            statut='Recrue' AND
+            code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    postulantsRetenuTotalMonth(code_entreprise) {
+        return this.dataSource.query(`
+        SELECT COUNT(*) 
+            FROM candidatures WHERE 
+            statut='Recrue' AND
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    postulantsRetenuTotalYear(code_entreprise) {
+        return this.dataSource.query(`
+        SELECT COUNT(*) 
+            FROM candidatures WHERE 
+            statut='Recrue' AND
+            code_entreprise='${code_entreprise}'AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    postulantsRetenuTotalAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COUNT(*) 
+            FROM candidatures WHERE 
+            statut='Recrue' AND
+            code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 

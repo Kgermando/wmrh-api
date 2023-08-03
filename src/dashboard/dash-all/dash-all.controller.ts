@@ -220,6 +220,13 @@ export class DashAllController {
       return this.dashAllService.heureSuppMonth(code_entreprise);
     }
 
+    @Get('syndicats-month/:code_entreprise')
+    async syndicatMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.syndicatMonth(code_entreprise);
+    }
+
     @Get('primes-year/:code_entreprise')
     async primesYear(
       @Param('code_entreprise') code_entreprise: string,
@@ -262,6 +269,13 @@ export class DashAllController {
       return this.dashAllService.heureSuppYear(code_entreprise);
     }
 
+    @Get('syndicats-year/:code_entreprise')
+    async syndicatYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.syndicatYear(code_entreprise);
+    }
+
     @Get('primes-all/:code_entreprise')
     async primesAll(
       @Param('code_entreprise') code_entreprise: string,
@@ -302,6 +316,13 @@ export class DashAllController {
       @Param('code_entreprise') code_entreprise: string,
     ) {
       return this.dashAllService.heureSuppAll(code_entreprise);
+    } 
+
+    @Get('syndicats-all/:code_entreprise')
+    async syndicatAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.syndicatAll(code_entreprise);
     } 
 
 
@@ -372,5 +393,27 @@ export class DashAllController {
       @Param('code_entreprise') code_entreprise: string,
     ) {
       return this.dashAllService.postulantsTotalAll(code_entreprise);
+    }
+
+    
+    @Get('postulants-retenus-total-month/:code_entreprise')
+    async postulantsRetenuTotalMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.postulantsRetenuTotalMonth(code_entreprise);
+    }
+
+    @Get('postulants-retenus-total-year/:code_entreprise')
+    async postulantsRetenuTotalYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.postulantsRetenuTotalYear(code_entreprise);
+    }
+
+    @Get('postulants-retenus-total-all/:code_entreprise')
+    async postulantsRetenuTotalAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.postulantsRetenuTotalAll(code_entreprise);
     }
 }
