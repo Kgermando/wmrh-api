@@ -190,6 +190,15 @@ export default class DashAllService {
         `);
     }
 
+    async masseSalarialMonthPrecedement(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) - 1 AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
     async masseSalarialYear(code_entreprise) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
@@ -198,10 +207,22 @@ export default class DashAllService {
         `);
     }
 
+    async masseSalarialYearPrecedement(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 1;
+        `);
+    }
+
     async masseSalarialAll(code_entreprise) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
-            FROM salaires WHERE code_entreprise='${code_entreprise}';
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -268,12 +289,191 @@ export default class DashAllService {
             SUM(alloc_transport ::FLOAT) AS transport, 
             SUM(alloc_familliale ::FLOAT) AS familliale,
             SUM(soins_medicaux ::FLOAT) AS soins_medicaux, 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year_ans
             FROM salaires WHERE 
-            code_entreprise='${code_entreprise}' 
-            GROUP BY year;
+            code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY year_ans;
         `);
     }
+
+
+    async primesMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(primes ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async primeAncienneteMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(prime_anciennete ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async penaliteMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(penalites ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async avanceSalaireMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(avance_slaire ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async presEntrepriseMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(pres_entreprise ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async heureSuppMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(heure_supplementaire_monnaie ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+ 
+
+    async primesYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(primes ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async primeAncienneteYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(prime_anciennete ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async penaliteYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(penalites ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async avanceSalaireYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(avance_slaire ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async presEntrepriseYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(pres_entreprise ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async heureSuppYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(heure_supplementaire_monnaie ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+
+
+    async primesAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(primes ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async primeAncienneteAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(prime_anciennete ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async penaliteAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(penalites ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async avanceSalaireAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(avance_slaire ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async presEntrepriseAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(pres_entreprise ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async heureSuppAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(heure_supplementaire_monnaie ::FLOAT), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+
 
     // Presences
 

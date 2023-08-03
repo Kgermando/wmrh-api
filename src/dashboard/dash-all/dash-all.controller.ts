@@ -95,7 +95,7 @@ export class DashAllController {
     }
 
 
-    // Finances
+    // Finances Net à payer
     @Get('masse-salarial-month/:code_entreprise')
     async masseSalarialMonth(
       @Param('code_entreprise') code_entreprise: string,
@@ -103,11 +103,25 @@ export class DashAllController {
       return this.dashAllService.masseSalarialMonth(code_entreprise);
     }
 
+    @Get('masse-salarial-month-precedement/:code_entreprise')
+    async masseSalarialMonthPrecedement(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.masseSalarialMonthPrecedement(code_entreprise);
+    }
+
     @Get('masse-salarial-year/:code_entreprise')
     async masseSalarialYear(
       @Param('code_entreprise') code_entreprise: string,
     ) {
       return this.dashAllService.masseSalarialYear(code_entreprise);
+    }
+
+    @Get('masse-salarial-year-precedement/:code_entreprise')
+    async masseSalarialYearPrecedement(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.masseSalarialYearPrecedement(code_entreprise);
     }
 
     @Get('masse-salarial-all/:code_entreprise')
@@ -161,6 +175,134 @@ export class DashAllController {
     ) {
       return this.dashAllService.allocationALl(code_entreprise);
     }
+
+
+
+    @Get('primes-month/:code_entreprise')
+    async primesMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.primesMonth(code_entreprise);
+    }
+
+    @Get('primes-anciennete-month/:code_entreprise')
+    async primeAncienneteMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.primeAncienneteMonth(code_entreprise);
+    }
+
+    @Get('penalites-month/:code_entreprise')
+    async penaliteMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.penaliteMonth(code_entreprise);
+    }
+
+    @Get('avances-salaires-month/:code_entreprise')
+    async avanceSalaireMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.avanceSalaireMonth(code_entreprise);
+    }
+
+    @Get('pres-entreprise-month/:code_entreprise')
+    async presEntrepriseMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.presEntrepriseMonth(code_entreprise);
+    }
+
+    @Get('heures-supp-month/:code_entreprise')
+    async heureSuppMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.heureSuppMonth(code_entreprise);
+    }
+
+    @Get('primes-year/:code_entreprise')
+    async primesYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.primesYear(code_entreprise);
+    }
+
+    @Get('primes-anciennete-year/:code_entreprise')
+    async primeAncienneteYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.primeAncienneteYear(code_entreprise);
+    }
+
+    @Get('penalites-year/:code_entreprise')
+    async penaliteYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.penaliteYear(code_entreprise);
+    }
+
+    @Get('avances-salaires-year/:code_entreprise')
+    async avanceSalaireYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.avanceSalaireYear(code_entreprise);
+    }
+
+    @Get('pres-entreprise-year/:code_entreprise')
+    async presEntrepriseYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.presEntrepriseYear(code_entreprise);
+    }
+
+    @Get('heures-supp-year/:code_entreprise')
+    async heureSuppYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.heureSuppYear(code_entreprise);
+    }
+
+    @Get('primes-all/:code_entreprise')
+    async primesAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.primesAll(code_entreprise);
+    }
+    @Get('primes-anciennete-all/:code_entreprise')
+    async primeAncienneteAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.primeAncienneteAll(code_entreprise);
+    }
+
+    @Get('penalites-all/:code_entreprise')
+    async penaliteAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.penaliteAll(code_entreprise);
+    }
+
+
+    @Get('avances-salaires-all/:code_entreprise')
+    async avanceSalaireAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.avanceSalaireAll(code_entreprise);
+    }
+
+    @Get('pres-entreprise-all/:code_entreprise')
+    async presEntrepriseAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.presEntrepriseAll(code_entreprise);
+    }
+
+    @Get('heures-supp-all/:code_entreprise')
+    async heureSuppAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.dashAllService.heureSuppAll(code_entreprise);
+    } 
 
 
 // Presences

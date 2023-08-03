@@ -48,7 +48,7 @@ export class Salaire {
     heures_supp: number;
 
     @Column({default: '0'})
-    heureSupplementaireMonnaie: string; 
+    heure_supplementaire_monnaie: string; 
 
     @Column({default: 0})
     conge_paye: number;
@@ -83,6 +83,9 @@ export class Salaire {
     @Column({default: '0'})
     prise_en_charge_frais_bancaire: string;
     
+    @Column({default: '0'})
+    pres_entreprise: string;
+
     @Column({default: '0'})
     net_a_payer: string;
 
