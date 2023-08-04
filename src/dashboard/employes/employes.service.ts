@@ -8,7 +8,6 @@ export class EmployesService {
         @InjectDataSource() private dataSource: DataSource,
     ) {}
 
-
     async getPieSexeMonth(code_entreprise) {
         return this.dataSource.query(`
             SELECT sexe, COUNT(sexe) 
