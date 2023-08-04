@@ -249,7 +249,11 @@ export default class DashAllService {
     async statutPaieAll(code_entreprise) {
         return this.dataSource.query(`
         SELECT statut, COUNT(statut) 
-        FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' 
+        FROM salaires WHERE code_entreprise='${code_entreprise}'  AND  
+        EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+        BETWEEN
+        EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+        EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
         GROUP BY statut;
         `);
     } 
