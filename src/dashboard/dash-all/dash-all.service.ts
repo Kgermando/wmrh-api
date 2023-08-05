@@ -143,43 +143,7 @@ export default class DashAllService {
             EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY year;
         `);
-    }
-
-    
-
-    // getPerformenceAll(code_entreprise) {
-    //     return this.dataSource.query(`
-    //       SELECT (
-    //         (SELECT SUM(ponctualite) AS ponctualite 
-    //         FROM performences WHERE 
-    //             code_entreprise='1234' AND  
-    //                     EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-    //         )  
-    //         +
-    //         (SELECT SUM(hospitalite) AS hospitalite 
-    //         FROM performences WHERE 
-    //             code_entreprise='1234' AND 
-    //                     EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-    //                     EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-    //         )  
-    //         +
-    //         (SELECT SUM(travail) AS travail
-    //         FROM performences WHERE 
-    //         code_entreprise='1234' AND 
-    //                     EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-    //                     EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-    //         )  
-    //         ) AS total, 
-            
-    //         SUM(ponctualite) AS ponctualite, 
-    //         SUM(hospitalite) AS hospitalite, 
-    //         SUM(travail) AS travail, 
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year
-    //         FROM performences WHERE 
-    //         code_entreprise='${code_entreprise}' 
-    //         GROUP BY year; 
-    //     `);
-    // } 
+    } 
 
 
     // Finances
