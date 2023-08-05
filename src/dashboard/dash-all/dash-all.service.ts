@@ -123,7 +123,8 @@ export default class DashAllService {
                 SUM(travail) AS travail, 
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
             FROM performences WHERE 
-            code_entreprise='${code_entreprise}' 
+            code_entreprise='${code_entreprise}' AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY month;
         `);
     }
@@ -135,7 +136,11 @@ export default class DashAllService {
                 SUM(travail) AS travail, 
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year
             FROM performences WHERE 
-            code_entreprise='${code_entreprise}' 
+            code_entreprise='${code_entreprise}'  AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY year;
         `);
     }
@@ -183,7 +188,7 @@ export default class DashAllService {
 
     async masseSalarialMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as net_a_payer
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -192,16 +197,17 @@ export default class DashAllService {
 
     async masseSalarialMonthPrecedement(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as net_a_payer
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) - 1 AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
+ 
     async masseSalarialYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as net_a_payer
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -209,7 +215,7 @@ export default class DashAllService {
 
     async masseSalarialYearPrecedement(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as net_a_payer
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 1;
         `);
@@ -217,7 +223,7 @@ export default class DashAllService {
 
     async masseSalarialAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as net_a_payer
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as net_a_payer
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -262,37 +268,39 @@ export default class DashAllService {
     // Alocations logement, transport, famillial, soins medicaux
     allocationMonth(code_entreprise) {
         return this.dataSource.query(`
-        SELECT SUM(alloc_logement ::FLOAT) AS logement, 
-            SUM(alloc_transport ::FLOAT) AS transport, 
-            SUM(alloc_familliale ::FLOAT) AS familliale,
-            SUM(soins_medicaux ::FLOAT) AS soins_medicaux, 
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
+        SELECT SUM(cast(alloc_logement as decimal(10,2))) AS logement, 
+            SUM(cast(alloc_transport as decimal(10,2))) AS transport, 
+            SUM(cast(alloc_familliale as decimal(10,2))) AS familliale,
+            SUM(cast(soins_medicaux as decimal(10,2))) AS soins_medicaux, 
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) as day
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND  
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            GROUP BY month;
+            GROUP BY day;
         `);
     }
 
     allocationYear(code_entreprise) {
         return this.dataSource.query(`
-        SELECT SUM(alloc_logement ::FLOAT) AS logement, 
-            SUM(alloc_transport ::FLOAT) AS transport, 
-            SUM(alloc_familliale ::FLOAT) AS familliale,
-            SUM(soins_medicaux ::FLOAT) AS soins_medicaux, 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year
+        SELECT SUM(cast(alloc_logement as decimal(10,2))) AS logement, 
+            SUM(cast(alloc_transport as decimal(10,2))) AS transport, 
+            SUM(cast(alloc_familliale as decimal(10,2))) AS familliale,
+            SUM(cast(soins_medicaux as decimal(10,2))) AS soins_medicaux, 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
             FROM salaires WHERE 
-            code_entreprise='${code_entreprise}' 
-            GROUP BY year;
+            code_entreprise='${code_entreprise}' AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY month;
         `);
     }
 
     allocationALl(code_entreprise) {
         return this.dataSource.query(`
-        SELECT SUM(alloc_logement ::FLOAT) AS logement, 
-            SUM(alloc_transport ::FLOAT) AS transport, 
-            SUM(alloc_familliale ::FLOAT) AS familliale,
-            SUM(soins_medicaux ::FLOAT) AS soins_medicaux, 
+        SELECT SUM(cast(alloc_logement as decimal(10,2))) AS logement, 
+            SUM(cast(alloc_transport as decimal(10,2))) AS transport, 
+            SUM(cast(alloc_familliale as decimal(10,2))) AS familliale,
+            SUM(cast(soins_medicaux as decimal(10,2))) AS soins_medicaux, 
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year_ans
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND  
@@ -307,7 +315,7 @@ export default class DashAllService {
 
     async primesMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(primes ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(primes as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -316,7 +324,7 @@ export default class DashAllService {
 
     async primeAncienneteMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(prime_anciennete ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(prime_anciennete as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -325,7 +333,7 @@ export default class DashAllService {
 
     async penaliteMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(penalites ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(penalites as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -334,7 +342,7 @@ export default class DashAllService {
 
     async avanceSalaireMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(avance_slaire ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(avance_slaire as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -343,7 +351,7 @@ export default class DashAllService {
 
     async presEntrepriseMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(pres_entreprise ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(pres_entreprise as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -352,7 +360,7 @@ export default class DashAllService {
 
     async heureSuppMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(heure_supplementaire_monnaie ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -361,7 +369,7 @@ export default class DashAllService {
 
     async syndicatMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(syndicat ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(syndicat as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -372,7 +380,7 @@ export default class DashAllService {
 
     async primesYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(primes ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(primes as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -380,7 +388,7 @@ export default class DashAllService {
 
     async primeAncienneteYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(prime_anciennete ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(prime_anciennete as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -388,7 +396,7 @@ export default class DashAllService {
 
     async penaliteYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(penalites ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(penalites as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -396,7 +404,7 @@ export default class DashAllService {
 
     async avanceSalaireYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(avance_slaire ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(avance_slaire as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -404,7 +412,7 @@ export default class DashAllService {
 
     async presEntrepriseYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(pres_entreprise ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(pres_entreprise as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -412,7 +420,7 @@ export default class DashAllService {
 
     async heureSuppYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(heure_supplementaire_monnaie ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -420,7 +428,7 @@ export default class DashAllService {
 
     async syndicatYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(syndicat ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(syndicat as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `); 
@@ -430,7 +438,7 @@ export default class DashAllService {
 
     async primesAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(primes ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(primes as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -441,7 +449,7 @@ export default class DashAllService {
 
     async primeAncienneteAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(prime_anciennete ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(prime_anciennete as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -452,7 +460,7 @@ export default class DashAllService {
 
     async penaliteAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(penalites ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(penalites as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -463,7 +471,7 @@ export default class DashAllService {
 
     async avanceSalaireAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(avance_slaire ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(avance_slaire as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -474,7 +482,7 @@ export default class DashAllService {
 
     async presEntrepriseAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(pres_entreprise ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(pres_entreprise as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -485,7 +493,7 @@ export default class DashAllService {
 
     async heureSuppAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(heure_supplementaire_monnaie ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
@@ -496,7 +504,7 @@ export default class DashAllService {
 
     async syndicatAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(syndicat ::FLOAT), 0) as total
+            SELECT COALESCE(SUM(cast(syndicat as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN

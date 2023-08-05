@@ -11,7 +11,7 @@ import { SalairesService } from './salaires.service';
 export class SalairesController {
     constructor(
         private salaireService: SalairesService
-    ) {}
+    ) {} 
 
     @Get('get-jrs-preste/:code_entreprise/:matricule')
     async getJrPrestE(
@@ -101,7 +101,12 @@ export class SalairesController {
 
 
 
- 
+    @Get('get-releve-paie/:code_entreprise')
+    async relevePaie(
+      @Param('code_entreprise') code_entreprise: string, 
+    ) {
+      return this.salaireService.relevePaie(code_entreprise);
+    }
 
     @Get('get-all/:code_entreprise')
     async getAll(

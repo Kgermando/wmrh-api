@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
-import { DataSource, Repository } from 'typeorm';
+import { Between, DataSource, Equal, Repository } from 'typeorm';
 import { Salaire } from './models/salaire.entity';
 
 @Injectable()
@@ -30,6 +30,25 @@ export class SalairesService extends AbstractService {
                 personnel: true
             }
         })
+    }
+
+    relevePaie(code_entreprise) {
+        const dateNow = new Date();
+        return this.repository.find({
+            relations: {
+                personnel: true
+            },
+            where: {code_entreprise} && {statut: 'Disponible'}, 
+            order: {'created': 'DESC'}
+        });
+        // return this.dataSource.query(`
+        //     SELECT *
+        //     FROM salaires WHERE 
+        //     code_entreprise='${code_entreprise}' AND 
+        //     statut='Disponible' AND
+        //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+        //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        // `);
     }
 
     getJrPrestE(code_entreprise, matricule) {
@@ -119,7 +138,7 @@ export class SalairesService extends AbstractService {
 
     primeTotal(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT COALESCE(SUM(montant ::FLOAT), 0) as sum
+        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
             FROM primes  WHERE 
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
@@ -134,7 +153,7 @@ export class SalairesService extends AbstractService {
 
     penaliteTotal(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT COALESCE(SUM(montant ::FLOAT), 0) as sum
+        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
             FROM penalites  WHERE 
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
@@ -149,7 +168,7 @@ export class SalairesService extends AbstractService {
 
     avanceSalaireTotal(code_entreprise, id) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(montant ::FLOAT), 0) as sum
+            SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
             FROM avance_salaires WHERE 
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
@@ -170,7 +189,7 @@ export class SalairesService extends AbstractService {
 
     netAPayerTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(net_a_payer ::FLOAT), 0) as sum
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut = 'Disponible' AND
@@ -181,7 +200,7 @@ export class SalairesService extends AbstractService {
 
     iprTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(ipr ::FLOAT), 0) as sum
+            SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut = 'Disponible' AND
@@ -192,7 +211,7 @@ export class SalairesService extends AbstractService {
 
     cnssQPOTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cnss_qpo ::FLOAT), 0) as sum
+            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut = 'Disponible' AND
@@ -203,7 +222,7 @@ export class SalairesService extends AbstractService {
 
     fraisBancaireTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(prise_en_charge_frais_bancaire ::FLOAT), 0) as sum
+            SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut = 'Disponible' AND
