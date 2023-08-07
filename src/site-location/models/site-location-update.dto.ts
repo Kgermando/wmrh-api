@@ -1,13 +1,18 @@
+import { Personnel } from "src/personnel/models/personnel.entity";
+
 export class SiteLocationUpdateDto {
 
-    name?: string;
+    site_location?: string;
 
 
     manager?: string;
 
 
     adresse?: string; 
-    
+
+
+    personnels?: Personnel[]; 
+
 
     signature?: string;
 

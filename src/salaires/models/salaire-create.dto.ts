@@ -47,6 +47,8 @@ export class SalaireCreateDto {
  
     nbre_jrs_preste: number; // Nombre de jours presents
 
+    nbre_jrs_ferie: number;
+
  
     rbi: string;  // Remuneration brute imposable
 
@@ -69,6 +71,8 @@ export class SalaireCreateDto {
     avance_slaire: string;
 
     prise_en_charge_frais_bancaire: string;
+
+    pres_entreprise: string;
     
     net_a_payer: string;
 

@@ -1,12 +1,18 @@
 import { Exclude } from "class-transformer";
 import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity"; 
+import { Departement } from "src/departement/models/departement.entity";
+import { Fonction } from "src/fonction/models/fonction.entity";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Performence } from "src/performence/models/performence.entity";
+import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Salaire } from "src/salaires/models/salaire.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ServicePref } from "src/service-pref/models/service-pref.entity";
+import { SiteLocation } from "src/site-location/models/site-location.entity";
+import { Title } from "src/title/models/title.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('personnels')
 export class Personnel {
@@ -71,21 +77,25 @@ export class Personnel {
     @Column({nullable: true})
     permission: string;  // Give access to CRUD  [Create, Read, Update, Delete] C R U D
   
+
+
     // Travail
-    @Column({nullable: true})
-    departement: string;
+    @ManyToOne(() => Departement, (dep)=> dep.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    departement: Departement;
 
-    @Column({nullable: true})
-    title: string;
+    @ManyToOne(() => Title, (tit)=> tit.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    title: Title;
 
-    @Column({nullable: true})  // Ex: Directeur 
-    fonction: string;
+    @ManyToOne(() => Fonction, (fonc)=> fonc.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    fonction: Fonction;
 
-    @Column({nullable: true}) // Ex: 
-    services: string; // RH
+    @ManyToOne(() => ServicePref, (serv)=> serv.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    services: ServicePref; // caisse
 
-    @Column({nullable: true})
-    site_location: string; // Site de travail
+    @ManyToOne(() => SiteLocation, (site)=> site.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    site_location: SiteLocation; // Site de travail
+
+
   
     // Contrat
     @Column({nullable: true})
@@ -161,6 +171,9 @@ export class Personnel {
 
     @OneToMany(() => Performence, (item) => item.personnel, {cascade: true})
     performences: Performence[];
+
+    @OneToMany(() => PresEntreprise, (item) => item.personnel, {cascade: true})
+    pres_entreprises: PresEntreprise[];
     
    
     @Column()

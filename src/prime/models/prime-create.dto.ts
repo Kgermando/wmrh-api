@@ -4,13 +4,16 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 export class PrimeCreateDto {
 
     @IsNotEmpty()
+    personnel: Personnel;
+
+    @IsNotEmpty()
     intitule: string; 
 
     @IsNotEmpty()
-    montant: string; 
+    monnaie: string;
 
     @IsNotEmpty()
-    personnel: Personnel;
+    montant: string;  
 
     @IsNotEmpty()
     signature: string;

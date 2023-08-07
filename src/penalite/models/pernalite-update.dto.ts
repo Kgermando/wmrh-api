@@ -1,12 +1,15 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class PenaliteUpdateDto { 
+    personnel?: Personnel;
+
     intitule?: string;
+
+    monnaie?: string; 
 
     montant?: string;
 
-    personnel?: Personnel;
-
+    
     signature?: string; 
 
     created?: Date; 

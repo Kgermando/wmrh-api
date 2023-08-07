@@ -1,13 +1,15 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class AvanceSalaireUpdateDto { 
+    personnel?: Personnel;
+
     intitule?: string;
+
+    monnaie?: string; 
 
     montant?: string;
 
-    observation?: string;
-
-    personnel?: Personnel;
+    observation?: string; 
 
     signature?: string; 
 

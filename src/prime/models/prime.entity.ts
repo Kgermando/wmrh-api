@@ -7,14 +7,17 @@ export class Prime {
     @PrimaryGeneratedColumn()
     id: number; 
 
+    @ManyToOne(() => Personnel, (personnel)=> personnel.primes, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    personnel: Personnel;
+
     @Column()
     intitule: string; // Prime de travaill, prime de risque, ...
 
-    @Column()
-    montant: string;
+    @Column({default: 'CDF'})
+    monnaie: string; // Monnaie de l'empreint
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.primes, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    personnel: Personnel;
+    @Column()
+    montant: string; 
 
     @Column()
     signature: string;

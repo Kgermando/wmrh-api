@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Personnel } from "src/personnel/models/personnel.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('site_locations')
 export class SiteLocation {
@@ -6,14 +7,17 @@ export class SiteLocation {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column() 
-    name: string; // Nom du site
+    @Column()
+    site_location: string; // Nom du site
 
     @Column()
     manager: string;
 
     @Column()
     adresse: string;
+
+    @OneToMany(() => Personnel, (item) => item.site_location, {cascade: true})
+    personnels: Personnel[];
 
     @Column()    
     signature: string;

@@ -6,8 +6,14 @@ export class AvanceSalaire {
     @PrimaryGeneratedColumn()
     id: number; 
 
+    @ManyToOne(() => Personnel, (personnel)=> personnel.avances_salaires, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    personnel: Personnel;
+
     @Column()
     intitule: string; // Prime de travaill, prime de risque, ...
+
+    @Column({default: 'CDF'})
+    monnaie: string;
 
     @Column()
     montant: string;
@@ -15,9 +21,7 @@ export class AvanceSalaire {
     @Column()
     observation: string;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.avances_salaires, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    personnel: Personnel;
-
+    
     @Column()
     signature: string;
 

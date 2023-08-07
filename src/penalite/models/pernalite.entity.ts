@@ -7,14 +7,17 @@ export class Penalite {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ManyToOne(() => Personnel, (personnel)=> personnel.penalites, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    personnel: Personnel;
+
     @Column()
     intitule: string; // Santions ou fautes commise
 
-    @Column()
-    montant: string;
+    @Column({default: 'CDF'})
+    monnaie: string;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.penalites, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    personnel: Personnel;
+    @Column()
+    montant: string; 
 
     @Column()    
     signature: string;

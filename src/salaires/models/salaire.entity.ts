@@ -56,6 +56,9 @@ export class Salaire {
     @Column({default: 26})
     nbre_jrs_preste: number; // Nombre de jours presents
 
+    @Column({default: 0})
+    nbre_jrs_ferie: number; // Nombre de jours ferié dans le mois en cours
+
     @Column({default: '0'})
     rbi: string;  // Remuneration brute imposable
 
@@ -63,7 +66,7 @@ export class Salaire {
     cnss_qpo: string; // Impôt de 5% => 0.05
 
     @Column({default: '0'})
-    rni: string;  // Remuneration Nette Imposable
+    rni: string;  // Remuneration Nette Imposable 
 
     @Column({default: '0'})
     ipr: string;  // Impôt Professionnel sur les Rémunérations (IPR)

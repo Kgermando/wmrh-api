@@ -1,10 +1,16 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
 import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { Departement } from "src/departement/models/departement.entity";
+import { Fonction } from "src/fonction/models/fonction.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Performence } from "src/performence/models/performence.entity";
+import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Salaire } from "src/salaires/models/salaire.entity";
+import { ServicePref } from "src/service-pref/models/service-pref.entity";
+import { SiteLocation } from "src/site-location/models/site-location.entity";
+import { Title } from "src/title/models/title.entity";
 
 export class PersonnelCreateDto {
    
@@ -55,15 +61,15 @@ export class PersonnelCreateDto {
     
     permission: string;
  
-    departement: string;
+    departement: Departement;
  
-    title: string;
+    title: Title;
   
-    fonction: string;
+    fonction: Fonction;
  
-    services: string; 
+    services: ServicePref; 
  
-    site_location: string;  
+    site_location: SiteLocation;  
  
     type_contrat: string;
  
@@ -108,6 +114,8 @@ export class PersonnelCreateDto {
     salaires: Salaire[];
 
     performences: Performence[];
+
+    pres_entreprises: PresEntreprise[];
     
     @IsNotEmpty()
     signature: string;

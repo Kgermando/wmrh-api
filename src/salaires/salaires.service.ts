@@ -136,10 +136,25 @@ export class SalairesService extends AbstractService {
     }
 
 
-    primeTotal(code_entreprise, id) {
+    primeTotalCDF(code_entreprise, id) {
         return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
             FROM primes  WHERE 
+            monnaie='CDF' AND
+            code_entreprise='${code_entreprise}' AND
+            "personnelId"='${id}' AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP)- 1  
+            AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+    primeTotalUSD(code_entreprise, id) {
+        return this.dataSource.query(`
+        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+            FROM primes WHERE 
+            monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP)- 1  
@@ -151,10 +166,25 @@ export class SalairesService extends AbstractService {
     }
 
 
-    penaliteTotal(code_entreprise, id) {
+    penaliteTotalCDF(code_entreprise, id) {
+        return this.dataSource.query(`
+        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+            FROM penalites WHERE 
+            monnaie='CDF' AND
+            code_entreprise='${code_entreprise}' AND
+            "personnelId"='${id}' AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP)- 1  
+            AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+    penaliteTotalUSD(code_entreprise, id) {
         return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
             FROM penalites  WHERE 
+            monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP)- 1  
@@ -166,10 +196,22 @@ export class SalairesService extends AbstractService {
     }
 
 
-    avanceSalaireTotal(code_entreprise, id) {
+    avanceSalaireTotalCDF(code_entreprise, id) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
             FROM avance_salaires WHERE 
+            monnaie='CDF' AND
+            code_entreprise='${code_entreprise}' AND
+            "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+    avanceSalaireTotalUSD(code_entreprise, id) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+            FROM avance_salaires WHERE 
+            monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
@@ -187,12 +229,34 @@ export class SalairesService extends AbstractService {
     }
 
 
+    preEntrepriseCDF(code_entreprise, id) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(deboursement as decimal(10,2))), 0) as sum
+            FROM pres_entreprises WHERE 
+            monnaie='CDF' AND
+            code_entreprise='${code_entreprise}' AND
+            "personnelId"='${id}' AND
+            CURRENT_DATE::TIMESTAMP < date_limit::TIMESTAMP;
+        `);
+    }
+    preEntrepriseUSD(code_entreprise, id) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(deboursement as decimal(10,2))), 0) as sum
+            FROM pres_entreprises WHERE 
+            monnaie='USD' AND
+            code_entreprise='${code_entreprise}' AND
+            "personnelId"='${id}' AND
+            CURRENT_DATE::TIMESTAMP < date_limit::TIMESTAMP;
+        `);
+    }
+
+
     netAPayerTotal(code_entreprise) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
-            statut = 'Disponible' AND
+            statut='Disponible' AND
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -203,7 +267,7 @@ export class SalairesService extends AbstractService {
             SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
-            statut = 'Disponible' AND
+            statut='Disponible' AND
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -214,7 +278,7 @@ export class SalairesService extends AbstractService {
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
-            statut = 'Disponible' AND
+            statut='Disponible' AND
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -225,7 +289,7 @@ export class SalairesService extends AbstractService {
             SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(10,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
-            statut = 'Disponible' AND
+            statut='Disponible' AND
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Personnel } from "src/personnel/models/personnel.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('fonctions')
 export class Fonction {
@@ -6,8 +7,11 @@ export class Fonction {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column()    
     fonction: string;
+
+    @OneToMany(() => Personnel, (item) => item.fonction, {cascade: true})
+    personnels: Personnel[];
 
     @Column()    
     signature: string;

@@ -1,15 +1,19 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator";
+import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class SiteLocationCreateDto {
    
     @IsNotEmpty()
-    name: string;  
+    site_location: string;  
 
     @IsNotEmpty()
     manager: string;
 
     @IsNotEmpty()
     adresse: string; 
+
+    personnels: Personnel[];
+
     @IsNotEmpty()
     signature: string;  
 

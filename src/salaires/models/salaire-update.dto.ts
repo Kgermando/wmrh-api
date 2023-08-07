@@ -17,6 +17,7 @@ export class SalaireUpdateDto {
     heureSupplementaireMonnaie?: string; 
     conge_paye?: number;
     nbre_jrs_preste?: number;
+    nbre_jrs_ferie?: number;
     rbi?: string;
     cnssQPO?: string;
     rni?: string;
@@ -26,6 +27,7 @@ export class SalaireUpdateDto {
     penalites?: string;
     avance_slaire?: string;
     prise_en_charge_frais_bancaire?: string;
+    pres_entreprise?: string;
     net_a_payer?: string;
     statut?: string;  // Pending, Generated
     signature?: string;

@@ -1,9 +1,12 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class TitleCreateDto {
    
     @IsNotEmpty()
     title: string;   
+
+    personnels: Personnel[];
 
     @IsNotEmpty()
     signature: string;  

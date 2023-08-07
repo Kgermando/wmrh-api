@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Personnel } from "src/personnel/models/personnel.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('service_prefs')
 export class ServicePref {
@@ -7,7 +8,10 @@ export class ServicePref {
     id: number;
 
     @Column()
-    services: string;
+    service: string;
+
+    @OneToMany(() => Personnel, (item) => item.services, {cascade: true})
+    personnels: Personnel[];
 
     @Column()    
     signature: string;

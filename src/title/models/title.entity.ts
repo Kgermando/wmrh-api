@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Personnel } from "src/personnel/models/personnel.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('titles')
 export class Title {
@@ -6,8 +7,10 @@ export class Title {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    title: string; // exemple: Directeur
+    title: string;
+
+    @OneToMany(() => Personnel, (item) => item.title, {cascade: true})
+    personnels: Personnel[];  
 
     @Column()    
     signature: string;

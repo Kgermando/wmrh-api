@@ -1,12 +1,15 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class PrimeUpdateDto { 
-    intitule?: string;
-
-    montant?: string; 
 
     personnel?: Personnel;
 
+    intitule?: string;
+
+    monnaie?: string;
+
+    montant?: string;  
+    
     signature?: string; 
 
     created?: Date; 

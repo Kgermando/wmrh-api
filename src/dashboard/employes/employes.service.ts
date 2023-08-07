@@ -11,7 +11,9 @@ export class EmployesService {
     async getPieSexeMonth(code_entreprise) {
         return this.dataSource.query(`
             SELECT sexe, COUNT(sexe) 
-            FROM personnels WHERE code_entreprise='${code_entreprise}' 
+            FROM personnels WHERE code_entreprise='${code_entreprise}'  AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
          GROUP BY sexe;
         `);
     }
@@ -19,7 +21,8 @@ export class EmployesService {
     async getPieSexeYear(code_entreprise) {
         return this.dataSource.query(`
         SELECT sexe, COUNT(sexe) 
-            FROM personnels WHERE code_entreprise='${code_entreprise}' 
+            FROM personnels WHERE code_entreprise='${code_entreprise}'  AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY sexe;
         `);
     }
@@ -36,21 +39,27 @@ export class EmployesService {
     async departementMonth(code_entreprise) {
         return this.dataSource.query(`
             SELECT COUNT(*) 
-            FROM departements WHERE code_entreprise='${code_entreprise}';
+            FROM departements WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
     async syndicatMonth(code_entreprise) {
         return this.dataSource.query(`
             SELECT COUNT(*) 
-            FROM personnels WHERE code_entreprise='${code_entreprise}';
+            FROM personnels WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
     
     async siteLocationMonth(code_entreprise) {
         return this.dataSource.query(`
             SELECT COUNT(*) 
-            FROM site_locations WHERE code_entreprise='${code_entreprise}';
+            FROM site_locations WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -58,7 +67,9 @@ export class EmployesService {
         return this.dataSource.query(`
             SELECT COUNT(*) 
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
-            statut_personnel=true;
+            statut_personnel=true AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -67,7 +78,8 @@ export class EmployesService {
     async departementYear(code_entreprise) {
         return this.dataSource.query(`
         SELECT COUNT(*) 
-            FROM departements WHERE code_entreprise='${code_entreprise}';
+            FROM departements WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -75,14 +87,16 @@ export class EmployesService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND 
-            syndicat=true ;
+            syndicat=true  AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
     async siteLocationYear(code_entreprise) {
         return this.dataSource.query(`
         SELECT COUNT(*) 
-            FROM site_locations WHERE code_entreprise='${code_entreprise}';
+            FROM site_locations WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -90,7 +104,8 @@ export class EmployesService {
         return this.dataSource.query(`
             SELECT COUNT(*) 
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
-            statut_personnel=true;
+            statut_personnel=true AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
 
@@ -130,25 +145,28 @@ export class EmployesService {
     // Employés par departement
     async employeDepartementMonth(code_entreprise) {
         return this.dataSource.query(`
-        SELECT departement, COUNT(*)
-            FROM personnels WHERE code_entreprise='${code_entreprise}' 
-            GROUP BY departement;
+        SELECT "departementId", COUNT(*)
+            FROM personnels WHERE code_entreprise='${code_entreprise}'  AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY "departementId";
         `);
     }
 
     async employeDepartementYear(code_entreprise) {
         return this.dataSource.query(`
-        SELECT departement, COUNT(*)
-            FROM personnels WHERE code_entreprise='${code_entreprise}' 
-            GROUP BY departement;
+        SELECT "departementId", COUNT(*)
+            FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY "departementId";
         `);
     }
 
     async employeDepartementAll(code_entreprise) {
         return this.dataSource.query(`
-        SELECT departement, COUNT(*)
+        SELECT "departementId", COUNT(*)
             FROM personnels WHERE code_entreprise='${code_entreprise}'  
-            GROUP BY departement;
+            GROUP BY "departementId";
         `);
     }
 
@@ -159,16 +177,19 @@ export class EmployesService {
         return this.dataSource.query(` 
             SELECT DISTINCT EXTRACT(DAY FROM date_debut_contrat ::TIMESTAMP),
             DATE_PART('DAY', AGE(CURRENT_DATE ::TIMESTAMP,"date_debut_contrat" ::TIMESTAMP)) AS age
-            FROM personnels WHERE code_entreprise='${code_entreprise}' 
+            FROM personnels WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY date_debut_contrat;
         `);  
     }
 
     async ageContratEmployeYear(code_entreprise) {
         return this.dataSource.query(`
-        SELECT DISTINCT EXTRACT(MONTH FROM date_debut_contrat ::TIMESTAMP),
+            SELECT DISTINCT EXTRACT(MONTH FROM date_debut_contrat ::TIMESTAMP),
             DATE_PART('MONTH', AGE(CURRENT_DATE ::TIMESTAMP,"date_debut_contrat" ::TIMESTAMP)) AS age
-            FROM personnels WHERE code_entreprise='${code_entreprise}' 
+            FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY date_debut_contrat;
         `);
     }
@@ -186,18 +207,21 @@ export class EmployesService {
     // Age des employés
     async agetEmployeMonth(code_entreprise) {
         return this.dataSource.query(` 
-        SELECT DISTINCT EXTRACT(YEAR FROM date_naissance ::TIMESTAMP),
-        DATE_PART('YEAR', AGE(CURRENT_DATE ::TIMESTAMP,"date_naissance" ::TIMESTAMP)) AS age
-        FROM personnels WHERE code_entreprise='${code_entreprise}'
-        GROUP BY date_naissance;
-        `);  
+            SELECT DISTINCT EXTRACT(YEAR FROM date_naissance ::TIMESTAMP),
+            DATE_PART('YEAR', AGE(CURRENT_DATE ::TIMESTAMP,"date_naissance" ::TIMESTAMP)) AS age
+            FROM personnels WHERE code_entreprise='${code_entreprise}' AND 
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY date_naissance;
+        `);
     }
 
     async ageEmployeYear(code_entreprise) {
         return this.dataSource.query(`
         SELECT DISTINCT EXTRACT(YEAR FROM date_naissance ::TIMESTAMP),
         DATE_PART('YEAR', AGE(CURRENT_DATE ::TIMESTAMP,"date_naissance" ::TIMESTAMP)) AS age
-        FROM personnels WHERE code_entreprise='${code_entreprise}'
+        FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
+        EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
         GROUP BY date_naissance;
         `);
     }

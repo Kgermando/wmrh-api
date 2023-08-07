@@ -1,6 +1,11 @@
+import { Personnel } from "src/personnel/models/personnel.entity";
+
 export class ServicePrefUpdateDto {
 
-    services?: string; 
+    service?: string; 
+
+
+    personnels?: Personnel[];
 
 
     signature?: string;

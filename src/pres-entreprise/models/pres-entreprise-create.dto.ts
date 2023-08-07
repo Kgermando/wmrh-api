@@ -1,22 +1,29 @@
 import { IsNotEmpty } from "class-validator";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
-export class AvanceSalaireCreateDto {
+ 
+
+export class PresEntrepriseCreateDto { 
     @IsNotEmpty()
     personnel: Personnel;
 
     @IsNotEmpty()
-    intitule: string; 
+    intitule: string; // Objet de l'empreint
 
     @IsNotEmpty()
     monnaie: string;
 
     @IsNotEmpty()
-    montant: string; 
+    total_empreints: string;  // Près de l'entreprise 
 
     @IsNotEmpty()
-    observation: string; 
- 
+    deboursement: string; // Montant à debourser par mois
+
+    @IsNotEmpty()
+    remboursement: string; // Montant déjà rembouser
+
+    @IsNotEmpty()
+    date_limit: Date;  // Date de dernier remboursement
 
     @IsNotEmpty()
     signature: string;
@@ -25,7 +32,7 @@ export class AvanceSalaireCreateDto {
     created: Date;
 
     @IsNotEmpty()
-    update_created : Date; 
+    update_created : Date;
 
     @IsNotEmpty()
     entreprise: string;
