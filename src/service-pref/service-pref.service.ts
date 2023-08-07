@@ -11,4 +11,13 @@ export class ServicePrefService extends AbstractService {
     ) {
         super(servicePrefRepository); 
     }
+
+    async findGetOne(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+            relations: {
+                personnels: true, 
+            }
+        })
+    }
 }

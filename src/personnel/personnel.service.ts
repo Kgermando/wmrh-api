@@ -40,9 +40,17 @@ export class PersonnelService extends AbstractService {
                 heures_supp: true,
                 salaires: true,
                 performences: true,
+
+                departements: true,
+                titles: true,
+                fonctions: true,
+                services: true,
+                site_locations: true,
             }
         })
     }
+
+    
 
     async paginate(page: number = 1, code_entreprise): Promise<any> {
         const {data, meta} = await super.paginate(page, code_entreprise);

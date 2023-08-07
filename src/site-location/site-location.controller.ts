@@ -36,7 +36,7 @@ export class SiteLocationController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.siteLocationService.findOne({where: {id}});
+      return this.siteLocationService.findGetOne({id});
     }
 
     @Put(':id')

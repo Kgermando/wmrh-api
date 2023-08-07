@@ -61,15 +61,15 @@ export class PersonnelCreateDto {
     
     permission: string;
  
-    departement: Departement;
+    departements: Departement;
  
-    title: Title;
+    titles: Title;
   
-    fonction: Fonction;
+    fonctions: Fonction;
  
     services: ServicePref; 
  
-    site_location: SiteLocation;  
+    site_locations: SiteLocation;  
  
     type_contrat: string;
  

@@ -12,4 +12,13 @@ export class SiteLocationService extends AbstractService {
     ) {
         super(siteLocationRepository); 
     }
+
+    async findGetOne(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+            relations: {
+                personnels: true, 
+            }
+        })
+    }
 }

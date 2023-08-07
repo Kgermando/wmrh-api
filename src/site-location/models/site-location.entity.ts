@@ -8,7 +8,7 @@ export class SiteLocation {
     id: number;
 
     @Column()
-    site_location: string; // Nom du site
+    site_location: string; // Nom du site 
 
     @Column()
     manager: string;
@@ -16,7 +16,7 @@ export class SiteLocation {
     @Column()
     adresse: string;
 
-    @OneToMany(() => Personnel, (item) => item.site_location, {cascade: true})
+    @OneToMany(() => Personnel, (item) => item.site_locations, {cascade: true})
     personnels: Personnel[];
 
     @Column()    

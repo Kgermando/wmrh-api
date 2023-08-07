@@ -55,6 +55,7 @@ export class PersonnelController {
   async get(@Param('id') id: number) {
     return this.personneService.findGetOne({id});
   }
+  
 
   @Get('presence/:matricule')
   async presence(@Param('matricule') matricule: string) {

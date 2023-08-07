@@ -81,19 +81,19 @@ export class Personnel {
 
     // Travail
     @ManyToOne(() => Departement, (dep)=> dep.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    departement: Departement;
+    departements: Departement;
 
     @ManyToOne(() => Title, (tit)=> tit.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    title: Title;
+    titles: Title;
 
     @ManyToOne(() => Fonction, (fonc)=> fonc.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    fonction: Fonction;
+    fonctions: Fonction;
 
     @ManyToOne(() => ServicePref, (serv)=> serv.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     services: ServicePref; // caisse
 
     @ManyToOne(() => SiteLocation, (site)=> site.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    site_location: SiteLocation; // Site de travail
+    site_locations: SiteLocation; // Site de travail
 
 
   

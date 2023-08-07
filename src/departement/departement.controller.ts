@@ -36,7 +36,7 @@ export class DepartementController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.departementService.findOne({where: {id}});
+      return this.departementService.findGetOne({id});
     }
 
     @Put(':id')

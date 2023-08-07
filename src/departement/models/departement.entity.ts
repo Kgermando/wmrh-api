@@ -10,7 +10,7 @@ export class Departement {
     @Column() 
     departement: string; // Entreprise
 
-    @OneToMany(() => Personnel, (item) => item.departement, {cascade: true})
+    @OneToMany(() => Personnel, (item) => item.departements, {cascade: true})
     personnels: Personnel[];
 
     @Column()    

@@ -10,6 +10,16 @@ export class DepartementService extends AbstractService {
         @InjectRepository(Departement) private readonly departementRepository: Repository<Departement>
     ) {
         super(departementRepository); 
+    } 
+
+
+    async findGetOne(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+            relations: {
+                personnels: true,
+            }
+        })
     }
 
  }

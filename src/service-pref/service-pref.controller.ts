@@ -36,8 +36,9 @@ export class ServicePrefController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.servicePrefService.findOne({where: {id}});
+      return this.servicePrefService.findGetOne({id});
     }
+
 
     @Put(':id')
     async update(

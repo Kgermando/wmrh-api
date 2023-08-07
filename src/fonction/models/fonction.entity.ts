@@ -10,7 +10,7 @@ export class Fonction {
     @Column()    
     fonction: string;
 
-    @OneToMany(() => Personnel, (item) => item.fonction, {cascade: true})
+    @OneToMany(() => Personnel, (item) => item.fonctions, {cascade: true})
     personnels: Personnel[];
 
     @Column()    

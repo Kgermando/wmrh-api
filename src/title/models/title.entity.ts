@@ -7,9 +7,10 @@ export class Title {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
     title: string;
 
-    @OneToMany(() => Personnel, (item) => item.title, {cascade: true})
+    @OneToMany(() => Personnel, (item) => item.titles, {cascade: true})
     personnels: Personnel[];  
 
     @Column()    
