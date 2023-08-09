@@ -30,7 +30,8 @@ export class PreferenceController {
         @Param('code_entreprise') code_entreprise: string,
         @Body() body: PreferenceUpdateDto
     ) {
-        await this.preferenceService.updatePref({code_entreprise}, body);
+        const update_created = new Date(); 
+        await this.preferenceService.updatePref({code_entreprise}, {...body, update_created});
         return this.preferenceService.preference({where: {code_entreprise}});
     }
 

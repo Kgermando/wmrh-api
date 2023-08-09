@@ -45,7 +45,8 @@ export class ServicePrefController {
         @Param('id') id: number,
         @Body() body: ServicePrefUpdateDto
     ) {
-        await this.servicePrefService.update(id, body);
+        const update_created = new Date();
+        await this.servicePrefService.update(id, {...body, update_created});    
         return this.servicePrefService.findOne({where: {id}});
     }
 

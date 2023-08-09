@@ -234,7 +234,7 @@ export class SalairesService extends AbstractService {
         AGE(timestamp '${date_debut_contrat}') FROM personnels WHERE
         code_entreprise='${code_entreprise}' AND
         "id"='${id}';
-    `);
+    `); 
     }
 
 

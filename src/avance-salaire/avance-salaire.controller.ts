@@ -44,7 +44,8 @@ export class AvanceSalaireController {
         @Param('id') id: number,
         @Body() body: AvanceSalaireUpdateDto
     ) {
-        await this.avanceSalaireService.update(id, body);
+        const update_created = new Date();
+        await this.avanceSalaireService.update(id, {...body, update_created});
         return this.avanceSalaireService.findOne({where: {id}});
     }
 

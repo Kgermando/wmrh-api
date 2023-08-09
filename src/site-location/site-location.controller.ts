@@ -44,7 +44,8 @@ export class SiteLocationController {
         @Param('id') id: number,
         @Body() body: SiteLocationUpdateDto
     ) {
-        await this.siteLocationService.update(id, body);
+        const update_created = new Date();
+        await this.siteLocationService.update(id, {...body, update_created});   
         return this.siteLocationService.findOne({where: {id}});
     }
 

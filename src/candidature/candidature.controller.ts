@@ -41,7 +41,8 @@ export class CandidatureController {
         @Param('id') id: number,
         @Body() body: CandidatureCreateDto
     ) {
-        await this.candidatureService.update(id, body);
+        const update_created = new Date();
+        await this.candidatureService.update(id, {...body, update_created}); 
         return this.candidatureService.findOne({where: {id}});
     }
 

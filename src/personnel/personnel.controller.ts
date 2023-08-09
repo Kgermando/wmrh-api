@@ -1,5 +1,8 @@
-import { BadRequestException, Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Req, UseGuards, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Body, ClassSerializerInterceptor, 
+    Controller, Delete, Get, Param, Post, Put, Query, Req, 
+    UploadedFile, UseGuards, UseInterceptors, Header } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';  
+import * as Papa from 'papaparse';
 import { AuthGuard } from 'src/auth/auth.guard'; 
 import { AuthService } from 'src/auth/auth.service';
 import { Request } from 'express'; 
@@ -7,6 +10,8 @@ import { PersonnelService } from './personnel.service';
 import { Personnel } from './models/personnel.entity';
 import { PersonnelCreateDto } from './models/personnel-create.dto';
 import { PersonnelUpdateDto } from './models/personnel-update.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
@@ -18,38 +23,70 @@ export class PersonnelController {
     private authService: AuthService,
   ) {}
   
-    @Get('get-all/:code_entreprise')
-    async getAll(
+  @Get('get-all/:code_entreprise')
+  async getAll(
+    @Param('code_entreprise') code_entreprise: string,
+  ) {
+    return this.personneService.allGet(code_entreprise);
+  }
+
+
+  @Get(':code_entreprise')
+  async all(
+      @Query('page') page = 1,
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.personneService.allGet(code_entreprise);
-    }
-
-
-    @Get(':code_entreprise')
-    async all(
-        @Query('page') page = 1,
-        @Param('code_entreprise') code_entreprise: string,
-      ) {
-      return this.personneService.paginate(page, code_entreprise);
-    }
-
-    @Get('get-syndicat/:code_entreprise')
-    async getSyndicat(
-      @Param('code_entreprise') code_entreprise: string
-    ) {
-      return this.personneService.getSyndicat(code_entreprise);
-    }
-
-
-    @Post()
-    async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
-      const password = await bcrypt.hash('1234', 12); 
-      return this.personneService.create({ 
-        ...body, 
-        password, 
-      });
+    return this.personneService.paginate(page, code_entreprise);
   }
+
+  @Get('get-syndicat/:code_entreprise')
+  async getSyndicat(
+    @Param('code_entreprise') code_entreprise: string
+  ) {
+    return this.personneService.getSyndicat(code_entreprise);
+  }
+
+
+  @Post()
+  async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
+    const password = await bcrypt.hash('1234', 12); 
+    return this.personneService.create({ 
+      ...body, 
+      password
+    });
+  }
+
+  @Post('upload-csv')
+  @UseInterceptors(FileInterceptor('file'))
+  importEnergyConsuption(@UploadedFile() file) {
+    let csv = file.buffer.toString();
+    if (csv.charCodeAt(0) === 0xFEFF) {
+      csv = csv.slice(1);
+    }
+    const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
+    entries.data.forEach(async element => {
+      const password = await bcrypt.hash('1234', 12); 
+        return this.personneService.create({ 
+          ...element, 
+          password, 
+        });
+    });
+  }
+
+
+
+  @Get('download-xlsx/:code_entreprise/:start_date/:end_date')
+  @Header('Content-Type', 'text/xlsx')
+  async downloadReport(
+    @Req() res: Response,
+    @Param('code_entreprise') code_entreprise: string,
+    @Param('start_date') start_date: Date,
+    @Param('end_date') end_date: Date
+    ) {
+    let result = await this.personneService.downloadExcel(code_entreprise, start_date, end_date)
+    res.download(`${result}`);
+  }
+
 
   @Get('get/:id')
   async get(@Param('id') id: number) {
@@ -70,7 +107,8 @@ export class PersonnelController {
     @Body() body: PersonnelUpdateDto ) {
     const id = await this.authService.personnelId(request);
 
-    await this.personneService.update(id, body); 
+    const update_created = new Date();
+    await this.personneService.update(id, {...body, update_created});   
     
     return this.personneService.findOne({where: {id}});
   }

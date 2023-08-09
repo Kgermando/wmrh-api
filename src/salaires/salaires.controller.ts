@@ -176,7 +176,8 @@ export class SalairesController {
         @Param('id') id: number,
         @Body() body: SalaireUpdateDto
     ) {
-        await this.salaireService.update(id, body);
+        const update_created = new Date();
+        await this.salaireService.update(id, {...body, update_created}); 
         return this.salaireService.findOne({where: {id}});
     }
 

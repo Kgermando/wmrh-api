@@ -44,7 +44,8 @@ export class PresEntrepriseController {
         @Param('id') id: number,
         @Body() body: PresEntrepriseUpdateDto
     ) {
-        await this.presEntrepriseService.update(id, body);
+        let update_created = new Date();
+        await this.presEntrepriseService.update(id, {...body, update_created});
         return this.presEntrepriseService.findOne({where: {id}});
     }
 

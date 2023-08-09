@@ -44,7 +44,8 @@ export class DepartementController {
         @Param('id') id: number,
         @Body() body: DepartementUpdateDto
     ) {
-        await this.departementService.update(id, body);
+        const update_created = new Date();
+        await this.departementService.update(id, {...body, update_created}); 
         return this.departementService.findOne({where: {id}});
     }
 

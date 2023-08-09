@@ -111,7 +111,8 @@ export class ApointementController {
         @Param('id') id: number,
         @Body() body: ApointementUpdateDto
     ) {
-        await this.apointementService.update(id, body);
+      const update_created = new Date();
+        await this.apointementService.update(id, {...body, update_created}); 
         return this.apointementService.findOne({where: {id}});
     }
 

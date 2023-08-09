@@ -132,8 +132,9 @@ export class PerformenceController {
         @Param('id') id: number,
         @Body() body: PerformenceUpdateDto
     ) {
-        await this.performenceService.update(id, body);
-        return this.performenceService.findOne({where: {id}});
+      const update_created = new Date();
+      await this.performenceService.update(id, {...body, update_created});
+      return this.performenceService.findOne({where: {id}});
     }
 
     @Delete(':id')

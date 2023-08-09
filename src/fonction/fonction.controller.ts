@@ -45,7 +45,8 @@ export class FonctionController {
         @Param('id') id: number,
         @Body() body: FonctionUpdateDto
     ) {
-        await this.fonctionService.update(id, body);
+        const update_created = new Date();
+        await this.fonctionService.update(id, {...body, update_created});   
         return this.fonctionService.findOne({where: {id}});
     }
 

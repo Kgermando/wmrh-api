@@ -44,7 +44,8 @@ export class HeuresSuppController {
         @Param('id') id: number,
         @Body() body: HeureSuppUpdateDto
     ) {
-        await this.heuresSuppService.update(id, body);
+        const update_created = new Date();
+        await this.heuresSuppService.update(id, {...body, update_created});  
         return this.heuresSuppService.findOne({where: {id}});
     }
 

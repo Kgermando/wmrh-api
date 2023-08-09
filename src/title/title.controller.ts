@@ -44,7 +44,8 @@ export class TitleController {
         @Param('id') id: number,
         @Body() body: TitleUpdateDto
     ) {
-        await this.titleService.update(id, body);
+        const update_created = new Date();
+        await this.titleService.update(id, {...body, update_created});  
         return this.titleService.findOne({where: {id}});
     }
 

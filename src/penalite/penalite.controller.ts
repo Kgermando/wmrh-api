@@ -44,7 +44,8 @@ export class PenaliteController {
         @Param('id') id: number,
         @Body() body: PenaliteUpdateDto
     ) {
-        await this.penaliteService.update(id, body);
+        const update_created = new Date();
+        await this.penaliteService.update(id, {...body, update_created}); 
         return this.penaliteService.findOne({where: {id}});
     }
 
