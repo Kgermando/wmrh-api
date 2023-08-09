@@ -32,6 +32,7 @@ export class SalaireCreateDto {
     
 
     anciennete_nbr_age: number;
+
  
     prime_anciennete: string;
 

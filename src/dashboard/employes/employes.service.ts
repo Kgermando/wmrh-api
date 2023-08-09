@@ -145,28 +145,28 @@ export class EmployesService {
     // Employés par departement
     async employeDepartementMonth(code_entreprise) {
         return this.dataSource.query(`
-        SELECT "departementId", COUNT(*)
+        SELECT "departementsId", COUNT(*)
             FROM personnels WHERE code_entreprise='${code_entreprise}'  AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            GROUP BY "departementId";
+            GROUP BY "departementsId";
         `);
     }
 
     async employeDepartementYear(code_entreprise) {
         return this.dataSource.query(`
-        SELECT "departementId", COUNT(*)
+        SELECT "departementsId", COUNT(*)
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            GROUP BY "departementId";
+            GROUP BY "departementsId";
         `);
     }
 
     async employeDepartementAll(code_entreprise) {
         return this.dataSource.query(`
-        SELECT "departementId", COUNT(*)
+        SELECT "departementsId", COUNT(*)
             FROM personnels WHERE code_entreprise='${code_entreprise}'  
-            GROUP BY "departementId";
+            GROUP BY "departementsId";
         `);
     }
 

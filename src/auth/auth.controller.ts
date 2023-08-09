@@ -107,7 +107,7 @@ export class AuthController {
     @Get('personnel')
     async user(@Req() request: Request) {
         const id = await this.authService.personnelId(request);
-        return this.personnelService.findOne({where: {id}});
+        return this.personnelService.findGetOne({id});
     }
 
     @UseGuards(AuthGuard)

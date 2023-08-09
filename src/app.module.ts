@@ -23,6 +23,7 @@ import { HeuresSuppModule } from './heures-supp/heures-supp.module';
 import { SalairesModule } from './salaires/salaires.module';
 import { PerformenceModule } from './performence/performence.module';
 import { PresEntrepriseModule } from './pres-entreprise/pres-entreprise.module';
+import { MailModule } from './mail/mail.module';
 
 
 @Module({
@@ -65,6 +66,7 @@ import { PresEntrepriseModule } from './pres-entreprise/pres-entreprise.module';
     SalairesModule,
     PerformenceModule,
     PresEntrepriseModule,
+    MailModule,
   ],
 })
 export class AppModule {}

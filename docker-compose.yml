@@ -4,7 +4,7 @@ services:
   db:
     restart: always
     image: postgres:latest
-    container_name: cjaco-db
+    container_name: wmrh-db
     command: ["-c", "shared_buffers=256MB", "-c", "max_connections=500"]
     volumes:
       - postgres:/var/lib/postgresql/data
@@ -23,7 +23,7 @@ services:
   
   adminer:
     image: adminer
-    container_name: cjaco-adminer
+    container_name: wmrh-adminer
     restart: always
     ports:
       - 8082:8080

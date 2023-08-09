@@ -15,9 +15,17 @@ export class SalairesService extends AbstractService {
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
-            relations: {
-                personnel: true
-            },
+            // relations: {
+            //     personnel: true
+            // },
+            relations: [
+                'personnel', 
+                'personnel.departements', 
+                'personnel.titles', 
+                'personnel.fonctions', 
+                'personnel.services', 
+                'personnel.site_locations'
+            ],
             where: {code_entreprise},
             order: {'created': 'DESC'}
         });
@@ -26,29 +34,31 @@ export class SalairesService extends AbstractService {
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
-            relations: {
-                personnel: true
-            }
+            relations: [
+                'personnel', 
+                'personnel.departements', 
+                'personnel.titles', 
+                'personnel.fonctions', 
+                'personnel.services', 
+                'personnel.site_locations'
+            ], 
         })
     }
 
     relevePaie(code_entreprise) {
         const dateNow = new Date();
         return this.repository.find({
-            relations: {
-                personnel: true
-            },
+            relations: [
+                'personnel', 
+                'personnel.departements', 
+                'personnel.titles', 
+                'personnel.fonctions', 
+                'personnel.services', 
+                'personnel.site_locations'
+            ], 
             where: {code_entreprise} && {statut: 'Disponible'}, 
             order: {'created': 'DESC'}
-        });
-        // return this.dataSource.query(`
-        //     SELECT *
-        //     FROM salaires WHERE 
-        //     code_entreprise='${code_entreprise}' AND 
-        //     statut='Disponible' AND
-        //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-        //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        // `);
+        }); 
     }
 
     getJrPrestE(code_entreprise, matricule) {
@@ -62,7 +72,6 @@ export class SalairesService extends AbstractService {
                         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
                         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             )  
-            
             +
             (SELECT count(*) FILTER (WHERE apointement='AA') as aa
             FROM apointements WHERE 
