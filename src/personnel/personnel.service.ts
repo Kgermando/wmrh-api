@@ -87,9 +87,16 @@ export class PersonnelService extends AbstractService {
 
         data = await this.dataSource.query(`
             SELECT *
-            FROM personnels WHERE
-            code_entreprise='${code_entreprise}' AND
-            created>'${start_date}' AND created<'${end_date}';
+            FROM personnels
+            LEFT JOIN "departements" ON "departements"."id" = "personnels"."departementsId"
+            LEFT JOIN "titles" ON "titles"."id" = "personnels"."titlesId"
+            LEFT JOIN "fonctions" ON "fonctions"."id" = "personnels"."fonctionsId"
+            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+            LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
+            WHERE
+            "personnels"."code_entreprise"='${code_entreprise}' AND
+            "personnels"."created">='${start_date}' AND 
+            "personnels"."created"<='${end_date}';
         `);
 
         if(!data) {
@@ -110,9 +117,9 @@ export class PersonnelService extends AbstractService {
             { header: 'Nom', key: 'nom', width: 20.5 },
             { header: 'Post-nom', key: 'postnom', width: 20.5 },
             { header: 'Prénom', key: 'prenom', width: 20.5 },
-            { header: 'Mail', key: 'email', width: 20.5 },
+            { header: 'Mail', key: 'email', width: 25.5 },
             { header: 'Téléphone', key: 'telephone', width: 20.5 },
-            { header: 'Adresse', key: 'adresse', width: 20.5 },
+            { header: 'Adresse', key: 'adresse', width: 30.5 },
             { header: 'Sexe', key: 'sexe', width: 20.5 },
             { header: 'Date de naissance', key: 'date_naissance', width: 25.5 },
             { header: 'Lieu de naissance', key: 'lieu_naissance', width: 20.5 }, 
@@ -122,6 +129,11 @@ export class PersonnelService extends AbstractService {
             { header: 'Matricule', key: 'matricule', width: 20.5 },
             { header: 'CNSS', key: 'numero_cnss', width: 20.5 },
             { header: 'Categorie', key: 'category', width: 30.5 },
+            { header: 'Département', key: 'departement', width: 30.5 },
+            { header: 'Titre', key: 'title', width: 30.5 },
+            { header: 'Fonction', key: 'fonction', width: 30.5 },
+            { header: 'Service', key: 'service', width: 30.5 },
+            { header: 'Site de travail', key: 'site_location', width: 30.5 },
             { header: 'Statut compte', key: 'statut_personnel', width: 20.5 },
             { header: 'Type de contrat', key: 'type_contrat', width: 20.5 },
             { header: 'Date debut contrat', key: 'date_debut_contrat', width: 20.5 },
@@ -138,7 +150,7 @@ export class PersonnelService extends AbstractService {
             { header: 'Syndicat', key: 'syndicat', width: 20.5 },
             { header: 'Signature', key: 'signature', width: 20.5 },
             { header: 'Date de création', key: 'created', width: 20.5 },
-            { header: 'Mise à jour', key: 'update_created', width: 20.5 }, 
+            { header: 'Mise à jour', key: 'update_created', width: 20.5 },
         ]
 
         sheet.columns = headers;

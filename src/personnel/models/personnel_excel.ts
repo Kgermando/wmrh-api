@@ -19,11 +19,11 @@ export class PersonnelExcel {
     role: number;
     permission: string; 
     
-    // departements: Departement;
-    // titles: Title;
-    // fonctions: Fonction;
-    // services: ServicePref; // caisse
-    // site_locations: SiteLocation; // Site de travail
+    departement: string;
+    title: string;
+    fonction: string;
+    service: string; // caisse
+    site_location: string; // Site de travail
 
 
     type_contrat: string;

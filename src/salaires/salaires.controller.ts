@@ -1,8 +1,9 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Res, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SalaireCreateDto } from './models/salaire-create.dto';
 import { SalaireUpdateDto } from './models/salaire-update.dto'; 
 import { SalairesService } from './salaires.service';
+import type { Response } from 'express'; 
 
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -133,9 +134,7 @@ export class SalairesController {
       @Param('code_entreprise') code_entreprise: string
     ) {
       return this.salaireService.fraisBancaireTotal(code_entreprise);
-    }
-
-
+    } 
 
     @Get('get-releve-paie/:code_entreprise')
     async relevePaie(
@@ -143,6 +142,22 @@ export class SalairesController {
     ) {
       return this.salaireService.relevePaie(code_entreprise);
     }
+
+
+  @Post('download-xlsx/:code_entreprise/:start_date/:end_date')
+  async downloadReport(
+    @Res() res: Response,
+    @Param('code_entreprise') code_entreprise: string,
+    @Param('start_date') start_date: Date,
+    @Param('end_date') end_date: Date
+    ) {
+      let result = await this.salaireService.downloadExcel(code_entreprise, start_date, end_date);
+        // console.log("result", result);
+        res.set("Content-Type", "text/xlsx");
+      res.download(`${result}`);
+    }
+
+    
 
     @Get('get-all/:code_entreprise')
     async getAll(
