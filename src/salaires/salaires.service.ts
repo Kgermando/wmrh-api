@@ -343,7 +343,7 @@ export class SalairesService extends AbstractService {
             { header: 'Nom', key: 'nom', width: 20.5 },
             { header: 'Post-nom', key: 'postnom', width: 20.5 },
             { header: 'Prénom', key: 'prenom', width: 20.5 },
-            { header: 'Mail', key: 'email', width: 20.5 },
+            { header: 'Mail', key: 'email', width: 30.5 },
             { header: 'Téléphone', key: 'telephone', width: 20.5 },
             
             { header: 'Statut de paie', key: 'statut', width: 20.5 },
