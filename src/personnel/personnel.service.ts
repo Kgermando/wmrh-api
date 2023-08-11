@@ -92,8 +92,6 @@ export class PersonnelService extends AbstractService {
             created>'${start_date}' AND created<'${end_date}';
         `);
 
-        console.log('data', data);
-
         if(!data) {
             throw new NotFoundException("No data download");
         }
@@ -108,7 +106,7 @@ export class PersonnelService extends AbstractService {
         let sheet = book.addWorksheet('LISTE DES EMPLOYES');
 
         const headers = [
-            { header: 'ID', key: 'id', width: 20.5 },
+            { header: 'ID', key: 'id', width: 10.5 },
             { header: 'Nom', key: 'nom', width: 20.5 },
             { header: 'Post-nom', key: 'postnom', width: 20.5 },
             { header: 'Prénom', key: 'prenom', width: 20.5 },
