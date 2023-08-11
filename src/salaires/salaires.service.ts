@@ -46,7 +46,6 @@ export class SalairesService extends AbstractService {
     }
 
     relevePaie(code_entreprise) {
-        const dateNow = new Date();
         return this.repository.find({
             relations: [
                 'personnel', 

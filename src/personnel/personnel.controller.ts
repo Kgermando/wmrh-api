@@ -1,6 +1,6 @@
 import { BadRequestException, Body, ClassSerializerInterceptor, 
     Controller, Delete, Get, Param, Post, Put, Query, Req, 
-    UploadedFile, UseGuards, UseInterceptors, Header } from '@nestjs/common';
+    UploadedFile, UseGuards, UseInterceptors, Header, Res, StreamableFile } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';  
 import * as Papa from 'papaparse';
 import { AuthGuard } from 'src/auth/auth.guard'; 
@@ -11,7 +11,7 @@ import { Personnel } from './models/personnel.entity';
 import { PersonnelCreateDto } from './models/personnel-create.dto';
 import { PersonnelUpdateDto } from './models/personnel-update.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Response } from 'express';
+import type { Response } from 'express'; 
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
@@ -66,26 +66,25 @@ export class PersonnelController {
     const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
     entries.data.forEach(async element => {
       const password = await bcrypt.hash('1234', 12); 
-        return this.personneService.create({ 
+        return this.personneService.create({
           ...element, 
           password, 
         });
     });
   }
 
-
-
-  @Get('download-xlsx/:code_entreprise/:start_date/:end_date')
-  @Header('Content-Type', 'text/xlsx')
+  @Post('download-xlsx/:code_entreprise/:start_date/:end_date') 
   async downloadReport(
-    @Req() res: Response,
+    @Res() res: Response,
     @Param('code_entreprise') code_entreprise: string,
     @Param('start_date') start_date: Date,
     @Param('end_date') end_date: Date
     ) {
-    let result = await this.personneService.downloadExcel(code_entreprise, start_date, end_date)
-    res.download(`${result}`);
-  }
+      let result = await this.personneService.downloadExcel(code_entreprise, start_date, end_date);
+        // console.log("result", result);  
+        res.set("Content-Type", "text/xlsx");
+      res.download(`${result}`);
+  } 
 
 
   @Get('get/:id')
@@ -108,7 +107,7 @@ export class PersonnelController {
     const id = await this.authService.personnelId(request);
 
     const update_created = new Date();
-    await this.personneService.update(id, {...body, update_created});   
+    await this.personneService.update(id, {...body, update_created});
     
     return this.personneService.findOne({where: {id}});
   }
@@ -142,9 +141,8 @@ export class PersonnelController {
     @Body() body: PersonnelUpdateDto
   ) { 
 
-    await this.personneService.update(id, {
-      ...body, 
-    }); 
+    const update_created = new Date();
+    await this.personneService.update(id, {...body, update_created});   
     return this.personneService.findOne({where: {id}});
   }
 

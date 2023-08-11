@@ -68,6 +68,7 @@ export class Personnel {
     @Column({nullable: true})
     category: string;
 
+    // Sécurité
     @Column({default: false})
     statut_personnel: boolean;
 
