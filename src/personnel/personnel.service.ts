@@ -128,7 +128,7 @@ export class PersonnelService extends AbstractService {
             { header: 'Nbre de dépendants', key: 'nbr_dependants', width: 20.5 },
             { header: 'Matricule', key: 'matricule', width: 20.5 },
             { header: 'CNSS', key: 'numero_cnss', width: 20.5 },
-            { header: 'Categorie', key: 'category', width: 30.5 },
+            { header: 'Catégorie', key: 'category', width: 30.5 },
             { header: 'Département', key: 'departement', width: 30.5 },
             { header: 'Titre', key: 'title', width: 30.5 },
             { header: 'Fonction', key: 'fonction', width: 30.5 },
