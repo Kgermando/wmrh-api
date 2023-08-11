@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res, UseGuards } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
+import type { Response } from 'express'; 
 
 import { ApointementService } from './apointement.service';
 import { ApointementCreateDto } from './models/apointement-create.dto';
@@ -72,6 +73,25 @@ export class ApointementController {
     ) {
       return this.apointementService.getItemsCongE(code_entreprise);
     }
+
+
+    @Post('download-xlsx/:code_entreprise/:site_location/:start_date/:end_date')
+    async downloadReport(
+      @Res() res: Response,
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('site_location') site_location: string,
+      @Param('start_date') start_date: Date,
+      @Param('end_date') end_date: Date
+      ) {
+        let result = await this.apointementService.downloadExcel(code_entreprise, site_location, start_date, end_date);
+          res.set("Content-Type", "text/xlsx");
+        res.download(`${result}`);
+      }
+
+
+
+
+
 
     @Get('get-all/:code_entreprise')
     async getAll(

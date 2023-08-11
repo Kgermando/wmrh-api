@@ -18,6 +18,8 @@ export class ApointementUpdateDto {
 
     personnel?: Personnel;
 
+    site_location?: string;
+
     signature?: string;
 
     created?: Date;

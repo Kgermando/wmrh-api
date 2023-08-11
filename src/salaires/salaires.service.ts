@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
-import { DataSource, LessThanOrEqual, Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Salaire } from './models/salaire.entity';
 import { Workbook } from 'exceljs';
 import * as tmp  from 'tmp'; 
@@ -335,7 +335,7 @@ export class SalairesService extends AbstractService {
         console.log('row', rows);
 
         let book = new Workbook();
-        let sheet = book.addWorksheet('LISTE DES EMPLOYES');
+        let sheet = book.addWorksheet('LISTE DES SALAIRES');
 
         const headers = [
             { header: 'ID', key: 'id', width: 10.5 }, 
@@ -346,6 +346,7 @@ export class SalairesService extends AbstractService {
             { header: 'Mail', key: 'email', width: 20.5 },
             { header: 'Téléphone', key: 'telephone', width: 20.5 },
             
+            { header: 'Statut de paie', key: 'statut', width: 20.5 },
             { header: 'Monnaie', key: 'monnaie', width: 20.5 },
             { header: 'Taux d\'échange', key: 'taux_dollard', width: 30.5 },
             { header: 'Nbre de dépendants', key: 'nbr_dependants', width: 20.5 }, 
@@ -366,7 +367,7 @@ export class SalairesService extends AbstractService {
             { header: 'CNSS QPO', key: 'cnssQPO', width: 20.5 },
             { header: 'RNI', key: 'rni', width: 20.5 },
             { header: 'IPR', key: 'ipr', width: 20.5 },
-            { header: 'penalités', key: 'penalites', width: 20.5 },
+            { header: 'Pénalités', key: 'penalites', width: 20.5 },
             { header: 'Avance salaire', key: 'avance_slaire', width: 20.5 },
             { header: 'Syndicat', key: 'syndicat', width: 20.5 },
             { header: 'Frais bancaire', key: 'prise_en_charge_frais_bancaire', width: 20.5 },
@@ -411,7 +412,7 @@ export class SalairesService extends AbstractService {
         sheet.getRow(1).font = { size: 11.5, bold: true, color: {argb: 'FFFFFF'}};
 
         // Background color
-        sheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', bgColor: {argb: '1E4C87'}, fgColor: { argb: '1E4C87'}};
+        sheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', bgColor: {argb: '2F635B'}, fgColor: { argb: '2F635B'}};
 
         // Alignments
         sheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };

@@ -26,6 +26,8 @@ export class ApointementCreateDto {
 
     personnel: Personnel;
 
+    site_location: string;
+
     @IsNotEmpty()
     signature: string;  
 

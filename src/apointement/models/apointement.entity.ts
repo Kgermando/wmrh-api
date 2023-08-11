@@ -25,6 +25,9 @@ export class Apointement {
     @ManyToOne(() => Personnel, (personnel)=> personnel.presences, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
+    @Column({default: 'ALL'})   
+    site_location: string;
+
     @Column()    
     signature: string;
 

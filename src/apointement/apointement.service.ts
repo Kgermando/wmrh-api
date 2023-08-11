@@ -1,8 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
 import { DataSource, Repository } from 'typeorm';
 import { Apointement } from './models/apointement.entity';
+import * as tmp  from 'tmp'; 
+import { Workbook } from 'exceljs';
+import { PresenceExcel } from './models/presence_excel';
 
 @Injectable()
 export class ApointementService extends AbstractService {
@@ -120,5 +123,101 @@ export class ApointementService extends AbstractService {
         `);
     }
 
+
+
+  async downloadExcel(code_entreprise, site_location, start_date, end_date) {
+
+        let data: PresenceExcel[] = [];
+
+        data = await this.dataSource.query(`
+            SELECT *
+            FROM apointements 
+            LEFT JOIN "personnels" ON "personnels"."id" = "apointements"."personnelId"
+            WHERE
+            "apointements"."code_entreprise"='${code_entreprise}' AND
+            "apointements"."site_location"='${site_location}' AND
+            "apointements"."created">='${start_date}' AND 
+            "apointements"."created"<='${end_date}';
+        `); 
+
+        if(!data) {
+            throw new NotFoundException("No data download");
+        }
+
+        let rows: PresenceExcel[] = [];
+
+        data.forEach(doc => {
+            rows.push(doc);
+        });
+
+        console.log('row', rows);
+
+        let book = new Workbook();
+        let sheet = book.addWorksheet('REGISTRE DE PRESENCE');
+
+        const headers = [
+            { header: 'ID', key: 'id', width: 10.5 }, 
+            { header: 'Site de travail', key: 'site_location', width: 20.5 },
+            { header: 'Matricule', key: 'matricule', width: 20.5 },
+            { header: 'Nom', key: 'nom', width: 20.5 },
+            { header: 'Post-nom', key: 'postnom', width: 20.5 },
+            { header: 'Prénom', key: 'prenom', width: 20.5 },
+            { header: 'Pointage', key: 'apointement', width: 10.5 },
+            { header: 'Observation', key: 'observation', width: 30.5 },
+            { header: 'Date d\'entrée', key: 'date_entree', width: 20.5 },
+            { header: 'Date de reprise', key: 'date_sortie', width: 20.5 },
+            
+            { header: 'Signature', key: 'signature', width: 20.5 },
+            { header: 'Date de création', key: 'created', width: 20.5 },
+            { header: 'Mise à jour', key: 'update_created', width: 20.5 }, 
+        ]
+
+        sheet.columns = headers;
+        sheet.addRows(rows);
+
+        this.styleSheet(sheet);
+
+        let File = await new Promise((resolve, reject) => {
+            tmp.file({discardDescriptor: true, prefix: `myexcelsheet`, postfix: '.xlsx', mode: parseInt('0600', 8)},
+                async (err, file) => {
+                if(err) throw new BadRequestException(err); 
+
+                book.xlsx.writeFile(file).then(_ => {
+                    console.log('_', resolve(file));
+                    resolve(file)
+                }).catch(err => {
+                    throw new BadRequestException(err);
+                });
+            });
+        });
+
+        return File;
+    }
+
+
+
+    private styleSheet(sheet) {
+
+        // Set the height of header
+        sheet.getRow(1).height = 30.5;
+
+        // Font color
+        sheet.getRow(1).font = { size: 11.5, bold: true, color: {argb: 'FFFFFF'}};
+
+        // Background color
+        sheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', bgColor: {argb: 'F9D612'}, fgColor: { argb: 'F9D612'}};
+
+        // Alignments
+        sheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+
+        // Border
+        sheet.getRow(1).border = {
+            top: { style: 'thin', color: { argb: '000000'}},
+            left: { style: 'thin', color: { argb: 'FFFFFF'}}, 
+            bottom: { style: 'thin', color: { argb: '000000'}},
+            right: { style: 'thin', color: { argb: 'FFFFFF'}}
+        }
+
+    }
     
 }
