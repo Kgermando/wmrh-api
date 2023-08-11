@@ -46,11 +46,18 @@ export class ApointementController {
     }
 
     @Get('get-registre/:code_entreprise')
-    async getRegisterPresence(
+    async getRegisterPresenceAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.apointementService.registrePresence(code_entreprise);
-    } 
+      return this.apointementService.registrePresenceAll(code_entreprise);
+    }
+    @Get('get-registre/:code_entreprise/:site_location')
+    async getRegisterPresence(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('site_location') site_location: string,
+    ) {
+      return this.apointementService.registrePresence(code_entreprise, site_location);
+    }
 
     @Get('get-last-item/:code_entreprise/:matricule')
     async getLastItem(
@@ -61,17 +68,31 @@ export class ApointementController {
     }
 
     @Get('get-item-p-a-aa/:code_entreprise')
-    async getItemsPAAA(
+    async getItemsPAAAALL(
       @Param('code_entreprise') code_entreprise: string
     ) {
-      return this.apointementService.getItemsPAAA(code_entreprise);
+      return this.apointementService.getItemsPAAAALL(code_entreprise);
+    }
+    @Get('get-item-p-a-aa/:code_entreprise/:site_location')
+    async getItemsPAAA(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('site_location') site_location: string,
+    ) {
+      return this.apointementService.getItemsPAAA(code_entreprise, site_location);
     }
 
     @Get('get-item-conge/:code_entreprise')
-    async getItemsCongE(
+    async getItemsCongEALL(
       @Param('code_entreprise') code_entreprise: string
     ) {
-      return this.apointementService.getItemsCongE(code_entreprise);
+      return this.apointementService.getItemsCongEALL(code_entreprise);
+    }
+    @Get('get-item-conge/:code_entreprise/:site_location')
+    async getItemsCongE(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('site_location') site_location: string,
+    ) {
+      return this.apointementService.getItemsCongE(code_entreprise, site_location);
     }
 
 
