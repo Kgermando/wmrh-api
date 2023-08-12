@@ -171,7 +171,7 @@ export class ApointementService extends AbstractService {
             "apointements"."site_location"='${site_location}' AND
             "apointements"."created">='${start_date}' AND 
             "apointements"."created"<='${end_date}';
-        `); 
+        `);
 
         if(!data) {
             throw new NotFoundException("No data download");
@@ -183,6 +183,7 @@ export class ApointementService extends AbstractService {
             rows.push(doc);
         });
 
+        console.log('data', data);
         console.log('row', rows);
 
         let book = new Workbook();
