@@ -47,7 +47,7 @@ export class PersonnelUpdateDto {
 
     statut_personnel?: boolean; 
 
-    role?: number;
+    roles?: string[];
     
     permission?: string; 
 

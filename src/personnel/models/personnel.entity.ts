@@ -72,8 +72,8 @@ export class Personnel {
     @Column({default: false})
     statut_personnel: boolean;
 
-    @Column({default: 5})
-    role: number; // Show or Hide items can do 0 to 5
+    @Column('simple-array', { nullable: true })
+    roles: string[];
     
     @Column({nullable: true})
     permission: string;  // Give access to CRUD  [Create, Read, Update, Delete] C R U D
