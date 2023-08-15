@@ -11,7 +11,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors({
     origin: isProduction
-      ? 'https://cjaco.org'
+      ? 'https://wm-rh-015.web.app'
       : 'http://localhost:4200',
     credentials: true
   });
