@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsNotEmpty } from "class-validator";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class ApointementCreateDto {
@@ -9,11 +9,8 @@ export class ApointementCreateDto {
     @IsNotEmpty()
     apointement: string;
 
-    // @IsNotEmpty()
-    // counter: boolean;
-
-    // @IsNotEmpty()
-    // presence: boolean;
+    @IsNotEmpty()
+    prestation: string;
 
     @IsNotEmpty()
     observation: string;

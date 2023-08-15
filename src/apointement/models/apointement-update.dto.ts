@@ -6,9 +6,7 @@ export class ApointementUpdateDto {
 
     apointement?: string;
 
-    // counter?: boolean;
-
-    // presence?: boolean;
+    prestation?: string; // Journée entiere ou demi-journée
 
     observation?: string;
 

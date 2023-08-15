@@ -6,6 +6,8 @@ import { Salaire } from './models/salaire.entity';
 import { Workbook } from 'exceljs';
 import * as tmp  from 'tmp'; 
 import { SalaireExcel } from './models/salaire_excel';
+import { createReadStream } from 'fs';
+import { join } from 'path';
 
 @Injectable()
 export class SalairesService extends AbstractService {
@@ -65,42 +67,42 @@ export class SalairesService extends AbstractService {
 
     getJrPrestE(code_entreprise, matricule) {
         return this.dataSource.query(`
-        SELECT  (
+            SELECT COALESCE(SUM(prestation ::FLOAT), 0) as sum
+            FROM apointements  WHERE 
+            code_entreprise='${code_entreprise}' AND
+            matricule='${matricule}'  AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+        `)
+        // return this.dataSource.query(`
+        // SELECT  (
 
-            (SELECT count(*) FILTER (WHERE apointement='P') as p
-            FROM apointements WHERE 
-                code_entreprise='${code_entreprise}' AND
-                matricule='${matricule}'  AND
-                        EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                        EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            )  
-            +
-            (SELECT count(*) FILTER (WHERE apointement='AA') as aa
-            FROM apointements WHERE 
-                code_entreprise='${code_entreprise}' AND
-                matricule='${matricule}'  AND
-                        EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                        EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            )  
-            +
-            (SELECT count(*) FILTER (WHERE apointement='S') as s
-            FROM apointements WHERE 
-            code_entreprise='${code_entreprise}' AND
-                matricule='${matricule}'  AND
-                        EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                        EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            )
-            +
-            (SELECT count(*) FILTER (WHERE apointement='M') as m
-            FROM apointements WHERE 
-            code_entreprise='${code_entreprise}' AND
-                matricule='${matricule}'  AND
-                        EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                        EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            )
+        //     (SELECT count(*) FILTER (WHERE apointement='P') as p
+        //     FROM apointements WHERE 
+        //         code_entreprise='${code_entreprise}' AND
+        //         matricule='${matricule}'  AND
+        //                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+        //                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+        //     )  
+        //     +
+        //     (SELECT count(*) FILTER (WHERE apointement='AA') as aa
+        //     FROM apointements WHERE 
+        //         code_entreprise='${code_entreprise}' AND
+        //         matricule='${matricule}'  AND
+        //                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+        //                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+        //     )
+        //     +
+        //     (SELECT count(*) FILTER (WHERE apointement='M') as m
+        //     FROM apointements WHERE 
+        //     code_entreprise='${code_entreprise}' AND
+        //         matricule='${matricule}'  AND
+        //                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+        //                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+        //     )
              
-        ) AS presence; 
-        `);
+        // ) AS presence; 
+        // `);
     }
 
     getJrCongePayE(code_entreprise, matricule) {
@@ -424,6 +426,10 @@ export class SalairesService extends AbstractService {
             bottom: { style: 'thin', color: { argb: '000000'}},
             right: { style: 'thin', color: { argb: 'FFFFFF'}}
         }
+    }
 
+
+    fileStream() {
+        return createReadStream(join(process.cwd(), `bulletin.pdf`));
     }
 }

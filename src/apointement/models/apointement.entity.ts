@@ -13,6 +13,9 @@ export class Apointement {
     @Column()
     apointement: string; 
 
+    @Column({default: '1'})
+    prestation: string;
+
     @Column()
     observation: string;
 

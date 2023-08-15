@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Res, UseGuards, UseInterceptors } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, Res, StreamableFile, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SalaireCreateDto } from './models/salaire-create.dto';
 import { SalaireUpdateDto } from './models/salaire-update.dto'; 
@@ -156,6 +156,15 @@ export class SalairesController {
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);
     }
+
+    @Get('streamable')
+  downloadPDF(@Res({ passthrough: true }) response: Response) {
+    const file = this.salaireService.fileStream();
+    response.contentType('application/pdf');
+    // or
+    // const file = this.downloadService.fileBuffer();
+    return new StreamableFile(file); // 👈 supports Buffer and Stream
+  }
 
     
 

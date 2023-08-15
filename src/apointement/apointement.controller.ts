@@ -51,7 +51,7 @@ export class ApointementController {
     ) {
       return this.apointementService.registrePresenceAll(code_entreprise);
     }
-    @Get('get-registre/:code_entreprise/:site_location')
+    @Get('get-registre/:code_entreprise/:site_location') // Registre de presence par site de travail
     async getRegisterPresence(
       @Param('code_entreprise') code_entreprise: string,
       @Param('site_location') site_location: string,
