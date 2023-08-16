@@ -25,81 +25,15 @@ export class RegisterDto {
 
     @IsNotEmpty()
     sexe: string;
-
- 
-    date_naissance: Date;
-   
- 
-    lieu_naissance: string;
-
- 
-    nationalite: string;
-
- 
-    etat_civile: string;
-
- 
-    nbr_enfant: string;
-
- 
-    nbr_dependants: string;
-
- 
-    nbr_dependants_max: string;
       
     @IsNotEmpty()
-    matricule: string;
-
- 
-    numero_cnss: string;
+    matricule: string; 
 
     @IsNotEmpty()
     category: string;
 
     @IsNotEmpty()
-    role: string;  
-   
- 
-    departement: string;
-
- 
-    title: string;
-
-  
-    fonction: string;
-
- 
-    services: string; 
-
- 
-    site_location: string;  
-  
- 
-    type_contrat: string;
-
- 
-    date_debut_contrat: Date;
-
- 
-    date_fin_contrat: Date;
-   
- 
-    salaire: string;
-
- 
-    compte_bancaire: string;
-
- 
-    nom_banque: string;
-
- 
-    frais_bancaire: string; 
-
- 
-    statut_personnel: boolean;
-
- 
-    cv_url: string;  
+    roles: string;   
 
     @IsNotEmpty()
     signature: string;  
@@ -115,11 +49,7 @@ export class RegisterDto {
 
     @IsNotEmpty()
     password_confirm: string; 
-
-    presences: Apointement[];
  
-    syndicat: boolean; 
-    
     @IsNotEmpty()
     entreprise: string;
     
