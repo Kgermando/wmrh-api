@@ -65,9 +65,9 @@ export class AuthController {
         }
 
         
-        // if(user.statut_personnel == false) {
-        //     throw new BadRequestException("Ce compte n'est pas actif! ");
-        // } 
+        if(user.statut_personnel == false) {
+            throw new BadRequestException("Ce compte n'est pas actif! ");
+        } 
 
         const jwt = await this.jwtService.signAsync({id: user.id});
         
