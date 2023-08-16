@@ -145,28 +145,34 @@ export class EmployesService {
     // Employés par departement
     async employeDepartementMonth(code_entreprise) {
         return this.dataSource.query(`
-        SELECT "departementsId", COUNT(*)
-            FROM personnels WHERE code_entreprise='${code_entreprise}'  AND 
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            GROUP BY "departementsId";
-        `);
+        SELECT "departement", COUNT(*)
+            FROM personnels 
+            LEFT JOIN "departements" ON "departements"."id" = "personnels"."departementsId"
+            WHERE "personnels"."code_entreprise"='${code_entreprise}' AND
+            EXTRACT(MONTH FROM "personnels"."created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "personnels"."created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY "departement";
+        `); 
     }
 
     async employeDepartementYear(code_entreprise) {
         return this.dataSource.query(`
-        SELECT "departementsId", COUNT(*)
-            FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            GROUP BY "departementsId";
+            SELECT "departement", COUNT(*)
+            FROM personnels 
+            LEFT JOIN "departements" ON "departements"."id" = "personnels"."departementsId"
+            WHERE "personnels"."code_entreprise"='${code_entreprise}' AND
+            EXTRACT(YEAR FROM "personnels"."created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY "departement"; 
         `);
     }
 
     async employeDepartementAll(code_entreprise) {
         return this.dataSource.query(`
-        SELECT "departementsId", COUNT(*)
-            FROM personnels WHERE code_entreprise='${code_entreprise}'  
-            GROUP BY "departementsId";
+        SELECT "departement", COUNT(*)
+        FROM personnels 
+        LEFT JOIN "departements" ON "departements"."id" = "personnels"."departementsId"
+        WHERE "personnels"."code_entreprise"='${code_entreprise}' 
+        GROUP BY "departement";  
         `);
     }
 
@@ -175,7 +181,7 @@ export class EmployesService {
 
     async ageContratEmployeMonth(code_entreprise) {
         return this.dataSource.query(` 
-            SELECT DISTINCT EXTRACT(DAY FROM date_debut_contrat ::TIMESTAMP),
+            SELECT DISTINCT EXTRACT(DAY FROM date_debut_contrat ::TIMESTAMP) AS date,
             DATE_PART('DAY', AGE(CURRENT_DATE ::TIMESTAMP,"date_debut_contrat" ::TIMESTAMP)) AS age
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
@@ -186,7 +192,7 @@ export class EmployesService {
 
     async ageContratEmployeYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT DISTINCT EXTRACT(MONTH FROM date_debut_contrat ::TIMESTAMP),
+            SELECT DISTINCT EXTRACT(MONTH FROM date_debut_contrat ::TIMESTAMP) AS date,
             DATE_PART('MONTH', AGE(CURRENT_DATE ::TIMESTAMP,"date_debut_contrat" ::TIMESTAMP)) AS age
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
@@ -196,7 +202,7 @@ export class EmployesService {
 
     async ageContratEmployeAll(code_entreprise) {
         return this.dataSource.query(`
-        SELECT DISTINCT EXTRACT(YEAR FROM date_debut_contrat ::TIMESTAMP),
+        SELECT DISTINCT EXTRACT(YEAR FROM date_debut_contrat ::TIMESTAMP) AS date,
             DATE_PART('YEAR', AGE(CURRENT_DATE ::TIMESTAMP,"date_debut_contrat" ::TIMESTAMP)) AS age
             FROM personnels WHERE code_entreprise='${code_entreprise}'
             GROUP BY date_debut_contrat;
