@@ -64,20 +64,20 @@ export class AuthController {
             throw new BadRequestException('Invalid credentiels.');
         }
 
-
+        
         // if(user.statut_personnel == false) {
         //     throw new BadRequestException("Ce compte n'est pas actif! ");
         // } 
 
         const jwt = await this.jwtService.signAsync({id: user.id});
         
-        response.cookie('jwt', jwt, { httpOnly: true });
+        response.cookie('jwt', jwt, { httpOnly: true, secure: true });
 
         return user;
     }
 
 
-    // @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard)
     @Get('personnel')
     async user(@Req() request: Request) {
         const id = await this.authService.personnelId(request);
