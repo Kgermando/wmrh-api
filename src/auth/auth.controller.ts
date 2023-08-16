@@ -64,6 +64,7 @@ export class AuthController {
             throw new BadRequestException('Invalid credentiels.');
         }
 
+        
         // if(user.statut_personnel == false) {
         //     throw new BadRequestException("Ce compte n'est pas actif! ");
         // } 
