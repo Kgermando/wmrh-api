@@ -64,7 +64,7 @@ export class AuthController {
             throw new BadRequestException('Invalid credentiels.');
         }
 
-        
+
         // if(user.statut_personnel == false) {
         //     throw new BadRequestException("Ce compte n'est pas actif! ");
         // } 
@@ -77,7 +77,7 @@ export class AuthController {
     }
 
 
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     @Get('personnel')
     async user(@Req() request: Request) {
         const id = await this.authService.personnelId(request);
