@@ -10,7 +10,6 @@ import { PersonnelService } from 'src/personnel/personnel.service';
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
 export class AuthController {
-
     constructor(
         private personnelService: PersonnelService,
         private jwtService: JwtService,
@@ -39,7 +38,7 @@ export class AuthController {
             signature: body.signature,
             created: body.created,
             update_created: body.update_created,
-            password: hashed, 
+            password: hashed,
             entreprise: body.entreprise,
             code_entreprise: body.code_entreprise,
         }
@@ -53,19 +52,21 @@ export class AuthController {
         @Body('code_entreprise') code_entreprise: string,
         @Res({passthrough: true}) response: Response
     ) {
-        const user = await this.personnelService.findOne({ where: { matricule: matricule, code_entreprise: code_entreprise } })
+        const user = await this.personnelService.findOne({
+            where: { matricule: matricule, code_entreprise: code_entreprise }
+        })
 
         if(!user) {
             throw new NotFoundException('Utilisateur non trouvé!');
-        } 
+        }
 
         if(!await bcrypt.compare(password, user.password)) {
             throw new BadRequestException('Invalid credentiels.');
         }
 
-        if(user.statut_personnel == false) {
-            throw new BadRequestException("Ce compte n'est pas actif! ");
-        } 
+        // if(user.statut_personnel == false) {
+        //     throw new BadRequestException("Ce compte n'est pas actif! ");
+        // } 
 
         const jwt = await this.jwtService.signAsync({id: user.id});
         
