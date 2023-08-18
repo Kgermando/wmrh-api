@@ -6,7 +6,7 @@ export class PresEntreprise {
     @PrimaryGeneratedColumn()
     id: number;  
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.pres_entreprises, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => Personnel, (personnel)=> personnel.pres_entreprises, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()

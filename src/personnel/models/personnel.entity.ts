@@ -81,19 +81,19 @@ export class Personnel {
 
 
     // Travail
-    @ManyToOne(() => Departement, (dep)=> dep.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => Departement, (dep)=> dep.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     departements: Departement;
 
-    @ManyToOne(() => Title, (tit)=> tit.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => Title, (tit)=> tit.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     titles: Title;
 
-    @ManyToOne(() => Fonction, (fonc)=> fonc.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => Fonction, (fonc)=> fonc.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     fonctions: Fonction;
 
-    @ManyToOne(() => ServicePref, (serv)=> serv.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => ServicePref, (serv)=> serv.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     services: ServicePref; // caisse
 
-    @ManyToOne(() => SiteLocation, (site)=> site.personnels, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => SiteLocation, (site)=> site.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     site_locations: SiteLocation; // Site de travail
 
 
@@ -135,7 +135,7 @@ export class Personnel {
     @Column({nullable: true})
     nom_banque: string;
 
-    @Column({nullable: true})
+    @Column({ default: '0'})  // If bug Add nullable: true
     frais_bancaire: string;  // Frais de compte
   
 

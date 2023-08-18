@@ -86,6 +86,16 @@ export class PersonnelController {
       res.download(`${result}`);
   } 
 
+  @Post('download-model-xlsx') 
+  async downloadModelReport(
+    @Res() res: Response,
+    ) {
+      let result = await this.personneService.downloadModelExcel();
+        // console.log("result", result);  
+        res.set("Content-Type", "text/xlsx");
+      res.download(`${result}`);
+  } 
+
 
   @Get('get/:id')
   async get(@Param('id') id: number) {
@@ -147,9 +157,7 @@ export class PersonnelController {
   }
 
   @Delete(':id')
-  async delete(
-    @Param(':id') id: number
-  ) {
-    return this.personneService.delete(id);
+  async delete(@Param('id') id: number) {
+      return this.personneService.delete(id);
   }
 }

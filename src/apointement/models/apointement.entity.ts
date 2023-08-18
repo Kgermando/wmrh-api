@@ -25,7 +25,7 @@ export class Apointement {
     @Column()
     date_sortie: Date;  
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.presences, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => Personnel, (personnel)=> personnel.presences, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column({default: 'ALL'})   

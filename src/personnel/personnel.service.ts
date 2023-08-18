@@ -6,6 +6,7 @@ import { DataSource, Repository } from 'typeorm';
 import { Workbook } from 'exceljs';
 import * as tmp  from 'tmp'; 
 import { PersonnelExcel } from './models/personnel_excel';
+import { PersonnelCreateDto } from './models/personnel-create.dto';
 
 @Injectable()
 export class PersonnelService extends AbstractService {
@@ -66,10 +67,19 @@ export class PersonnelService extends AbstractService {
             }),
             meta
         }
-    } 
+    }
+
+    // async deleteItem(condition): Promise<any> {
+    //     return await this.repository
+    //     .createQueryBuilder('personnels')
+    //     .delete()
+    //     .from(Personnel)
+    //     .where("id = :id", { id: condition })
+    //     .execute();
+    // }
 
     async presence(condition): Promise<any> {
-        return await this.repository.findOne(condition)
+        return await this.repository.findOne(condition);
     }
 
     getSyndicat(code_entreprise): Promise<any[]> {
@@ -177,6 +187,103 @@ export class PersonnelService extends AbstractService {
 
 
 
+
+    async downloadModelExcel() {
+
+        let data: any[] = [];
+
+        data = [
+            {
+                nom: 'Eenge',
+                postnom: 'Musala',
+                prenom: 'Jean de Dieu',
+                email: 'ekengejean@gmail.com',
+                telephone: '+243813530868',
+                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
+                sexe: 'Homme',
+                matricule: 'entreprise',
+                category: 'Cadres subalterne',
+                roles: 'Dashboard',
+                signature: 'Mon matricule',
+                created: new Date(),
+                update_created: new Date(), 
+                entreprise: 'Entreprise',
+                code_entreprise: 'Code Entreprise',
+            },
+            {
+                nom: 'Senga',
+                postnom: 'Mawete',
+                prenom: 'Benedicte',
+                email: 'sengabenedicte@gmail.com',
+                telephone: '0853530845',
+                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
+                sexe: 'Femme',
+                matricule: 'mon matricule',
+                category: 'Cadres subalterne',
+                roles: 'Personnels',
+                signature: 'Mon matricule',
+                created: new Date(),
+                update_created: new Date(), 
+                entreprise: 'Entreprise',
+                code_entreprise: 'Code Entreprise',
+            },
+        ]
+
+        if(!data) {
+            throw new NotFoundException("No data download");
+        }
+
+        let rows: any[] = [];
+
+        data.forEach(doc => {
+            rows.push(doc);
+        });
+
+        let book = new Workbook();
+        let sheet = book.addWorksheet('MODEL D\'EXPORTATION DES EMPLOYES');
+
+        const headers = [ 
+            { header: 'Nom', key: 'nom', width: 20.5 },
+            { header: 'Post-nom', key: 'postnom', width: 20.5 },
+            { header: 'Prénom', key: 'prenom', width: 20.5 },
+            { header: 'Mail', key: 'email', width: 30.5 },
+            { header: 'Téléphone', key: 'telephone', width: 20.5 },
+            { header: 'Adresse', key: 'adresse', width: 30.5 },
+            { header: 'Sexe', key: 'sexe', width: 20.5 },
+            { header: 'Matricule', key: 'matricule', width: 20.5 },
+            { header: 'Catégorie', key: 'category', width: 30.5 }, 
+            { header: 'Accréditation', key: 'roles', width: 20.5 },
+            { header: 'Signature', key: 'signature', width: 20.5 },
+            { header: 'Date de création', key: 'created', width: 20.5 },
+            { header: 'Mise à jour', key: 'update_created', width: 20.5 },
+            { header: 'Entreprise', key: 'entreprise', width: 20.5 },
+            { header: 'Code Entreprise', key: 'code_entreprise', width: 20.5 },
+        ]
+
+        sheet.columns = headers;
+        sheet.addRows(rows);
+
+        this.styleSheet(sheet);
+
+        let File = await new Promise((resolve, reject) => {
+            tmp.file({discardDescriptor: true, prefix: `myexcelsheet`, postfix: '.xlsx', mode: parseInt('0600', 8)},
+                async (err, file) => {
+                if(err) throw new BadRequestException(err); 
+
+                book.xlsx.writeFile(file).then(_ => {
+                    console.log('_', resolve(file));
+                    resolve(file)
+                }).catch(err => {
+                    throw new BadRequestException(err);
+                });
+            });
+        });
+
+        return File;
+    }
+
+
+
     private styleSheet(sheet) {
 
         // Set the height of header
@@ -200,5 +307,11 @@ export class PersonnelService extends AbstractService {
         }
 
     }
+
+
+
+
+
+    
 }
  

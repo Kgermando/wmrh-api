@@ -13,7 +13,7 @@ export class HeureSupp {
     @Column()
     nbr_heures: number;
 
-    @ManyToOne(() => Personnel, (personnel)=> personnel.heures_supp, { onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @ManyToOne(() => Personnel, (personnel)=> personnel.heures_supp, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
     @Column()
