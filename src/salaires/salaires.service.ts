@@ -67,7 +67,7 @@ export class SalairesService extends AbstractService {
 
     getJrPrestE(code_entreprise, matricule) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(prestation ::FLOAT), 0) as sum
+            SELECT COALESCE(SUM(prestation ::FLOAT), 0) as presence
             FROM apointements  WHERE 
             code_entreprise='${code_entreprise}' AND
             matricule='${matricule}'  AND

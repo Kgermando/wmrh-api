@@ -54,7 +54,7 @@ export class Salaire {
     conge_paye: number;
 
     @Column({default: 26})
-    nbre_jrs_preste: number; // Nombre de jours presents
+    nbre_jrs_preste: string; // Nombre de jours presents
 
     @Column({default: 0})
     nbre_jrs_ferie: number; // Nombre de jours ferié dans le mois en cours
