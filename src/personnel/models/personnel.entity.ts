@@ -135,7 +135,7 @@ export class Personnel {
     @Column({nullable: true})
     nom_banque: string;
 
-    @Column({ default: '0'})  // If bug Add nullable: true
+    @Column({ nullable: true, default: '0'})
     frais_bancaire: string;  // Frais de compte
   
 
