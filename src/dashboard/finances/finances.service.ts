@@ -12,6 +12,7 @@ export class FinancesService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -21,6 +22,7 @@ export class FinancesService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
@@ -30,6 +32,7 @@ export class FinancesService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
@@ -38,6 +41,7 @@ export class FinancesService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
         `);
     }
@@ -46,6 +50,7 @@ export class FinancesService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
             EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
@@ -57,6 +62,7 @@ export class FinancesService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
             EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
@@ -74,6 +80,7 @@ export class FinancesService {
                 EXTRACT(DAY FROM "created" ::TIMESTAMP) as day
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
+                statut='Disponible' AND
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
                 GROUP BY day;
@@ -88,6 +95,7 @@ export class FinancesService {
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND 
+                statut='Disponible' AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
                 GROUP BY month;
             `);
@@ -101,6 +109,7 @@ export class FinancesService {
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year_ans
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
+                statut='Disponible' AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
                 BETWEEN
                 EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND

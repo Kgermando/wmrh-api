@@ -235,10 +235,11 @@ export class SalairesService extends AbstractService {
     getAnciennete(code_entreprise, id, date_debut_contrat) {
         return this.dataSource.query(`
         SELECT current_date, 
-        AGE(timestamp '${date_debut_contrat}') FROM personnels WHERE
+        AGE(timestamp '${date_debut_contrat}') AS age
+        FROM personnels WHERE
         code_entreprise='${code_entreprise}' AND
         "id"='${id}';
-    `); 
+    `);
     }
 
 

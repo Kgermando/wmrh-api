@@ -33,7 +33,7 @@ export class SalairesController {
     @Get('get-nbr-heures-supp/:code_entreprise/:id')
     async nbrHeureSupp(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.nbrHeureSupp(code_entreprise, id);
     }
@@ -41,14 +41,14 @@ export class SalairesController {
     @Get('get-prime-total-cdf/:code_entreprise/:id')
     async primeTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.primeTotalCDF(code_entreprise, id);
     }
     @Get('get-prime-total-usd/:code_entreprise/:id')
     async primeTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.primeTotalUSD(code_entreprise, id);
     }
@@ -56,14 +56,14 @@ export class SalairesController {
     @Get('get-penalite-total-cdf/:code_entreprise/:id')
     async penaliteTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.penaliteTotalCDF(code_entreprise, id);
     }
     @Get('get-penalite-total-usd/:code_entreprise/:id')
     async penaliteTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.penaliteTotalUSD(code_entreprise, id);
     }
@@ -71,14 +71,14 @@ export class SalairesController {
     @Get('get-avance-salaire-total-cdf/:code_entreprise/:id')
     async avanceSalaireTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.avanceSalaireTotalCDF(code_entreprise, id);
     }
     @Get('get-avance-salaire-total-usd/:code_entreprise/:id')
     async avanceSalaireTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.avanceSalaireTotalUSD(code_entreprise, id);
     }
@@ -86,7 +86,7 @@ export class SalairesController {
     @Get('get-date-debut-contrat/:code_entreprise/:id/:date_debut_contrat')
     async getAnciennete(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string,
+      @Param('id') id: number,
       @Param('date_debut_contrat') date_debut_contrat: string,
     ) {
       return this.salaireService.getAnciennete(code_entreprise, id, date_debut_contrat);
@@ -95,14 +95,14 @@ export class SalairesController {
     @Get('pres-entreprise-cdf/:code_entreprise/:id')
     async preEntrepriseCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.preEntrepriseCDF(code_entreprise, id);
     }
     @Get('pres-entreprise-usd/:code_entreprise/:id')
     async preEntrepriseUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: string
+      @Param('id') id: number
     ) {
       return this.salaireService.preEntrepriseUSD(code_entreprise, id);
     }
