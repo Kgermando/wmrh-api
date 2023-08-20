@@ -28,6 +28,19 @@ export class FinancesService {
         `);
     }
 
+
+    async totalRBIMonth(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(rbi as decimal(10,2))), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+
+
     async iprYear(code_entreprise) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
@@ -40,6 +53,15 @@ export class FinancesService {
     async cnssQPOYear(code_entreprise) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
+            statut='Disponible' AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async totalRBIYear(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(rbi as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -61,6 +83,18 @@ export class FinancesService {
     async cnssQPOAll(code_entreprise) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            BETWEEN
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
+
+    async totalRBIAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(rbi as decimal(10,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 

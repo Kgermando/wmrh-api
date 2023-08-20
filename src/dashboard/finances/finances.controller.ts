@@ -21,6 +21,13 @@ export class FinancesController {
       return this.financesService.cnssQPOMonth(code_entreprise);
     }
 
+    @Get('total-rbi-month/:code_entreprise')
+    async totalRBIMonth(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.financesService.totalRBIMonth(code_entreprise);
+    }
+
     @Get('total-ipr-year/:code_entreprise')
     async iprYear(
       @Param('code_entreprise') code_entreprise: string,
@@ -35,6 +42,13 @@ export class FinancesController {
       return this.financesService.cnssQPOYear(code_entreprise);
     }
 
+    @Get('total-rbi-year/:code_entreprise')
+    async totalRBIYear(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.financesService.totalRBIYear(code_entreprise);
+    }
+
     @Get('total-ipr-all/:code_entreprise')
     async iprAll(
       @Param('code_entreprise') code_entreprise: string,
@@ -47,6 +61,13 @@ export class FinancesController {
       @Param('code_entreprise') code_entreprise: string,
     ) {
       return this.financesService.cnssQPOAll(code_entreprise);
+    }
+
+    @Get('total-rbi-all/:code_entreprise')
+    async totalRBIAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.financesService.totalRBIAll(code_entreprise);
     }
 
 
