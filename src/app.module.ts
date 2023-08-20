@@ -24,6 +24,8 @@ import { SalairesModule } from './salaires/salaires.module';
 import { PerformenceModule } from './performence/performence.module';
 import { PresEntrepriseModule } from './pres-entreprise/pres-entreprise.module';
 import { MailModule } from './mail/mail.module';
+import { AbonnementsModule } from './abonnements/abonnements.module';
+import { HttpModule } from '@nestjs/axios';
 
 
 @Module({
@@ -67,6 +69,7 @@ import { MailModule } from './mail/mail.module';
     PerformenceModule,
     PresEntrepriseModule,
     MailModule,
+    AbonnementsModule,
   ],
 })
 export class AppModule {}

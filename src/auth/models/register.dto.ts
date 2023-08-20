@@ -33,7 +33,10 @@ export class RegisterDto {
     category: string;
 
     @IsNotEmpty()
-    roles: string;   
+    roles: string;
+
+    @IsNotEmpty()
+    permission: string;
 
     @IsNotEmpty()
     signature: string;  

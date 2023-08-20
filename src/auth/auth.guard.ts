@@ -7,15 +7,14 @@ export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService,
     private readonly config: ConfigService) {}
 
-  private jwtToken = this.config.get<string>('JWT_TOKEN');
-
-
   canActivate(
     context: ExecutionContext,
   ){
     const request = context.switchToHttp().getRequest();
     try {
-      const jwt = request.cookies['jwt'];
+      const token = this.config.get<string>('token');
+
+      const jwt = request.cookies[token];  // request.cookies['jwt'];
       return this.jwtService.verify(jwt);
     } catch(e) {
       return false;

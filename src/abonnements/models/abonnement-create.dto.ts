@@ -1,21 +1,17 @@
-import { IsNotEmpty } from "class-validator";
-import { Personnel } from "src/personnel/models/personnel.entity";
+import { IsNotEmpty } from "class-validator"; 
 
-export class AvanceSalaireCreateDto {
+export class AbonnementCreateDto {
     @IsNotEmpty()
-    personnel: Personnel;
-
-    @IsNotEmpty()
-    intitule: string; 
+    originatingTransactionId: string;
 
     @IsNotEmpty()
-    monnaie: string;
+    statusCode: string; 
 
     @IsNotEmpty()
-    montant: string; 
+    statusDescription: string;
 
     @IsNotEmpty()
-    observation: string; 
+    transactionId: string;
 
     @IsNotEmpty()
     signature: string;

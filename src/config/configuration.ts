@@ -6,6 +6,7 @@ export default () => ({
       url: isProduction ? process.env.DATABASE_URL
         : `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASS}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DATABASE}`
     },
+    token: process.env.JWT_TOKEN,
     bucket: {
       region: process.env.IMAGE_S3_REGION,
       spaces: process.env.SPACES,
@@ -21,6 +22,7 @@ export default () => ({
       port: process.env.MAIL_PORT,
       username: process.env.MAIL_USERNAME,
       password: process.env.MAIL_PASSWORD,
-    } 
+    }
+
   }
 );

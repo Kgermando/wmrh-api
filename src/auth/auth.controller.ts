@@ -6,6 +6,7 @@ import { Request, Response } from 'express';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { PersonnelService } from 'src/personnel/personnel.service';
+import { ConfigService } from '@nestjs/config';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -14,6 +15,7 @@ export class AuthController {
         private personnelService: PersonnelService,
         private jwtService: JwtService,
         private authService: AuthService,
+        private readonly config: ConfigService
         ) { }
 
     @Post('register')
@@ -34,6 +36,7 @@ export class AuthController {
             sexe: body.sexe, 
             matricule: body.matricule, 
             roles: body.roles,
+            permission: body.permission,
             category: body.category, 
             signature: body.signature,
             created: body.created,
@@ -57,11 +60,11 @@ export class AuthController {
         })
 
         if(!user) {
-            throw new NotFoundException('Utilisateur non trouvé!');
+            throw new NotFoundException('Identifiant non trouvé!');
         }
 
         if(!await bcrypt.compare(password, user.password)) {
-            throw new BadRequestException('Invalid credentiels.');
+            throw new BadRequestException('Votre mot de passe n\'est pas correct !');
         }
 
         
@@ -70,12 +73,13 @@ export class AuthController {
         } 
 
         const jwt = await this.jwtService.signAsync({id: user.id});
+
+        const token = this.config.get<string>('token');
         
-        response.cookie('jwt', jwt, { httpOnly: true, secure:true, sameSite: 'none' });
+        response.cookie(token, jwt, { httpOnly: true, secure:true, sameSite: 'none' });
 
         return user;
     }
-
 
     @UseGuards(AuthGuard)
     @Get('personnel')
@@ -89,7 +93,8 @@ export class AuthController {
     async logout(
         @Res() response: Response 
     ) {
-        response.clearCookie('jwt');
+        const token = this.config.get<string>('token');
+        response.clearCookie(token);
 
         return {
             message: 'Success!'
