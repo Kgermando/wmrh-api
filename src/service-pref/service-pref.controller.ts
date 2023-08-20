@@ -9,14 +9,14 @@ import { ServicePrefUpdateDto } from './models/service-pref-update.dto';
 @Controller('service-prefs')
 export class ServicePrefController {
     constructor(
-        private servicePrefService: ServicePrefService
+        private servicePrefService: ServicePrefService,
     ) {}
 
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.servicePrefService.all(code_entreprise);
+      return this.servicePrefService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
@@ -36,9 +36,8 @@ export class ServicePrefController {
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-      return this.servicePrefService.findGetOne({id});
+      return this.servicePrefService.findGetOne({id}); 
     }
-
 
     @Put(':id')
     async update(

@@ -12,6 +12,16 @@ export class DepartementService extends AbstractService {
         super(departementRepository); 
     } 
 
+    allGet(code_entreprise): Promise<any[]> {
+        return this.repository.find({
+            relations: {
+                personnels: true,
+            },
+            where: {code_entreprise},
+            order: {'created': 'DESC'}
+        }); 
+    }
+
 
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({

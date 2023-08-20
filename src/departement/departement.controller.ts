@@ -16,7 +16,7 @@ export class DepartementController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.departementService.all(code_entreprise);
+      return this.departementService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')

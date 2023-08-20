@@ -31,7 +31,7 @@ export class PersonnelService extends AbstractService {
             where: {code_entreprise},
             order: {'created': 'DESC'}
         }); 
-    }
+    }services
     
 
     async findGetOne(condition): Promise<any> {

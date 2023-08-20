@@ -16,7 +16,7 @@ export class TitleController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.titleService.all(code_entreprise);
+      return this.titleService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')

@@ -17,7 +17,7 @@ export class FonctionController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.fonctionService.all(code_entreprise);
+      return this.fonctionService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
@@ -35,9 +35,10 @@ export class FonctionController {
         return this.fonctionService.create(body);
     }
 
+
     @Get('get/:id')
     async get(@Param('id') id: number) {
-        return this.fonctionService.findOne({where: {id}});
+      return this.fonctionService.findGetOne({id});
     }
 
     @Put(':id')

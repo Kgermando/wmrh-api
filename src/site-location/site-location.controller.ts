@@ -16,7 +16,7 @@ export class SiteLocationController {
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.siteLocationService.all(code_entreprise);
+      return this.siteLocationService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
