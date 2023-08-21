@@ -8,6 +8,9 @@ export class Preference {
     id: number;  
     
     // Infos entreprise 
+    @Column({default: '-'})
+    logo: string;
+
     @Column()
     company_name: string;
 
@@ -17,8 +20,8 @@ export class Preference {
     @Column()
     cnss: string;
 
-    @Column()
-    numero_taxe: string;
+    // @Column()
+    // numero_taxe: string;
 
     @Column()
     rccm: string;

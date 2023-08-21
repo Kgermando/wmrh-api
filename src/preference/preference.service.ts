@@ -13,11 +13,9 @@ export class PreferenceService extends AbstractService {
         super(preferenceRepository); 
     } 
 
-    // async preference (condition: string) {
-    //     return this.dataSource.query(`
-    //         SELECT * FROM preferences WHERE code_entreprise='${condition}' FETCH FIRST ROW ONLY;
-    //     `);
-    // }
+    all(): Promise<any[]> {
+        return this.repository.find(); 
+    }
 
     async preference(condition): Promise<any> {
         return await this.repository.findOne(condition)

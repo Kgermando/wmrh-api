@@ -1,8 +1,9 @@
 export class PreferenceUpdateDto {
+    logo?: string;
     company_name?: string;
     nbr_employe?: number;
     cnss?: string;
-    numero_taxe?: string;
+    // numero_taxe?: string;
     rccm?: string;
     id_nat?: string;
     numero_impot?: string;

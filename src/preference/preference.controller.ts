@@ -41,24 +41,11 @@ export class PreferenceController {
     }
 
 
-    // @Get('get-all/:code_entreprise')
-    // async getAll(
-    //   @Param('code_entreprise') code_entreprise: string,
-    // ) {
-    //   return this.preferenceService.all(code_entreprise);
-    // }
+    @Get('get-all')
+    async getAll() {
+      return this.preferenceService.all();
+    }
 
-    // @Get(':code_entreprise')
-    // async all(
-    //     @Query('page') page = 1,
-    //     @Param('code_entreprise') code_entreprise: string
-    //     ) {
-    //     return this.preferenceService.paginate(page, code_entreprise);
-    // }
-
-       // @Get('get/:id')
-    // async get(@Param('id') id: number) {
-    //     return this.preferenceService.findOne({where: {id}});
-    // }
+  
 
 }

@@ -3,6 +3,9 @@ import { IsNotEmpty } from "class-validator";
 export class PreferenceCreateDto {
    
     @IsNotEmpty()
+    logo: string;
+
+    @IsNotEmpty()
     company_name: string;
 
     @IsNotEmpty()
@@ -11,8 +14,8 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     cnss: string;
 
-    @IsNotEmpty()
-    numero_taxe: string;
+    // @IsNotEmpty()
+    // numero_taxe: string;
 
     @IsNotEmpty()
     rccm: string;
