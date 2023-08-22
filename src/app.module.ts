@@ -26,6 +26,7 @@ import { PresEntrepriseModule } from './pres-entreprise/pres-entreprise.module';
 import { MailModule } from './mail/mail.module';
 import { AbonnementsModule } from './abonnements/abonnements.module';
 import { HttpModule } from '@nestjs/axios';
+import { NotificationModule } from './notification/notification.module';
 
 
 @Module({
@@ -70,6 +71,7 @@ import { HttpModule } from '@nestjs/axios';
     PresEntrepriseModule,
     MailModule,
     AbonnementsModule,
+    NotificationModule,
   ],
 })
 export class AppModule {}

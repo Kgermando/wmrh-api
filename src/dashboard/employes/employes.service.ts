@@ -188,6 +188,31 @@ export class EmployesService {
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY date_debut_contrat;
         `);  
+
+        // `
+        //     WITH tranche AS ()
+        //     SELECT 
+        //     DATE_PART('YEAR', AGE(CURRENT_DATE ::TIMESTAMP,"date_debut_contrat" ::TIMESTAMP)) AS age,
+        //         COUNT(*) AS nombre
+        //         FROM personnels WHERE code_entreprise='1234' AND 
+        //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+        //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+        //         GROUP BY date_debut_contrat;
+        // `
+
+        // with mat_age as (
+        //     select DEPARTMENT, date_part('year', age(CREATEDATE)) as mage
+        //     from Materials
+        //     )
+        //     select
+        //     DEPARTMENT,
+        //     count(*) filter (where mage<10) as "age<10",
+        //     count(*) filter (where mage>=10 and mage<20) as "10<age<20",
+        //     count(*) filter (where mage>=20) as "20<age"
+        //     from
+        //     mat_age
+        //     group by
+        //     DEPARTMENT;
     }
 
     async ageContratEmployeYear(code_entreprise) {
