@@ -35,6 +35,25 @@ export class NotificationController {
                 notification: {
                     title: 'OUr first push notification',
                     body: 'Here you can add somme text',
+                    vibrate: [100, 50, 100],
+                    icon: 'https://www.shareicon.net/data/256x256/2015/10/02/110808_blog_512x512.png',
+                    actions: [
+                        { action: 'bar', title: 'Focus last'},
+                        { action: 'baz', title: 'navigate last'}
+                    ],
+                    data: {
+                       onActionClick: {
+                            default: { operation: 'openWindow' },
+                            bar: {
+                                operation: 'focusLastFocusOrOpen',
+                                url: '/layouts/salaires/disponible/:id/bulletin-paie',
+                            },
+                            baz: {
+                                operation: 'navigateLastFocusedOrOpen',
+                                url: '/sign'
+                            }
+                       }
+                    }
                 }
             }),
             options,
