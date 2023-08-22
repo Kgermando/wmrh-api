@@ -20,9 +20,7 @@ export class NotificationController {
     constructor() {}
 
     @Post()
-    async sendNotification(
-        @Body() payload: any
-    ): Promise<void> {
+    async sendNotification(@Body() payload: any): Promise<void> {
         const subscription = payload;
 
         return this.sendPushNotification(subscription);
