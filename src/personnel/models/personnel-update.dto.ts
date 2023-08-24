@@ -3,6 +3,7 @@ import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { Departement } from "src/departement/models/departement.entity";
 import { Fonction } from "src/fonction/models/fonction.entity";
+import { Notify } from "src/notify/models/notifiy.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Performence } from "src/performence/models/performence.entity";
 import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
@@ -106,6 +107,8 @@ export class PersonnelUpdateDto {
     performences?: Performence[];
 
     pres_entreprises?: PresEntreprise[];
+
+    notify?: Notify[];
     
 
     signature?: string; 

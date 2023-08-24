@@ -27,6 +27,7 @@ import { MailModule } from './mail/mail.module';
 import { AbonnementsModule } from './abonnements/abonnements.module';
 import { HttpModule } from '@nestjs/axios';
 import { NotificationModule } from './notification/notification.module';
+import { NotifyModule } from './notify/notify.module';
 
 
 @Module({
@@ -72,6 +73,7 @@ import { NotificationModule } from './notification/notification.module';
     MailModule,
     AbonnementsModule,
     NotificationModule,
+    NotifyModule,
   ],
 })
 export class AppModule {}

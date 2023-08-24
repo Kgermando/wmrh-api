@@ -7,9 +7,9 @@ import { Penalite } from './models/pernalite.entity';
 @Injectable()
 export class PenaliteService extends AbstractService {
     constructor(
-        @InjectRepository(Penalite) private readonly fonctionRepository: Repository<Penalite>
+        @InjectRepository(Penalite) private readonly notifyRepository: Repository<Penalite>
     ) {
-        super(fonctionRepository); 
+        super(notifyRepository); 
     }
 
     allGet(code_entreprise): Promise<any[]> {

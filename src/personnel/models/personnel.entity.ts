@@ -4,6 +4,7 @@ import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { Departement } from "src/departement/models/departement.entity";
 import { Fonction } from "src/fonction/models/fonction.entity";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
+import { Notify } from "src/notify/models/notifiy.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Performence } from "src/performence/models/performence.entity";
 import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
@@ -175,6 +176,9 @@ export class Personnel {
 
     @OneToMany(() => PresEntreprise, (item) => item.personnel, {cascade: true})
     pres_entreprises: PresEntreprise[];
+
+    @OneToMany(() => Notify, (item) => item.personnel, {cascade: true})
+    notify: Notify[];
     
    
     @Column()
