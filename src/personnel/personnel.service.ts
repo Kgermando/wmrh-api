@@ -30,7 +30,18 @@ export class PersonnelService extends AbstractService {
             where: {code_entreprise},
             order: {'created': 'DESC'}
         }); 
-    }services
+    }
+
+    allGetLocation(code_entreprise, site_locations): Promise<any[]> {
+        return this.dataSource.query(`
+        SELECT *
+        FROM personnels
+        LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
+        WHERE
+        "personnels"."code_entreprise"='${code_entreprise}' AND
+        "site_locations"."site_location"='${site_locations}';
+    `);
+    }
     
 
     async findGetOne(condition): Promise<any> {
