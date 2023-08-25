@@ -5,8 +5,7 @@ import { Personnel } from './models/personnel.entity';
 import { DataSource, Repository } from 'typeorm';
 import { Workbook } from 'exceljs';
 import * as tmp  from 'tmp'; 
-import { PersonnelExcel } from './models/personnel_excel';
-import { PersonnelCreateDto } from './models/personnel-create.dto';
+import { PersonnelExcel } from './models/personnel_excel'; 
 
 @Injectable()
 export class PersonnelService extends AbstractService {

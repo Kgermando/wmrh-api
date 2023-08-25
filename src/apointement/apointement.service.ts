@@ -46,7 +46,8 @@ export class ApointementService extends AbstractService {
         return this.dataSource.query(`
             SELECT *
             FROM apointements WHERE 
-            code_entreprise='${code_entreprise}' AND 
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             ORDER BY created DESC;
@@ -57,7 +58,8 @@ export class ApointementService extends AbstractService {
             SELECT *
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND 
-            site_location='${site_location}' AND 
+            site_location='${site_location}' AND
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             ORDER BY created DESC;
@@ -159,7 +161,6 @@ export class ApointementService extends AbstractService {
 
 
   async downloadExcel(code_entreprise, site_location, start_date, end_date) {
-
         let data: PresenceExcel[] = [];
 
         data = await this.dataSource.query(`
@@ -183,9 +184,6 @@ export class ApointementService extends AbstractService {
             rows.push(doc);
         });
 
-        console.log('data', data);
-        console.log('row', rows);
-
         let book = new Workbook();
         let sheet = book.addWorksheet('REGISTRE DE PRESENCE');
 
@@ -200,10 +198,103 @@ export class ApointementService extends AbstractService {
             { header: 'Observation', key: 'observation', width: 30.5 },
             { header: 'Date d\'entrée', key: 'date_entree', width: 20.5 },
             { header: 'Date de reprise', key: 'date_sortie', width: 20.5 },
-            
             { header: 'Signature', key: 'signature', width: 20.5 },
             { header: 'Date de création', key: 'created', width: 20.5 },
             { header: 'Mise à jour', key: 'update_created', width: 20.5 }, 
+        ]
+
+        sheet.columns = headers;
+        sheet.addRows(rows);
+
+        this.styleSheet(sheet);
+
+        let File = await new Promise((resolve, reject) => {
+            tmp.file({discardDescriptor: true, prefix: `myexcelsheet`, postfix: '.xlsx', mode: parseInt('0600', 8)},
+                async (err, file) => {
+                if(err) throw new BadRequestException(err); 
+
+                book.xlsx.writeFile(file).then(_ => {
+                    console.log('_', resolve(file));
+                    resolve(file)
+                }).catch(err => {
+                    throw new BadRequestException(err);
+                });
+            });
+        });
+
+        return File;
+    }
+
+    async downloadModelExcel() {
+
+        let data: any[] = [];
+
+        data = [
+            {
+                nom: 'Eenge',
+                postnom: 'Musala',
+                prenom: 'Jean de Dieu',
+                email: 'ekengejean@gmail.com',
+                telephone: '+243813530868',
+                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
+                sexe: 'Homme',
+                matricule: 'entreprise',
+                category: 'Cadres subalterne',
+                roles: 'Dashboard',
+                signature: 'Mon matricule',
+                created: new Date(),
+                update_created: new Date(), 
+                entreprise: 'Entreprise',
+                code_entreprise: 'Code Entreprise',
+            },
+            {
+                nom: 'Senga',
+                postnom: 'Mawete',
+                prenom: 'Benedicte',
+                email: 'sengabenedicte@gmail.com',
+                telephone: '0853530845',
+                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
+                sexe: 'Femme',
+                matricule: 'mon matricule',
+                category: 'Cadres subalterne',
+                roles: 'Personnels',
+                signature: 'Mon matricule',
+                created: new Date(),
+                update_created: new Date(), 
+                entreprise: 'Entreprise',
+                code_entreprise: 'Code Entreprise',
+            },
+        ]
+
+        if(!data) {
+            throw new NotFoundException("No data download");
+        }
+
+        let rows: any[] = [];
+
+        data.forEach(doc => {
+            rows.push(doc);
+        });
+
+        let book = new Workbook();
+        let sheet = book.addWorksheet('MODEL D\'EXPORTATION DES EMPLOYES');
+
+        const headers = [ 
+            { header: 'Nom', key: 'nom', width: 20.5 },
+            { header: 'Post-nom', key: 'postnom', width: 20.5 },
+            { header: 'Prénom', key: 'prenom', width: 20.5 },
+            { header: 'Mail', key: 'email', width: 30.5 },
+            { header: 'Téléphone', key: 'telephone', width: 20.5 },
+            { header: 'Adresse', key: 'adresse', width: 30.5 },
+            { header: 'Sexe', key: 'sexe', width: 20.5 },
+            { header: 'Matricule', key: 'matricule', width: 20.5 },
+            { header: 'Catégorie', key: 'category', width: 30.5 }, 
+            { header: 'Accréditation', key: 'roles', width: 20.5 },
+            { header: 'Signature', key: 'signature', width: 20.5 },
+            { header: 'Date de création', key: 'created', width: 20.5 },
+            { header: 'Mise à jour', key: 'update_created', width: 20.5 },
+            { header: 'Entreprise', key: 'entreprise', width: 20.5 },
+            { header: 'Code Entreprise', key: 'code_entreprise', width: 20.5 },
         ]
 
         sheet.columns = headers;
@@ -239,7 +330,7 @@ export class ApointementService extends AbstractService {
         sheet.getRow(1).font = { size: 11.5, bold: true, color: {argb: 'FFFFFF'}};
 
         // Background color
-        sheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', bgColor: {argb: 'F9D612'}, fgColor: { argb: 'F9D612'}};
+        sheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', bgColor: {argb: '1E4C87'}, fgColor: { argb: '1E4C87'}};
 
         // Alignments
         sheet.getRow(1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
@@ -253,5 +344,6 @@ export class ApointementService extends AbstractService {
         }
 
     }
+
     
 }

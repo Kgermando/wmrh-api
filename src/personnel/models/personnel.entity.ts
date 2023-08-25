@@ -97,7 +97,6 @@ export class Personnel {
     @ManyToOne(() => SiteLocation, (site)=> site.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     site_locations: SiteLocation; // Site de travail
 
-
   
     // Contrat
     @Column({nullable: true})
@@ -111,9 +110,8 @@ export class Personnel {
 
     @Column({default: 'CDF'})
     monnaie: string;
-   
     
-
+    // Avantages legaux
     @Column({default: '0'})
     alloc_logement: string;
 
@@ -195,5 +193,4 @@ export class Personnel {
     
     @Column()
     code_entreprise: string;
-
 }

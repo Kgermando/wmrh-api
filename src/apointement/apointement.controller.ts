@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res, UseGuards } from '@nestjs/common'; 
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import type { Response } from 'express'; 
-
+import * as bcrypt from 'bcrypt';  
+import * as Papa from 'papaparse';
 import { ApointementService } from './apointement.service';
 import { ApointementCreateDto } from './models/apointement-create.dto';
 import { ApointementUpdateDto } from './models/apointement-update.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @UseGuards(AuthGuard)
 @Controller('apointements')
@@ -160,5 +162,27 @@ export class ApointementController {
     @Delete(':id')
     async delete(@Param('id') id: number) {
         return this.apointementService.delete(id);
+    }
+
+
+    @Post('upload-csv')
+    @UseInterceptors(FileInterceptor('file'))
+    importEnergyConsuption(@UploadedFile() file) {
+      try {
+        let csv = file.buffer.toString();
+        if (csv.charCodeAt(0) === 0xFEFF) {
+          csv = csv.slice(1);
+        }
+        const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
+        entries.data.forEach(async element => {
+          const password = await bcrypt.hash('1234', 12);
+          const created = new Date();
+          const update_created = new Date();
+          console.log("data csv", element);
+            return this.apointementService.create(element);
+        });
+      } catch (error) {
+        console.log('error', error);
+      }
     }
 }

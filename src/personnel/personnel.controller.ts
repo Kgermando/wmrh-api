@@ -59,18 +59,27 @@ export class PersonnelController {
   @Post('upload-csv')
   @UseInterceptors(FileInterceptor('file'))
   importEnergyConsuption(@UploadedFile() file) {
-    let csv = file.buffer.toString();
-    if (csv.charCodeAt(0) === 0xFEFF) {
-      csv = csv.slice(1);
+    try {
+      let csv = file.buffer.toString();
+      if (csv.charCodeAt(0) === 0xFEFF) {
+        csv = csv.slice(1);
+      }
+      const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
+      entries.data.forEach(async element => {
+        const password = await bcrypt.hash('1234', 12);
+        const created = new Date();
+        const update_created = new Date();
+        console.log("data csv", element);
+          return this.personneService.create({
+            ...element, 
+            password,
+            created,
+            update_created
+          });
+      });
+    } catch (error) {
+      console.log('error', error);
     }
-    const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
-    entries.data.forEach(async element => {
-      const password = await bcrypt.hash('1234', 12); 
-        return this.personneService.create({
-          ...element, 
-          password, 
-        });
-    });
   }
 
   @Post('download-xlsx/:code_entreprise/:start_date/:end_date') 
@@ -144,7 +153,7 @@ export class PersonnelController {
   }
 
 
-    // Modification des infos user par l'admin
+  // Modification des infos user par l'admin
   @Put(':id')
   async update(
     @Param('id') id: number,

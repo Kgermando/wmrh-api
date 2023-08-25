@@ -16,7 +16,7 @@ export class PersonnelExcel {
     numero_cnss: string;
     category: string;
     statut_personnel: boolean;
-    role: number;
+    role: string[];
     permission: string; 
     
     departement: string;
@@ -24,7 +24,6 @@ export class PersonnelExcel {
     fonction: string;
     service: string; // caisse
     site_location: string; // Site de travail
-
 
     type_contrat: string;
     date_debut_contrat: Date;
@@ -41,6 +40,6 @@ export class PersonnelExcel {
     syndicat: boolean;
     signature: string;
     created: Date;
-    update_created : Date;  
+    update_created : Date;
 
 }
