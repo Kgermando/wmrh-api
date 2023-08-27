@@ -143,7 +143,6 @@ export class EmployesController {
 
 
     // Age de contrat par employés
-
     @Get('enmployes-age-contrats-month/:code_entreprise')
     async ageContratEmployeMonth(
       @Param('code_entreprise') code_entreprise: string,

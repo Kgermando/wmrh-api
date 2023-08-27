@@ -102,6 +102,8 @@ export class PersonnelCreateDto {
 
     is_paie: number;
 
+    statut_paie: string;
+
     presences: Apointement [];
 
     primes: Prime[];

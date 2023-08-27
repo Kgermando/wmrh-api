@@ -136,7 +136,6 @@ export class Personnel {
 
     @Column({ nullable: true, default: '0'})
     frais_bancaire: string;  // Frais de compte
-  
 
     @Column({nullable: true})
     cv_url: string; // CV scan 
@@ -150,6 +149,9 @@ export class Personnel {
 
     @Column({default: 0})
     is_paie: number; // Le  mois du bulletin deja généré
+
+    @Column({ nullable: true, default: 'En attente'})
+    statut_paie: string;
 
     @OneToMany(() => Apointement, (item) => item.personnel, {cascade: true})
     presences: Apointement[];

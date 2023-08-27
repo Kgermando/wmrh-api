@@ -8,9 +8,9 @@ export class FinancesService {
         @InjectDataSource() private dataSource: DataSource,
     ) {}
 
-    async iprMonth(code_entreprise) {
+    async iprMonth(code_entreprise) { 
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
@@ -20,7 +20,7 @@ export class FinancesService {
 
     async cnssQPOMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
@@ -31,7 +31,7 @@ export class FinancesService {
 
     async totalRBIMonth(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(rbi as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
@@ -43,7 +43,7 @@ export class FinancesService {
 
     async iprYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -52,7 +52,7 @@ export class FinancesService {
 
     async cnssQPOYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -61,7 +61,7 @@ export class FinancesService {
 
     async totalRBIYear(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(rbi as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
@@ -70,7 +70,7 @@ export class FinancesService {
 
     async iprAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
@@ -82,7 +82,7 @@ export class FinancesService {
 
     async cnssQPOAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
@@ -94,7 +94,7 @@ export class FinancesService {
 
     async totalRBIAll(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(rbi as decimal(10,2))), 0) as total
+            SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
@@ -108,9 +108,9 @@ export class FinancesService {
         // depensePayE
         depensePayEMonth(code_entreprise) {
             return this.dataSource.query(`
-            SELECT SUM(cast(net_a_payer as decimal(10,2))) AS net_a_payer,  
-                SUM(cast(ipr as decimal(10,2))) AS ipr,
-                SUM(cast(cnss_qpo as decimal(10,2))) AS cnss_qpo, 
+            SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
+                SUM(cast(ipr as decimal(20,2))) AS ipr,
+                SUM(cast(cnss_qpo as decimal(20,2))) AS cnss_qpo, 
                 EXTRACT(DAY FROM "created" ::TIMESTAMP) as day
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
@@ -123,9 +123,9 @@ export class FinancesService {
     
         depensePayEYear(code_entreprise) {
             return this.dataSource.query(`
-            SELECT SUM(cast(net_a_payer as decimal(10,2))) AS net_a_payer,  
-            SUM(cast(ipr as decimal(10,2))) AS ipr,
-            SUM(cast(cnss_qpo as decimal(10,2))) AS cnss_qpo, 
+            SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
+            SUM(cast(ipr as decimal(20,2))) AS ipr,
+            SUM(cast(cnss_qpo as decimal(20,2))) AS cnss_qpo, 
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND 
@@ -137,9 +137,9 @@ export class FinancesService {
     
         depensePayEALl(code_entreprise) {
             return this.dataSource.query(`  
-                SELECT SUM(cast(net_a_payer as decimal(10,2))) AS net_a_payer,  
-                SUM(cast(ipr as decimal(10,2))) AS ipr,
-                SUM(cast(cnss_qpo as decimal(10,2))) AS cnss_qpo, 
+                SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
+                SUM(cast(ipr as decimal(20,2))) AS ipr,
+                SUM(cast(cnss_qpo as decimal(20,2))) AS cnss_qpo, 
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year_ans
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
@@ -149,8 +149,6 @@ export class FinancesService {
                 EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
                 EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
                 GROUP BY year_ans;
-
-               
             `);
         } 
     

@@ -1,6 +1,6 @@
 import { Poste } from "src/poste/models/poste.entity";
 
-export class UserUpdateDto { 
+export class CandidatureUpdateDto { 
 
     search_profil?: string;
  

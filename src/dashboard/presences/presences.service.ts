@@ -19,7 +19,7 @@ export class PresencesService {
             GROUP BY apointement;
         `);
     }
-
+ 
     getCourbePresenceMonth(code_entreprise) {
         return this.dataSource.query(`
         SELECT 

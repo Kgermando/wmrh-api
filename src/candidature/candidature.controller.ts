@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } fro
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CandidatureService } from './candidature.service';
 import { CandidatureCreateDto } from './models/candidature-create.dto';
+import { CandidatureUpdateDto } from './models/candidature-update.dto';
 
 @UseGuards(AuthGuard)
 @Controller('candidatures')
@@ -39,7 +40,7 @@ export class CandidatureController {
     @Put(':id')
     async update(
         @Param('id') id: number,
-        @Body() body: CandidatureCreateDto
+        @Body() body: CandidatureUpdateDto
     ) {
         const update_created = new Date();
         await this.candidatureService.update(id, {...body, update_created}); 
