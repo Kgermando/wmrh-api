@@ -7,6 +7,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { PersonnelService } from 'src/personnel/personnel.service';
 import { ConfigService } from '@nestjs/config';
+import { EntrepriseService } from 'src/admin/entreprise/entreprise.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -15,6 +16,7 @@ export class AuthController {
         private personnelService: PersonnelService,
         private jwtService: JwtService,
         private authService: AuthService,
+        private entrepriseService: EntrepriseService,
         private readonly config: ConfigService
         ) { }
 
@@ -59,6 +61,10 @@ export class AuthController {
             where: { matricule: matricule, code_entreprise: code_entreprise }
         })
 
+        const entreprise = await this.entrepriseService.findOne({
+            where: { code_entreprise: user.code_entreprise }
+        })
+
         if(!user) {
             throw new NotFoundException('Identifiant non trouvé!');
         }
@@ -67,10 +73,13 @@ export class AuthController {
             throw new BadRequestException('Votre mot de passe n\'est pas correct !');
         }
 
-        
-        if(user.statut_personnel == false) {
+        if(!user.statut_personnel) {
             throw new BadRequestException("Ce compte n'est pas actif! ");
-        } 
+        }
+
+        if(entreprise) {
+            throw new BadRequestException("Votre abonnement a expiré! ");
+        }
 
         const jwt = await this.jwtService.signAsync({id: user.id});
 

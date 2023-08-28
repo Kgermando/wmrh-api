@@ -25,9 +25,10 @@ import { PerformenceModule } from './performence/performence.module';
 import { PresEntrepriseModule } from './pres-entreprise/pres-entreprise.module';
 import { MailModule } from './mail/mail.module';
 import { AbonnementsModule } from './abonnements/abonnements.module';
-import { HttpModule } from '@nestjs/axios';
 import { NotificationModule } from './notification/notification.module';
 import { NotifyModule } from './notify/notify.module';
+import { EntrepriseModule } from './admin/entreprise/entreprise.module';
+import { AbonnementClientModule } from './admin/abonnement_client/abonnement_client.module';
 
 
 @Module({
@@ -74,6 +75,8 @@ import { NotifyModule } from './notify/notify.module';
     AbonnementsModule,
     NotificationModule,
     NotifyModule,
+    EntrepriseModule,
+    AbonnementClientModule,
   ],
 })
 export class AppModule {}
