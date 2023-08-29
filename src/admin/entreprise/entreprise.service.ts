@@ -12,12 +12,8 @@ export class EntrepriseService extends AbstractService {
         super(serviceRepository);
     }
 
-    allGet(code_entreprise): Promise<any[]> {
+    allGet(): Promise<any[]> {
         return this.repository.find({
-            // relations: {
-            //     personnel: true
-            // },
-            where: {code_entreprise},
             order: {'created': 'DESC'}
         }); 
     }
@@ -26,7 +22,7 @@ export class EntrepriseService extends AbstractService {
         return await this.repository.findOne({
             where: condition,
             relations: {
-                personnel: true
+                abonnements: true 
             }
         })
     }

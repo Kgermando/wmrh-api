@@ -12,21 +12,11 @@ export class AbonnementClientController {
         private abonnementClientService: AbonnementClientService
     ) {}
 
-    @Get('get-all/:code_entreprise')
-    async getAll(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.abonnementClientService.allGet(code_entreprise);
+    @Get('get-all')
+    async getAll() {
+      return this.abonnementClientService.allGet();
     }
-
-    @Get(':code_entreprise')
-    async all(
-        @Query('page') page = 1,
-        @Param('code_entreprise') code_entreprise: string,
-        ) {
-        return this.abonnementClientService.paginate(page, code_entreprise);
-    }
-
+ 
     @Post()
     async create(
         @Body() body: AbonnementClientCreateDto

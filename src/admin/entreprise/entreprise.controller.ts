@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { EntrepriseService } from './entreprise.service';
 import { EntrepriseCreateDto } from './models/entreprise-create.dto';
@@ -12,19 +12,9 @@ export class EntrepriseController {
         private entrepriseService: EntrepriseService
     ) {}
 
-    @Get('get-all/:code_entreprise')
-    async getAll(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.entrepriseService.allGet(code_entreprise);
-    }
-
-    @Get(':code_entreprise')
-    async all(
-        @Query('page') page = 1,
-        @Param('code_entreprise') code_entreprise: string,
-        ) {
-        return this.entrepriseService.paginate(page, code_entreprise);
+    @Get()
+    async getAll( ) {
+      return this.entrepriseService.allGet();
     }
 
     @Post()

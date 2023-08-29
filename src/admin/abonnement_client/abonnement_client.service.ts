@@ -12,12 +12,11 @@ export class AbonnementClientService extends AbstractService {
         super(serviceRepository);
     }
 
-    allGet(code_entreprise): Promise<any[]> {
+    allGet(): Promise<any[]> {
         return this.repository.find({
             relations: {
                 personnel: true
-            },
-            where: {code_entreprise},
+            }, 
             order: {'created': 'DESC'}
         }); 
     }

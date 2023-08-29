@@ -2,7 +2,6 @@ import { IsNotEmpty } from "class-validator";
 
 export class PreferenceCreateDto {
    
-    @IsNotEmpty()
     logo: string;
 
     @IsNotEmpty()
