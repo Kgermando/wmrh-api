@@ -65,6 +65,17 @@ export class SalairesService extends AbstractService {
         }); 
     }
 
+    mesBulletins(code_entreprise, matricule) {
+        return this.dataSource.query(`
+            SELECT *
+            FROM salaires 
+            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
+            WHERE
+            "salaires"."code_entreprise"='${code_entreprise}' AND
+            "personnels"."matricule"='${matricule}';
+        `); 
+    }
+
     getJrPrestE(code_entreprise, matricule) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(prestation ::FLOAT), 0) as presence

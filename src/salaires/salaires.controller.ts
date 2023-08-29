@@ -143,6 +143,14 @@ export class SalairesController {
       return this.salaireService.relevePaie(code_entreprise);
     }
 
+    @Get('get-mes-bulletins/:code_entreprise/:matricule')
+    async mesBulletins(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('matricule') matricule: string,
+    ) {
+      return this.salaireService.mesBulletins(code_entreprise, matricule);
+    }
+
 
   @Post('download-xlsx/:code_entreprise/:start_date/:end_date')
   async downloadReport(
