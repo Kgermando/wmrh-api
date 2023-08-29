@@ -42,17 +42,17 @@ export class ApointementService extends AbstractService {
         }); 
     }
 
-    // registrePresenceAll(code_entreprise) {
-    //     return this.dataSource.query(`
-    //         SELECT *
-    //         FROM apointements WHERE 
-    //         code_entreprise='${code_entreprise}' AND
-    //         EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-    //         ORDER BY created DESC;
-    //     `);
-    // }
+    registrePresenceAll(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT *
+            FROM apointements WHERE 
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            ORDER BY created DESC;
+        `);
+    }
     registrePresence(code_entreprise, site_location) {
         return this.dataSource.query(`
             SELECT *
@@ -113,17 +113,17 @@ export class ApointementService extends AbstractService {
 
 
 
-    // getItemsPAAAALL(code_entreprise) {
-    //     return this.dataSource.query(`
-    //         SELECT apointement, COUNT(*)
-    //         FROM apointements WHERE 
-    //         code_entreprise='${code_entreprise}' AND
-    //         EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-    //         GROUP BY apointement;
-    //     `);
-    // }
+    getItemsPAAAALL(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT apointement, COUNT(*)
+            FROM apointements WHERE 
+            code_entreprise='${code_entreprise}' AND
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            GROUP BY apointement;
+        `);
+    }
     getItemsPAAA(code_entreprise, site_location) {
         return this.dataSource.query(`
             SELECT apointement, COUNT(*)
@@ -138,15 +138,15 @@ export class ApointementService extends AbstractService {
     }
 
 
-    // getItemsCongEALL(code_entreprise) {
-    //     return this.dataSource.query(`
-    //         SELECT apointement, COUNT(*)
-    //         FROM apointements WHERE 
-    //         code_entreprise='${code_entreprise}' AND 
-    //         date_sortie > CURRENT_DATE
-    //         GROUP BY apointement, EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP);
-    //     `);
-    // }
+    getItemsCongEALL(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT apointement, COUNT(*)
+            FROM apointements WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            date_sortie > CURRENT_DATE
+            GROUP BY apointement, EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP);
+        `);
+    }
     getItemsCongE(code_entreprise, site_location) {
         return this.dataSource.query(`
             SELECT apointement, COUNT(*)

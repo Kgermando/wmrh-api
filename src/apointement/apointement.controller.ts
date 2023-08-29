@@ -31,13 +31,14 @@ export class ApointementController {
       return this.apointementService.getPieYEAR(code_entreprise, matricule);
     }
 
-    // @Get('get-pie-all/:code_entreprise/:matricule')
-    // async getPieAll(
-    //     @Param('code_entreprise') code_entreprise: string,
-    //     @Param('matricule') matricule: string
-    // ) {
-    //   return this.apointementService.getPieAll(code_entreprise, matricule);
-    // }
+    // ALL c'est pour le tableau de bord
+    @Get('get-pie-all/:code_entreprise/:matricule')
+    async getPieAll(
+        @Param('code_entreprise') code_entreprise: string,
+        @Param('matricule') matricule: string
+    ) {
+      return this.apointementService.getPieAll(code_entreprise, matricule);
+    }
 
     @Get('get-matricule/:code_entreprise/:matricule')
     async getMatricule(
@@ -47,12 +48,13 @@ export class ApointementController {
       return this.apointementService.getMatricule(code_entreprise, matricule);
     }
 
-    // @Get('get-registre/:code_entreprise')
-    // async getRegisterPresenceAll(
-    //   @Param('code_entreprise') code_entreprise: string,
-    // ) {
-    //   return this.apointementService.registrePresenceAll(code_entreprise);
-    // }
+    // ALL c'est pour le tableau de bord
+    @Get('get-registre/:code_entreprise')
+    async getRegisterPresenceAll(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.apointementService.registrePresenceAll(code_entreprise);
+    }
 
     @Get('get-registre/:code_entreprise/:site_location') // Registre de presence par site de travail
     async getRegisterPresence(
@@ -70,12 +72,13 @@ export class ApointementController {
       return this.apointementService.getLastItem(code_entreprise, matricule);
     }
 
-    // @Get('get-item-p-a-aa/:code_entreprise')
-    // async getItemsPAAAALL(
-    //   @Param('code_entreprise') code_entreprise: string
-    // ) {
-    //   return this.apointementService.getItemsPAAAALL(code_entreprise);
-    // }
+    // ALL c'est pour le tableau de bord
+    @Get('get-item-p-a-aa/:code_entreprise')
+    async getItemsPAAAALL(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.apointementService.getItemsPAAAALL(code_entreprise);
+    }
 
     @Get('get-item-p-a-aa/:code_entreprise/:site_location')
     async getItemsPAAA(
@@ -85,12 +88,13 @@ export class ApointementController {
       return this.apointementService.getItemsPAAA(code_entreprise, site_location);
     }
 
-    // @Get('get-item-conge/:code_entreprise')q
-    // async getItemsCongEALL(
-    //   @Param('code_entreprise') code_entreprise: string
-    // ) {
-    //   return this.apointementService.getItemsCongEALL(code_entreprise);
-    // }
+    // ALL c'est pour le tableau de bord
+    @Get('get-item-conge/:code_entreprise')
+    async getItemsCongEALL(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+      return this.apointementService.getItemsCongEALL(code_entreprise);
+    }
 
     @Get('get-item-conge/:code_entreprise/:site_location')
     async getItemsCongE(

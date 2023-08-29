@@ -61,7 +61,7 @@ export class SalairesService extends AbstractService {
                 'personnel.site_locations'
             ], 
             where: {code_entreprise} && {statut: 'Disponible'}, 
-            order: {'created': 'DESC'}
+            order: {'created': 'DESC'} 
         }); 
     }
 
@@ -151,7 +151,7 @@ export class SalairesService extends AbstractService {
 
     primeTotalCDF(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+        SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM primes  WHERE 
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
@@ -165,7 +165,7 @@ export class SalairesService extends AbstractService {
     }
     primeTotalUSD(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+        SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM primes WHERE 
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
@@ -181,7 +181,7 @@ export class SalairesService extends AbstractService {
 
     penaliteTotalCDF(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+        SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM penalites WHERE 
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
@@ -195,7 +195,7 @@ export class SalairesService extends AbstractService {
     }
     penaliteTotalUSD(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+        SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM penalites  WHERE 
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
@@ -211,7 +211,7 @@ export class SalairesService extends AbstractService {
 
     avanceSalaireTotalCDF(code_entreprise, id) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM avance_salaires WHERE 
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
@@ -222,7 +222,7 @@ export class SalairesService extends AbstractService {
     }
     avanceSalaireTotalUSD(code_entreprise, id) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(montant as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM avance_salaires WHERE 
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
@@ -245,7 +245,7 @@ export class SalairesService extends AbstractService {
 
     preEntrepriseCDF(code_entreprise, id) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(deboursement as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(deboursement as decimal(20,2))), 0) as sum
             FROM pres_entreprises WHERE 
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
@@ -255,7 +255,7 @@ export class SalairesService extends AbstractService {
     }
     preEntrepriseUSD(code_entreprise, id) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(deboursement as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(deboursement as decimal(20,2))), 0) as sum
             FROM pres_entreprises WHERE 
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
@@ -267,7 +267,7 @@ export class SalairesService extends AbstractService {
 
     netAPayerTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(net_a_payer as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
@@ -278,7 +278,7 @@ export class SalairesService extends AbstractService {
 
     iprTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
@@ -289,7 +289,7 @@ export class SalairesService extends AbstractService {
 
     cnssQPOTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
@@ -300,7 +300,7 @@ export class SalairesService extends AbstractService {
 
     fraisBancaireTotal(code_entreprise) {
         return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(10,2))), 0) as sum
+            SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
