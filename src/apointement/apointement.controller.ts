@@ -20,7 +20,7 @@ export class ApointementController {
         @Param('code_entreprise') code_entreprise: string,
         @Param('matricule') matricule: string
     ) {
-        return this.apointementService.getPie(code_entreprise, matricule);
+      return this.apointementService.getPie(code_entreprise, matricule);
     }
 
     @Get('get-pie-year/:code_entreprise/:matricule')
@@ -28,16 +28,16 @@ export class ApointementController {
         @Param('code_entreprise') code_entreprise: string,
         @Param('matricule') matricule: string
     ) {
-        return this.apointementService.getPieYEAR(code_entreprise, matricule);
+      return this.apointementService.getPieYEAR(code_entreprise, matricule);
     }
 
-    @Get('get-pie-all/:code_entreprise/:matricule')
-    async getPieAll(
-        @Param('code_entreprise') code_entreprise: string,
-        @Param('matricule') matricule: string
-    ) {
-        return this.apointementService.getPieAll(code_entreprise, matricule);
-    }
+    // @Get('get-pie-all/:code_entreprise/:matricule')
+    // async getPieAll(
+    //     @Param('code_entreprise') code_entreprise: string,
+    //     @Param('matricule') matricule: string
+    // ) {
+    //   return this.apointementService.getPieAll(code_entreprise, matricule);
+    // }
 
     @Get('get-matricule/:code_entreprise/:matricule')
     async getMatricule(
@@ -47,12 +47,13 @@ export class ApointementController {
       return this.apointementService.getMatricule(code_entreprise, matricule);
     }
 
-    @Get('get-registre/:code_entreprise')
-    async getRegisterPresenceAll(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.apointementService.registrePresenceAll(code_entreprise);
-    }
+    // @Get('get-registre/:code_entreprise')
+    // async getRegisterPresenceAll(
+    //   @Param('code_entreprise') code_entreprise: string,
+    // ) {
+    //   return this.apointementService.registrePresenceAll(code_entreprise);
+    // }
+
     @Get('get-registre/:code_entreprise/:site_location') // Registre de presence par site de travail
     async getRegisterPresence(
       @Param('code_entreprise') code_entreprise: string,
@@ -69,12 +70,13 @@ export class ApointementController {
       return this.apointementService.getLastItem(code_entreprise, matricule);
     }
 
-    @Get('get-item-p-a-aa/:code_entreprise')
-    async getItemsPAAAALL(
-      @Param('code_entreprise') code_entreprise: string
-    ) {
-      return this.apointementService.getItemsPAAAALL(code_entreprise);
-    }
+    // @Get('get-item-p-a-aa/:code_entreprise')
+    // async getItemsPAAAALL(
+    //   @Param('code_entreprise') code_entreprise: string
+    // ) {
+    //   return this.apointementService.getItemsPAAAALL(code_entreprise);
+    // }
+
     @Get('get-item-p-a-aa/:code_entreprise/:site_location')
     async getItemsPAAA(
       @Param('code_entreprise') code_entreprise: string,
@@ -83,12 +85,13 @@ export class ApointementController {
       return this.apointementService.getItemsPAAA(code_entreprise, site_location);
     }
 
-    @Get('get-item-conge/:code_entreprise')
-    async getItemsCongEALL(
-      @Param('code_entreprise') code_entreprise: string
-    ) {
-      return this.apointementService.getItemsCongEALL(code_entreprise);
-    }
+    // @Get('get-item-conge/:code_entreprise')q
+    // async getItemsCongEALL(
+    //   @Param('code_entreprise') code_entreprise: string
+    // ) {
+    //   return this.apointementService.getItemsCongEALL(code_entreprise);
+    // }
+
     @Get('get-item-conge/:code_entreprise/:site_location')
     async getItemsCongE(
       @Param('code_entreprise') code_entreprise: string,
@@ -105,15 +108,11 @@ export class ApointementController {
       @Param('site_location') site_location: string,
       @Param('start_date') start_date: Date,
       @Param('end_date') end_date: Date
-      ) {
-        let result = await this.apointementService.downloadExcel(code_entreprise, site_location, start_date, end_date);
-          res.set("Content-Type", "text/xlsx");
-        res.download(`${result}`);
-      }
-
-
-
-
+    ) {
+      let result = await this.apointementService.downloadExcel(code_entreprise, site_location, start_date, end_date);
+        res.set("Content-Type", "text/xlsx");
+      res.download(`${result}`);
+    }
 
 
     @Get('get-all/:code_entreprise')
@@ -138,10 +137,6 @@ export class ApointementController {
         return this.apointementService.create(body);
     }
 
-    // @Get('get/:matricule')
-    // async get(@Param('matricule') matricule: string) {
-    //     return this.apointementService.findOne({where: {matricule}});
-    // }
 
     @Get('get/:id')
     async get(@Param('id') id: number) {

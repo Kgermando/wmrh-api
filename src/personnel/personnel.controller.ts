@@ -118,12 +118,17 @@ export class PersonnelController {
   async get(@Param('id') id: number) {
     return this.personneService.findGetOne({id});
   }
+
+  @Get('get-matricule/:matricule')
+  async getMatricule(@Param('matricule') matricule: string) {
+    return this.personneService.findGetOne({matricule});
+  }
   
 
-  @Get('presence/:matricule')
-  async presence(@Param('matricule') matricule: string) {
-    return this.personneService.presence({where: {matricule}});
-  }
+  // @Get('presence/:matricule')
+  // async presence(@Param('matricule') matricule: string) {
+  //   return this.personneService.presence({where: {matricule}});
+  // }
 
 
   // User lui meme modifie
