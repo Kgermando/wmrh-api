@@ -29,6 +29,12 @@ export class EntrepriseController {
         return this.entrepriseService.findGetOne({id});
     }
 
+    // Verifie Code entreprise
+    @Get('get-code-entreprise/:code_entreprise')
+    async getCodeEntreprise(@Param('code_entreprise') code_entreprise: string) {
+        return this.entrepriseService.findGetOne({code_entreprise});
+    }
+
     @Put(':id')
     async update(
         @Param('id') id: number,
