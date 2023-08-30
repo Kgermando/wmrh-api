@@ -11,7 +11,7 @@ export class Notify {
     personnel: Personnel;
 
     @Column()
-    isRead: boolean; // Permet de savoir si cette element est ouvert
+    is_read: boolean; // Permet de savoir si cette element est ouvert
 
     @Column()
     title: string; // Titre de l'élément à notifier

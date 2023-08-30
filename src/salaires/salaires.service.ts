@@ -67,7 +67,41 @@ export class SalairesService extends AbstractService {
 
     mesBulletins(code_entreprise, matricule) {
         return this.dataSource.query(`
-            SELECT *
+            SELECT "salaires"."id",
+                "salaires"."monnaie",
+                "salaires"."taux_dollard",
+                "salaires"."nbr_dependants",
+                "salaires"."alloc_logement",
+                "salaires"."alloc_transport", 
+                "salaires"."alloc_familliale", 
+                "salaires"."soins_medicaux", 
+                "salaires"."salaire_base",
+                "salaires"."primes", 
+                "salaires"."anciennete_nbr_age", 
+                "salaires"."prime_anciennete", 
+                "salaires"."heures_supp", 
+                "salaires"."heure_supplementaire_monnaie", 
+                "salaires"."conge_paye", 
+                "salaires"."nbre_jrs_preste", 
+                "salaires"."nbre_jrs_ferie", 
+                "salaires"."rbi", 
+                "salaires"."cnss_qpo", 
+                "salaires"."rni", 
+                "salaires"."ipr", 
+                "salaires"."impot_elide", 
+                "salaires"."syndicat", 
+                "salaires"."penalites", 
+                "salaires"."avance_slaire", 
+                "salaires"."prise_en_charge_frais_bancaire", 
+                "salaires"."pres_entreprise", 
+                "salaires"."net_a_payer", 
+                "salaires"."statut", 
+                "salaires"."signature", 
+                "salaires"."created", 
+                "salaires"."update_created", 
+                "salaires"."entreprise", 
+                "salaires"."code_entreprise", 
+                "personnels"."matricule"
             FROM salaires 
             LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
             WHERE

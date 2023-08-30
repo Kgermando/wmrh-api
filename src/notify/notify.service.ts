@@ -15,20 +15,16 @@ export class NotifyService extends AbstractService {
 
     allGet(code_entreprise, matricule): Promise<any[]> {
         return this.dataSource.query(`
-            SELECT *
+            SELECT "notifys"."id", "notifys"."is_read", "notifys"."title", 
+            "notifys"."route", "notifys"."signature", "notifys"."created", 
+            "notifys"."update_created", "notifys"."entreprise", 
+            "notifys"."code_entreprise"
             FROM notifys 
             LEFT JOIN "personnels" ON "personnels"."id" = "notifys"."personnelId"
             WHERE
             "notifys"."code_entreprise"='${code_entreprise}' AND
             "personnels"."matricule"='${matricule}' ORDER BY "notifys"."created" DESC;
         `);
-        // return this.repository.find({
-        //     relations: {
-        //         personnel: true
-        //     },
-        //     where: {code_entreprise} && { personnel.matricule },
-        //     order: {'created': 'DESC'}
-        // });
     }
 
     async findGetOne(condition): Promise<any> {
