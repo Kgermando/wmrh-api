@@ -73,7 +73,7 @@ export class SalairesService extends AbstractService {
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "personnels"."matricule"='${matricule}';
-        `); 
+        `);
     }
 
     getJrPrestE(code_entreprise, matricule) {
