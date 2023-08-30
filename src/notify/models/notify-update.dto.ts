@@ -3,12 +3,11 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 export class NotifyUpdateDto { 
     personnel?: Personnel;
 
-    isRead?: boolean; 
+    is_read?: boolean; 
 
     title?: string; 
 
     route?: string;
-
     
     signature?: string; 
 

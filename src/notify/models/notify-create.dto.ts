@@ -7,7 +7,7 @@ export class NotifyCreateDto {
     personnel: Personnel;
 
     @IsNotEmpty()
-    isRead: boolean; 
+    is_read: boolean; 
 
     @IsNotEmpty()
     title: string;
