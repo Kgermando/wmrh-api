@@ -40,6 +40,23 @@ export class PresencesService {
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
             GROUP BY day;
         `);
+
+        // SELECT COUNT(id), 
+        // CASE WHEN apointement='P' THEN 'Present'
+        // WHEN apointement='A' THEN 'Absent'
+        // WHEN apointement='AA' THEN 'Absence Autaurisé'
+        // WHEN apointement='AM' THEN 'Absence Maladie'
+        // WHEN apointement='CC' THEN 'Congé Occasionnel'
+        // WHEN apointement='CA' THEN 'Congé Annuel'
+        // WHEN apointement='S' THEN 'Suspension'
+        // WHEN apointement='O' THEN 'Jour OFF'
+        // WHEN apointement='M' THEN 'Mission'
+        // ELSE 'Pas de presence'
+        // END as "status",
+        // to_char(created, 'YYYY-MM-DD') as date
+        // FROM apointements
+        // GROUP BY apointement, to_char(created, 'YYYY-MM-DD')
+        // ORDER BY date
     }
 
     getCourbePresenceYear(code_entreprise) {
