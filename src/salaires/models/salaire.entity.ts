@@ -1,4 +1,3 @@
-import { DecimalTransformer } from "src/decimal.transformer";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -93,7 +92,10 @@ export class Salaire {
     net_a_payer: string;
 
     @Column()
-    statut: string; // Pending, Generated,
+    statut: string; // Pending, Generated
+
+    @Column({default: 0})
+    is_paie: number; // Le  mois du bulletin deja généré
 
     @Column()    
     signature: string;

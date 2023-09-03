@@ -108,39 +108,66 @@ export class SalairesController {
     }
 
 
-    @Get('get-net-a-payer-total/:code_entreprise')
+    @Get('get-net-a-payer-total/:code_entreprise/:is_paie')
     async netAPayerTotal(
-      @Param('code_entreprise') code_entreprise: string
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
     ) {
-      return this.salaireService.netAPayerTotal(code_entreprise);
+      return this.salaireService.netAPayerTotal(code_entreprise, is_paie);
     }
 
-    @Get('get-ipr-total/:code_entreprise')
+    @Get('get-ipr-total/:code_entreprise/:is_paie')
     async iprTotal(
-      @Param('code_entreprise') code_entreprise: string
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
     ) {
-      return this.salaireService.iprTotal(code_entreprise);
+      return this.salaireService.iprTotal(code_entreprise, is_paie);
     }
 
-    @Get('get-cnss-qpo-total/:code_entreprise')
+    @Get('get-cnss-qpo-total/:code_entreprise/:is_paie')
     async cnssQPOTotal(
-      @Param('code_entreprise') code_entreprise: string
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
     ) {
-      return this.salaireService.cnssQPOTotal(code_entreprise);
+      return this.salaireService.cnssQPOTotal(code_entreprise, is_paie);
     }
 
-    @Get('get-frais-bancaire-total/:code_entreprise')
+    @Get('get-frais-bancaire-total/:code_entreprise/:is_paie')
     async fraisBancaireTotal(
-      @Param('code_entreprise') code_entreprise: string
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
     ) {
-      return this.salaireService.fraisBancaireTotal(code_entreprise);
+      return this.salaireService.fraisBancaireTotal(code_entreprise, is_paie);
     } 
 
-    @Get('get-releve-paie/:code_entreprise')
-    async relevePaie(
-      @Param('code_entreprise') code_entreprise: string, 
+    @Get('get-farde-paie/:code_entreprise')
+    async farde(
+      @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.salaireService.relevePaie(code_entreprise);
+      return this.salaireService.farde(code_entreprise);
+    }
+
+    @Get('get-farde-max-value/:code_entreprise')
+    async fardeMaxValue(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.salaireService.fardeMaxValue(code_entreprise);
+    }
+
+    @Get('get-statut-paie/:code_entreprise/:is_paie')
+    async statutPaie(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
+    ) {
+      return this.salaireService.statutPaie(code_entreprise, is_paie);
+    }
+
+    @Get('get-releve-paie/:code_entreprise/:is_paie')
+    async relevePaie(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
+    ) {
+      return this.salaireService.relevePaie(code_entreprise, is_paie);
     }
 
     @Get('get-mes-bulletins/:code_entreprise/:matricule')
@@ -152,14 +179,15 @@ export class SalairesController {
     }
 
 
-  @Post('download-xlsx/:code_entreprise/:start_date/:end_date')
+  @Post('download-xlsx/:code_entreprise/:is_paie/:start_date/:end_date')
   async downloadReport(
     @Res() res: Response,
     @Param('code_entreprise') code_entreprise: string,
+    @Param('is_paie') is_paie: number,
     @Param('start_date') start_date: Date,
     @Param('end_date') end_date: Date
     ) {
-      let result = await this.salaireService.downloadExcel(code_entreprise, start_date, end_date);
+      let result = await this.salaireService.downloadExcel(code_entreprise, is_paie, start_date, end_date);
         // console.log("result", result);
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);

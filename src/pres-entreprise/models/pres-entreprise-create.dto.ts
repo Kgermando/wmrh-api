@@ -20,7 +20,7 @@ export class PresEntrepriseCreateDto {
     deboursement: string; // Montant à debourser par mois
 
     @IsNotEmpty()
-    remboursement: string; // Montant déjà rembouser
+    date_debut: Date;
 
     @IsNotEmpty()
     date_limit: Date;  // Date de dernier remboursement

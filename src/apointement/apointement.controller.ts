@@ -174,11 +174,17 @@ export class ApointementController {
         }
         const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
         entries.data.forEach(async element => {
-          const password = await bcrypt.hash('1234', 12);
+          console.log("data csv", element);
+          const personne = await this.apointementService.findOne({where: {matricule: element.matricule}});
           const created = new Date();
           const update_created = new Date();
-          console.log("data csv", element);
-            return this.apointementService.create(element);
+          const personnel = personne.id;
+            return this.apointementService.create({
+              ...element,
+              created,
+              update_created,
+              personnel
+            });
         });
       } catch (error) {
         console.log('error', error);

@@ -36,37 +36,37 @@ export class PreferenceCreateDto {
 
     // Date de paie
     @IsNotEmpty()
-    date_paie : Date;
+    date_paie: Date;
 
     // Impôt societe
     @IsNotEmpty()
-    cnss_qpp : string;
+    cnss_qpp: string;
 
     @IsNotEmpty()
-    inpp : string;
+    inpp: string;
 
     @IsNotEmpty()
-    onem : string;
+    onem: string;
 
     // Parametre de deduction
     @IsNotEmpty()
-    cotisation_syndicale : string;
+    cotisation_syndicale: string;
 
     @IsNotEmpty()
-    cnss_qpo : string;
+    cnss_qpo: string;
 
     @IsNotEmpty()
     smig: string;
 
     // Taux
-    @IsNotEmpty()
-    monnaie : string;
+    // @IsNotEmpty()
+    // monnaie : string;
 
     @IsNotEmpty()
-    nbre_heure_travail : number;
+    nbre_heure_travail: number;
 
     @IsNotEmpty()
-    taux_dollard : number;
+    taux_dollard: number;
 
     @IsNotEmpty()
     prise_en_charge_frais_bancaire : boolean;

@@ -25,7 +25,7 @@ export class PreferenceUpdateDto {
     smig?: string;
 
     // Taux
-    monnaie ?: string;
+    // monnaie ?: string;
     nbre_heure_travail ?: number;
     taux_dollard ?: number;
     prise_en_charge_frais_bancaire ?: boolean;

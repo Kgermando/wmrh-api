@@ -66,8 +66,8 @@ export class Preference {
     smig: string;
 
     // Taux
-    @Column()
-    monnaie : string;
+    // @Column()
+    // monnaie : string;
 
     @Column({default: 6})
     nbre_heure_travail : number;

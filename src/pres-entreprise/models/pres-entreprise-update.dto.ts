@@ -6,7 +6,7 @@ export class PresEntrepriseUpdateDto {
     monnaie?: string;
     total_empreints?: string; 
     deboursement?: string; 
-    remboursement?: string;
+    date_debut?: Date;
     date_limit?: Date;
     signature?: string;
     created?: Date;

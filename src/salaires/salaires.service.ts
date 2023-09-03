@@ -50,21 +50,204 @@ export class SalairesService extends AbstractService {
         })
     }
 
-    relevePaie(code_entreprise) {
-        return this.repository.find({
-            relations: [
-                'personnel', 
-                'personnel.departements', 
-                'personnel.titles', 
-                'personnel.fonctions', 
-                'personnel.services', 
-                'personnel.site_locations'
-            ], 
-            where: {code_entreprise} && {statut: 'Disponible'}, 
-            order: {'created': 'DESC'} 
-        }); 
+    netAPayerTotal(code_entreprise, is_paie) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            is_paie='${is_paie}';
+        `);
     }
 
+    iprTotal(code_entreprise, is_paie) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            is_paie='${is_paie}';
+        `);
+    }
+
+    cnssQPOTotal(code_entreprise, is_paie) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            is_paie='${is_paie}';
+        `);
+    }
+
+    fraisBancaireTotal(code_entreprise, is_paie) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            is_paie='${is_paie}';
+        `);
+    }
+
+    statutPaie(code_entreprise, is_paie) {
+        return this.dataSource.query(`
+        SELECT "salaires"."id",
+            "salaires"."monnaie",
+            "salaires"."taux_dollard",
+            "salaires"."nbr_dependants",
+            "salaires"."alloc_logement",
+            "salaires"."alloc_transport", 
+            "salaires"."alloc_familliale", 
+            "salaires"."soins_medicaux", 
+            "salaires"."salaire_base",
+            "salaires"."primes", 
+            "salaires"."anciennete_nbr_age", 
+            "salaires"."prime_anciennete", 
+            "salaires"."heures_supp", 
+            "salaires"."heure_supplementaire_monnaie", 
+            "salaires"."conge_paye", 
+            "salaires"."nbre_jrs_preste", 
+            "salaires"."nbre_jrs_ferie", 
+            "salaires"."rbi", 
+            "salaires"."cnss_qpo", 
+            "salaires"."rni", 
+            "salaires"."ipr", 
+            "salaires"."impot_elide", 
+            "salaires"."syndicat", 
+            "salaires"."penalites", 
+            "salaires"."avance_slaire", 
+            "salaires"."prise_en_charge_frais_bancaire", 
+            "salaires"."pres_entreprise", 
+            "salaires"."net_a_payer", 
+            "salaires"."statut",
+            "salaires"."is_paie", 
+            "salaires"."signature", 
+            "salaires"."created",
+            "salaires"."update_created",
+            "salaires"."entreprise",
+            "salaires"."code_entreprise",
+            "personnels"."matricule",
+            "personnels"."nom",
+            "personnels"."postnom",
+            "personnels"."prenom",
+            "personnels"."compte_bancaire",
+            "personnels"."frais_bancaire",
+            "personnels"."nom_banque",
+            "departements"."departement",
+            "titles"."title",
+            "fonctions"."fonction",
+            "service_prefs"."service",
+            "site_locations"."site_location"
+            FROM salaires
+            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
+            LEFT JOIN "departements" ON "departements"."id" = "salaires"."personnelId"
+            LEFT JOIN "titles" ON "titles"."id" = "salaires"."personnelId"
+            LEFT JOIN "fonctions" ON "fonctions"."id" = "salaires"."personnelId"
+            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "salaires"."personnelId"
+            LEFT JOIN "site_locations" ON "site_locations"."id" = "salaires"."personnelId"
+            WHERE
+            "salaires"."code_entreprise"='${code_entreprise}' AND
+            "salaires"."is_paie"='${is_paie}';
+        `);
+    }
+
+    relevePaie(code_entreprise, is_paie) {
+        // return this.repository.find({
+        //     relations: [
+        //         'personnel', 
+        //         'personnel.departements', 
+        //         'personnel.titles', 
+        //         'personnel.fonctions', 
+        //         'personnel.services', 
+        //         'personnel.site_locations'
+        //     ], 
+        //     where: {code_entreprise} && {statut: 'Disponible'}, 
+        //     order: {'created': 'DESC'} 
+        // });
+        return this.dataSource.query(`
+            SELECT "salaires"."id",
+                "salaires"."monnaie",
+                "salaires"."taux_dollard",
+                "salaires"."nbr_dependants",
+                "salaires"."alloc_logement",
+                "salaires"."alloc_transport", 
+                "salaires"."alloc_familliale", 
+                "salaires"."soins_medicaux", 
+                "salaires"."salaire_base",
+                "salaires"."primes", 
+                "salaires"."anciennete_nbr_age", 
+                "salaires"."prime_anciennete", 
+                "salaires"."heures_supp", 
+                "salaires"."heure_supplementaire_monnaie", 
+                "salaires"."conge_paye", 
+                "salaires"."nbre_jrs_preste", 
+                "salaires"."nbre_jrs_ferie", 
+                "salaires"."rbi", 
+                "salaires"."cnss_qpo", 
+                "salaires"."rni", 
+                "salaires"."ipr", 
+                "salaires"."impot_elide", 
+                "salaires"."syndicat", 
+                "salaires"."penalites", 
+                "salaires"."avance_slaire", 
+                "salaires"."prise_en_charge_frais_bancaire", 
+                "salaires"."pres_entreprise", 
+                "salaires"."net_a_payer", 
+                "salaires"."statut",
+                "salaires"."is_paie", 
+                "salaires"."signature", 
+                "salaires"."created",
+                "salaires"."update_created",
+                "salaires"."entreprise",
+                "salaires"."code_entreprise",
+                "personnels"."matricule",
+                "personnels"."nom",
+                "personnels"."postnom",
+                "personnels"."prenom",
+                "personnels"."compte_bancaire",
+                "personnels"."frais_bancaire",
+                "personnels"."nom_banque",
+                "departements"."departement",
+                "titles"."title",
+                "fonctions"."fonction",
+                "service_prefs"."service",
+                "site_locations"."site_location"
+            FROM salaires
+            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
+            LEFT JOIN "departements" ON "departements"."id" = "salaires"."personnelId"
+            LEFT JOIN "titles" ON "titles"."id" = "salaires"."personnelId"
+            LEFT JOIN "fonctions" ON "fonctions"."id" = "salaires"."personnelId"
+            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "salaires"."personnelId"
+            LEFT JOIN "site_locations" ON "site_locations"."id" = "salaires"."personnelId"
+            WHERE
+            "salaires"."code_entreprise"='${code_entreprise}' AND
+            "salaires"."statut"='Disponible' AND
+            "salaires"."is_paie"='${is_paie}';
+        `);
+    }
+
+
+    // Numero farde pour classer les differentes masses salariales
+    farde(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT is_paie, created FROM salaires
+            WHERE code_entreprise='${code_entreprise}' AND
+            statut='Disponible' 
+            ORDER BY is_paie DESC;
+        `);
+    }
+
+    // Numero le plus élévé de la farde pour permettre aux autres 
+    // qui ne sont pas encore payer de l'être
+    fardeMaxValue(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT MAX(is_paie) FROM salaires
+            WHERE code_entreprise='${code_entreprise}';
+        `);
+    }
+
+// Uniquement pour l'employé
     mesBulletins(code_entreprise, matricule) {
         return this.dataSource.query(`
             SELECT "salaires"."id",
@@ -119,35 +302,6 @@ export class SalairesService extends AbstractService {
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
         `)
-        // return this.dataSource.query(`
-        // SELECT  (
-
-        //     (SELECT count(*) FILTER (WHERE apointement='P') as p
-        //     FROM apointements WHERE 
-        //         code_entreprise='${code_entreprise}' AND
-        //         matricule='${matricule}'  AND
-        //                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-        //                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-        //     )  
-        //     +
-        //     (SELECT count(*) FILTER (WHERE apointement='AA') as aa
-        //     FROM apointements WHERE 
-        //         code_entreprise='${code_entreprise}' AND
-        //         matricule='${matricule}'  AND
-        //                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-        //                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-        //     )
-        //     +
-        //     (SELECT count(*) FILTER (WHERE apointement='M') as m
-        //     FROM apointements WHERE 
-        //     code_entreprise='${code_entreprise}' AND
-        //         matricule='${matricule}'  AND
-        //                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-        //                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-        //     )
-             
-        // ) AS presence; 
-        // `);
     }
 
     getJrCongePayE(code_entreprise, matricule) {
@@ -295,6 +449,7 @@ export class SalairesService extends AbstractService {
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
+            CURRENT_DATE::TIMESTAMP > date_debut::TIMESTAMP AND
             CURRENT_DATE::TIMESTAMP < date_limit::TIMESTAMP;
         `);
     }
@@ -305,58 +460,15 @@ export class SalairesService extends AbstractService {
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
+            CURRENT_DATE::TIMESTAMP > date_debut::TIMESTAMP AND
             CURRENT_DATE::TIMESTAMP < date_limit::TIMESTAMP;
         `);
     }
 
 
-    netAPayerTotal(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as sum
-            FROM salaires WHERE 
-            code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
+  
 
-    iprTotal(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as sum
-            FROM salaires WHERE 
-            code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-    cnssQPOTotal(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as sum
-            FROM salaires WHERE 
-            code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-    fraisBancaireTotal(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
-            FROM salaires WHERE 
-            code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-
-
-    async downloadExcel(code_entreprise, start_date, end_date) {
+    async downloadExcel(code_entreprise, is_paie, start_date, end_date) {
 
         let data: SalaireExcel[] = [];
 
@@ -367,7 +479,8 @@ export class SalairesService extends AbstractService {
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "salaires"."created">='${start_date}' AND 
-            "salaires"."created"<='${end_date}';
+            "salaires"."created"<='${end_date}' AND
+            "salaires"."is_paie"='${is_paie}';
         `); 
 
         if(!data) {

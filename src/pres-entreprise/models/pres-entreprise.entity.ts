@@ -19,10 +19,10 @@ export class PresEntreprise {
     total_empreints: string;  // Près de l'entreprise 
 
     @Column({default: '0'})
-    deboursement: string; // Montant à debourser par mois
+    deboursement: string; // Montant à debourser par mois 
 
-    @Column({default: '0'})
-    remboursement: string; // Montant déjà rembouser
+    @Column({default: new Date()})
+    date_debut: Date;
 
     @Column()
     date_limit: Date;  // Date de dernier remboursement

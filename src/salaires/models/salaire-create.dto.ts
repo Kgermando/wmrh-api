@@ -81,6 +81,9 @@ export class SalaireCreateDto {
     statut: string; // Pending, Generated
 
     @IsNotEmpty()
+    is_paie: number;
+
+    @IsNotEmpty()
     signature: string;
 
     @IsNotEmpty()
