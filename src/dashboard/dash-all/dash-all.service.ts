@@ -220,12 +220,19 @@ export default class DashAllService {
         SELECT statut_paie, COUNT(statut_paie) 
             FROM personnels  
             WHERE code_entreprise='${code_entreprise}'
-            GROUP BY statut_paie AND  
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
-            BETWEEN
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) 
+            GROUP BY statut_paie; 
         `);
+
+        // return this.dataSource.query(`
+        // SELECT statut_paie, COUNT(statut_paie) 
+        //     FROM personnels  
+        //     WHERE code_entreprise='${code_entreprise}'
+        //     GROUP BY statut_paie AND  
+        //     EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+        //     BETWEEN
+        //     EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
+        //     EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) 
+        // `);
     } 
 
 
