@@ -6,6 +6,16 @@ export class SalaireCreateDto {
     @IsNotEmpty()
     personnel: Personnel;
 
+    departement: string;
+ 
+    fonction: string;
+
+    title: string; 
+    
+    service: string;
+ 
+    site_location: string;
+
     monnaie: string;
 
     taux_dollard : string;

@@ -2,6 +2,11 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class SalaireUpdateDto { 
     personnel?: Personnel;
+    departement?: string;
+    fonction?: string;
+    title?: string;
+    service?: string;
+    site_location?: string;
     monnaie?: string;
     taux_dollard?: string;
     nbr_dependants?: number;

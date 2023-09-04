@@ -80,6 +80,16 @@ export class SalairesService extends AbstractService {
         `);
     }
 
+    rbiTotal(code_entreprise, is_paie) {
+        return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as sum
+            FROM salaires WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            statut='Disponible' AND
+            is_paie='${is_paie}';
+        `);
+    }
+
     fraisBancaireTotal(code_entreprise, is_paie) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
@@ -127,25 +137,21 @@ export class SalairesService extends AbstractService {
             "salaires"."update_created",
             "salaires"."entreprise",
             "salaires"."code_entreprise",
+            "salaires"."departement",
+            "salaires"."fonction",
+            "salaires"."title",
+            "salaires"."service",
+            "salaires"."site_location",
+
             "personnels"."matricule",
             "personnels"."nom",
             "personnels"."postnom",
             "personnels"."prenom",
             "personnels"."compte_bancaire",
             "personnels"."frais_bancaire",
-            "personnels"."nom_banque",
-            "departements"."departement",
-            "titles"."title",
-            "fonctions"."fonction",
-            "service_prefs"."service",
-            "site_locations"."site_location"
+            "personnels"."nom_banque"
             FROM salaires
             LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
-            LEFT JOIN "departements" ON "departements"."id" = "salaires"."personnelId"
-            LEFT JOIN "titles" ON "titles"."id" = "salaires"."personnelId"
-            LEFT JOIN "fonctions" ON "fonctions"."id" = "salaires"."personnelId"
-            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "salaires"."personnelId"
-            LEFT JOIN "site_locations" ON "site_locations"."id" = "salaires"."personnelId"
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "salaires"."is_paie"='${is_paie}';
@@ -153,18 +159,6 @@ export class SalairesService extends AbstractService {
     }
 
     relevePaie(code_entreprise, is_paie) {
-        // return this.repository.find({
-        //     relations: [
-        //         'personnel', 
-        //         'personnel.departements', 
-        //         'personnel.titles', 
-        //         'personnel.fonctions', 
-        //         'personnel.services', 
-        //         'personnel.site_locations'
-        //     ], 
-        //     where: {code_entreprise} && {statut: 'Disponible'}, 
-        //     order: {'created': 'DESC'} 
-        // });
         return this.dataSource.query(`
             SELECT "salaires"."id",
                 "salaires"."monnaie",
@@ -201,25 +195,21 @@ export class SalairesService extends AbstractService {
                 "salaires"."update_created",
                 "salaires"."entreprise",
                 "salaires"."code_entreprise",
+                "salaires"."departement",
+                "salaires"."fonction",
+                "salaires"."title",
+                "salaires"."service",
+                "salaires"."site_location",
+
                 "personnels"."matricule",
                 "personnels"."nom",
                 "personnels"."postnom",
                 "personnels"."prenom",
                 "personnels"."compte_bancaire",
                 "personnels"."frais_bancaire",
-                "personnels"."nom_banque",
-                "departements"."departement",
-                "titles"."title",
-                "fonctions"."fonction",
-                "service_prefs"."service",
-                "site_locations"."site_location"
+                "personnels"."nom_banque"
             FROM salaires
-            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
-            LEFT JOIN "departements" ON "departements"."id" = "salaires"."personnelId"
-            LEFT JOIN "titles" ON "titles"."id" = "salaires"."personnelId"
-            LEFT JOIN "fonctions" ON "fonctions"."id" = "salaires"."personnelId"
-            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "salaires"."personnelId"
-            LEFT JOIN "site_locations" ON "site_locations"."id" = "salaires"."personnelId"
+            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"  
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "salaires"."statut"='Disponible' AND
@@ -230,6 +220,14 @@ export class SalairesService extends AbstractService {
 
     // Numero farde pour classer les differentes masses salariales
     farde(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT is_paie, created FROM salaires
+            WHERE code_entreprise='${code_entreprise}'
+            ORDER BY is_paie DESC;
+        `);
+    }
+
+    fardeDisponible(code_entreprise) {
         return this.dataSource.query(`
             SELECT is_paie, created FROM salaires
             WHERE code_entreprise='${code_entreprise}' AND
@@ -592,3 +590,82 @@ export class SalairesService extends AbstractService {
         return createReadStream(join(process.cwd(), `bulletin.pdf`));
     }
 }
+
+
+
+
+
+// relevePaie(code_entreprise, is_paie) {
+//     // return this.repository.find({
+//     //     relations: [
+//     //         'personnel', 
+//     //         'personnel.departements', 
+//     //         'personnel.titles', 
+//     //         'personnel.fonctions', 
+//     //         'personnel.services', 
+//     //         'personnel.site_locations'
+//     //     ], 
+//     //     where: {code_entreprise} && {statut: 'Disponible'}, 
+//     //     order: {'created': 'DESC'} 
+//     // });
+//     return this.dataSource.query(`
+//         SELECT "salaires"."id",
+//             "salaires"."monnaie",
+//             "salaires"."taux_dollard",
+//             "salaires"."nbr_dependants",
+//             "salaires"."alloc_logement",
+//             "salaires"."alloc_transport", 
+//             "salaires"."alloc_familliale", 
+//             "salaires"."soins_medicaux", 
+//             "salaires"."salaire_base",
+//             "salaires"."primes", 
+//             "salaires"."anciennete_nbr_age", 
+//             "salaires"."prime_anciennete", 
+//             "salaires"."heures_supp", 
+//             "salaires"."heure_supplementaire_monnaie", 
+//             "salaires"."conge_paye", 
+//             "salaires"."nbre_jrs_preste", 
+//             "salaires"."nbre_jrs_ferie", 
+//             "salaires"."rbi", 
+//             "salaires"."cnss_qpo", 
+//             "salaires"."rni", 
+//             "salaires"."ipr", 
+//             "salaires"."impot_elide", 
+//             "salaires"."syndicat", 
+//             "salaires"."penalites", 
+//             "salaires"."avance_slaire", 
+//             "salaires"."prise_en_charge_frais_bancaire", 
+//             "salaires"."pres_entreprise", 
+//             "salaires"."net_a_payer", 
+//             "salaires"."statut",
+//             "salaires"."is_paie", 
+//             "salaires"."signature", 
+//             "salaires"."created",
+//             "salaires"."update_created",
+//             "salaires"."entreprise",
+//             "salaires"."code_entreprise",
+//             "salaires"."departement",
+//             "salaires"."fonction",
+
+//             "personnels"."matricule",
+//             "personnels"."nom",
+//             "personnels"."postnom",
+//             "personnels"."prenom",
+//             "personnels"."compte_bancaire",
+//             "personnels"."frais_bancaire",
+//             "personnels"."nom_banque",
+            
+//             "titles"."title",
+//             "service_prefs"."service",
+//             "site_locations"."site_location"
+//         FROM salaires
+//         LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId" 
+//         LEFT JOIN "titles" ON "titles"."id" = "salaires"."personnelId" 
+//         LEFT JOIN "service_prefs" ON "service_prefs"."id" = "salaires"."personnelId"
+//         LEFT JOIN "site_locations" ON "site_locations"."id" = "salaires"."personnelId"
+//         WHERE
+//         "salaires"."code_entreprise"='${code_entreprise}' AND
+//         "salaires"."statut"='Disponible' AND
+//         "salaires"."is_paie"='${is_paie}';
+//     `);
+// }

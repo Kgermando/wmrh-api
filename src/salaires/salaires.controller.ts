@@ -132,19 +132,34 @@ export class SalairesController {
       return this.salaireService.cnssQPOTotal(code_entreprise, is_paie);
     }
 
+    @Get('get-rbi-total/:code_entreprise/:is_paie')
+    async rbiTotal(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('is_paie') is_paie: number
+    ) {
+      return this.salaireService.rbiTotal(code_entreprise, is_paie);
+    }
+    
     @Get('get-frais-bancaire-total/:code_entreprise/:is_paie')
     async fraisBancaireTotal(
       @Param('code_entreprise') code_entreprise: string,
       @Param('is_paie') is_paie: number
     ) {
       return this.salaireService.fraisBancaireTotal(code_entreprise, is_paie);
-    } 
+    }
 
     @Get('get-farde-paie/:code_entreprise')
     async farde(
       @Param('code_entreprise') code_entreprise: string,
     ) {
       return this.salaireService.farde(code_entreprise);
+    }
+
+    @Get('get-farde-disponible-paie/:code_entreprise')
+    async fardeDisponible(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.salaireService.fardeDisponible(code_entreprise);
     }
 
     @Get('get-farde-max-value/:code_entreprise')

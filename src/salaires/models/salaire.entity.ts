@@ -10,6 +10,21 @@ export class Salaire {
     @ManyToOne(() => Personnel, (personnel)=> personnel.salaires, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
 
+    @Column({default: '-'})
+    departement: string;
+
+    @Column({default: '-'})
+    fonction: string;
+
+    @Column({default: '-'})
+    title: string;
+
+    @Column({default: '-'})
+    service: string;
+
+    @Column({default: '-'})
+    site_location: string;
+
     @Column({default: 'CDF'})
     monnaie: string;
 
