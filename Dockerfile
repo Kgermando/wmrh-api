@@ -8,7 +8,7 @@ RUN npm install --force
 
 COPY . .
 
-RUN npm run build
+RUN npm run start:deploy
 
 EXPOSE 8080
 
