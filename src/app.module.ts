@@ -45,7 +45,7 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
         ssl: {rejectUnauthorized: false},
         // ssl: process.env.NODE_ENV === "production" ? {
         //   rejectUnauthorized: false,
-        // } : null,b
+        // } : null,
         autoLoadEntities: true,
         synchronize: true,
       }),
