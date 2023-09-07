@@ -41,11 +41,11 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        host: configService.get<string>('database.host'),
-        port: configService.get<number>('database.port'),
-        username: configService.get<string>('database.username'),
-        password: configService.get<string>('database.password'),
-        database: configService.get<string>('database.database'),
+        host: configService.get('database.host'),
+        port: configService.get('database.port'),
+        username: configService.get('database.username'),
+        password: configService.get('database.password'),
+        database: configService.get('database.database'),
         ssl: configService.get('database.ssl'),
         entities: configService.get('database.entities'),
         migrations: configService.get('database.migrations'),
@@ -60,7 +60,7 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
         // ssl: process.env.NODE_ENV === "production" ? {
         //   rejectUnauthorized: false,
         // } : null, 
-        // autoLoadEntities: true,
+        autoLoadEntities: true,
         synchronize: true,
         // options: {"trustServerCertificate": true}
       }),
