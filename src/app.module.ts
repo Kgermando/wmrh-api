@@ -42,7 +42,11 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get<string>('database.url'),
-        ssl: {rejectUnauthorized: false},
+        ssl:  {
+          // ca: fs.readFileSync(path.join(__dirname, "/ssl/DigiCertGlobalRootG2.crt.pem")),
+          rejectUnauthorized: true,
+          require: true,
+        },
         // ssl: process.env.NODE_ENV === "production" ? {
         //   rejectUnauthorized: false,
         // } : null,
