@@ -42,9 +42,10 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get<string>('database.url'),
-        ssl: process.env.NODE_ENV === "production" ? {
-          rejectUnauthorized: false,
-        } : null,
+        ssl: true,
+        // ssl: process.env.NODE_ENV === "production" ? {
+        //   rejectUnauthorized: false,
+        // } : null,
         autoLoadEntities: true,
         synchronize: true,
       }), 
