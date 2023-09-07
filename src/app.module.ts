@@ -46,6 +46,8 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
         dialectOptions: {
           ssl: { required: true },
         },
+        autoLoadEntities: true,
+        synchronize: true,
         // host: configService.get('database.host'),
         // port: configService.get('database.port'),
         // username: configService.get('database.username'),
@@ -64,10 +66,7 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
         // },
         // ssl: process.env.NODE_ENV === "production" ? {
         //   rejectUnauthorized: false,
-        // } : null, 
-        autoLoadEntities: true,
-        synchronize: true,
-        // options: {"trustServerCertificate": true}
+        // } : null,
       }),
       inject: [ConfigService],
     }),
