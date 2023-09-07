@@ -44,7 +44,7 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
         url: configService.get<string>('database.url'),
         ssl:  {
           // ca: fs.readFileSync(path.join(__dirname, "/ssl/DigiCertGlobalRootG2.crt.pem")),
-          ca: configService.get<string>('database.ca'),
+          // ca: configService.get<string>('database.ca'),
           rejectUnauthorized: true,
           require: true,
         },
