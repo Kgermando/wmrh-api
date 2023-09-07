@@ -3,9 +3,10 @@ const isProduction = process.env.NODE_ENV === "production";
 
 export default () => ({
     database: {
-      url: process.env.DATABASE_URL
+      url: process.env.DATABASE_URL,
       // url: isProduction ? process.env.DATABASE_URL
       //   : `postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PASS}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/${process.env.POSTGRES_DATABASE}`
+      ca: process.env.CA_CERT,
     },
     token: process.env.JWT_TOKEN,
     bucket: {
