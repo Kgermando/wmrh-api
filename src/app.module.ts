@@ -42,17 +42,21 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
         url: configService.get<string>('database.url'),
+        ssl: true,
+        dialectOptions: {
+          ssl: { required: true },
+        },
         // host: configService.get('database.host'),
         // port: configService.get('database.port'),
         // username: configService.get('database.username'),
         // password: configService.get('database.password'),
         // database: configService.get('database.database'),
-        ssl: configService.get('database.ssl'),
-        entities: configService.get('database.entities'),
-        migrations: configService.get('database.migrations'),
-        extra: configService.get('database.extra'),
-        logging: configService.get('database.logging'),
-        cli: configService.get('database.cli'),
+        // ssl: configService.get('database.ssl'),
+        // entities: configService.get('database.entities'),
+        // migrations: configService.get('database.migrations'),
+        // extra: configService.get('database.extra'),
+        // logging: configService.get('database.logging'),
+        // cli: configService.get('database.cli'),
         
         // ssl:  { 
         //   rejectUnauthorized: false,
