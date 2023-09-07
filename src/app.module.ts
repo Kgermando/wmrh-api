@@ -62,7 +62,7 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
         // } : null, 
         autoLoadEntities: true,
         synchronize: true,
-        options: {"trustServerCertificate": true}
+        // options: {"trustServerCertificate": true}
       }),
       inject: [ConfigService],
     }),
