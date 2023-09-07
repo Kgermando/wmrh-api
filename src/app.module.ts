@@ -41,18 +41,28 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
     TypeOrmModule.forRootAsync({
       useFactory: async (configService: ConfigService) => ({
         type: 'postgres',
-        url: configService.get<string>('database.url'),
-        ssl:  {
-          // ca: fs.readFileSync(path.join(__dirname, "/ssl/DigiCertGlobalRootG2.crt.pem")),
-          // ca: configService.get<string>('database.ca'),
-          rejectUnauthorized: false,
-          require: true,
-        },
+        host: configService.get<string>('database.host'),
+        port: configService.get<number>('database.port'),
+        username: configService.get<string>('database.username'),
+        password: configService.get<string>('database.password'),
+        database: configService.get<string>('database.database'),
+        ssl: configService.get('database.ssl'),
+        entities: configService.get('database.entities'),
+        migrations: configService.get('database.migrations'),
+        extra: configService.get('database.extra'),
+        logging: configService.get('database.logging'),
+        cli: configService.get('database.cli'),
+        // url: configService.get<string>('database.url'),
+        // ssl:  { 
+        //   rejectUnauthorized: false,
+        //   require: true,
+        // },
         // ssl: process.env.NODE_ENV === "production" ? {
         //   rejectUnauthorized: false,
         // } : null,
         autoLoadEntities: true,
         synchronize: true,
+        options: {"trustServerCertificate": true}
       }),
       inject: [ConfigService],
     }),
