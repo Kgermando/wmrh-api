@@ -1,5 +1,4 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
-import { Apointement } from "src/apointement/models/apointement.entity";
+import { IsNotEmpty } from "class-validator";
 
 export class RegisterDto {
    
