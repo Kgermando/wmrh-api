@@ -78,7 +78,7 @@ export class AuthController {
             throw new BadRequestException("Ce compte n'est pas actif! ");
         }
 
-        if(entreprise) {
+        if(!entreprise) {
             throw new BadRequestException("Votre abonnement a expiré! ");
         }
 
