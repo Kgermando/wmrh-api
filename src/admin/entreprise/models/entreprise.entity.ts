@@ -7,16 +7,28 @@ export class Entreprise {
     @PrimaryGeneratedColumn()
     id: number; 
 
+    @Column({default: '-'})
+    logo: string;
+
     @Column()
     company_name: string;
 
-    @Column()
+    @Column({default: 0})
+    nbre_employe: number;
+
+    @Column({default: '-'})
     rccm: string;
 
-    @Column()
+    @Column({default: '-'})
     id_nat: string;
 
-    @Column()
+    @Column({default: '-'})
+    numero_impot: string;
+
+    @Column({default: '-'})
+    numero_cnss: string;
+
+    @Column({default: '-'})
     responsable: string;
 
     @Column()
@@ -30,9 +42,6 @@ export class Entreprise {
 
     @Column()
     code_entreprise: string;
-
-    @Column({default: 0})
-    nbre_employe: number;
 
     @Column({default: false})
     statut: boolean; // statut abonnement

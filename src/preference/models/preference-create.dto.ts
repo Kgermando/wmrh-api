@@ -1,39 +1,11 @@
 import { IsNotEmpty } from "class-validator";
+import { Entreprise } from "src/admin/entreprise/models/entreprise.entity";
 
 export class PreferenceCreateDto {
    
-    logo: string;
+    company: Entreprise; 
 
-    @IsNotEmpty()
-    company_name: string;
-
-    @IsNotEmpty()
-    nbr_employe: number; 
-
-    @IsNotEmpty()
-    cnss: string;
-
-    // @IsNotEmpty()
-    // numero_taxe: string;
-
-    @IsNotEmpty()
-    rccm: string;
-
-    @IsNotEmpty()
-    id_nat: string;
-
-    @IsNotEmpty()
-    numero_impot: string;
-
-    @IsNotEmpty()
-    email: string;
-
-    @IsNotEmpty()
-    telephone: string; 
-
-    @IsNotEmpty()
-    adresse: string;
-
+    
     // Date de paie
     @IsNotEmpty()
     date_paie: Date;

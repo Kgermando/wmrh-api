@@ -3,14 +3,25 @@ import { AbonnementClient } from "src/admin/abonnement_client/models/abonnement_
 
 export class EntrepriseCreateDto {
 
+    logo: string;
+
     @IsNotEmpty()
     company_name: string;
+
+    @IsNotEmpty()
+    nbre_employe: number;
 
     @IsNotEmpty()
     rccm: string;
 
     @IsNotEmpty()
     id_nat: string;
+
+    @IsNotEmpty()
+    numero_impot: string;
+
+    @IsNotEmpty()
+    numero_cnss: string;
 
     @IsNotEmpty()
     responsable: string;
@@ -26,10 +37,7 @@ export class EntrepriseCreateDto {
 
     @IsNotEmpty()
     code_entreprise: string;
-
-    @IsNotEmpty()
-    nbre_employe: number;
-
+ 
     @IsNotEmpty()
     statut: boolean; // statut abonnement 
 

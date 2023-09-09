@@ -1,5 +1,5 @@
-import { DecimalTransformer } from "src/decimal.transformer";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Entreprise } from "src/admin/entreprise/models/entreprise.entity"; 
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('preferences')
 export class Preference {
@@ -8,38 +8,9 @@ export class Preference {
     id: number;  
     
     // Infos entreprise 
-    @Column({default: '-'})
-    logo: string;
-
-    @Column()
-    company_name: string;
-
-    @Column()
-    nbr_employe: number; 
-
-    @Column()
-    cnss: string;
-
-    // @Column()
-    // numero_taxe: string;
-
-    @Column()
-    rccm: string;
-
-    @Column()
-    id_nat: string;
-
-    @Column()
-    numero_impot: string;
-
-    @Column()
-    email: string;
-
-    @Column()
-    telephone: string; 
-
-    @Column()
-    adresse: string;
+    @OneToOne(() => Entreprise)
+    @JoinColumn()
+    company: Entreprise;
 
     // Date de paie
     @Column()

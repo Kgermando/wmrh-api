@@ -14,11 +14,20 @@ export class PreferenceService extends AbstractService {
     } 
 
     all(): Promise<any[]> {
-        return this.repository.find(); 
+        return this.repository.find({
+            relations: {
+                company: true
+            }
+        }); 
     }
 
     async preference(condition): Promise<any> {
-        return await this.repository.findOne(condition)
+        return await this.repository.findOne({
+            where: condition,
+            relations: {
+                company: true
+            }
+        })
     }
 
     async updatePref(condition, data): Promise<any> {

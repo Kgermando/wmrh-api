@@ -15,7 +15,7 @@ export class AbonnementClientService extends AbstractService {
     allGet(): Promise<any[]> {
         return this.repository.find({
             relations: {
-                personnel: true
+                entreprise: true
             }, 
             order: {'created': 'DESC'}
         }); 
@@ -25,7 +25,7 @@ export class AbonnementClientService extends AbstractService {
         return await this.repository.findOne({
             where: condition,
             relations: {
-                personnel: true
+                entreprise: true
             }
         })
     }

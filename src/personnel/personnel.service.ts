@@ -62,7 +62,7 @@ export class PersonnelService extends AbstractService {
                 services: true,
                 site_locations: true,
             }
-        })
+        });
     }
 
     

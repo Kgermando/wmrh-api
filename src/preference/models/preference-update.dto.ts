@@ -1,15 +1,8 @@
+import { Entreprise } from "src/admin/entreprise/models/entreprise.entity";
+
 export class PreferenceUpdateDto {
-    logo?: string;
-    company_name?: string;
-    nbr_employe?: number;
-    cnss?: string;
-    // numero_taxe?: string;
-    rccm?: string;
-    id_nat?: string;
-    numero_impot?: string;
-    email?: string;
-    telephone?: string; 
-    adresse?: string;
+    
+    company?: Entreprise;
 
     // Date de paie
     date_paie ?: Date;
