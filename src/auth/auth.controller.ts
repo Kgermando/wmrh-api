@@ -78,9 +78,12 @@ export class AuthController {
             throw new BadRequestException("Ce compte n'est pas actif! ");
         }
 
-        if(!entreprise) {
-            throw new BadRequestException("Votre abonnement a expiré! ");
+        if (user.code_entreprise != 'et015') {
+            if(!entreprise) {
+                throw new BadRequestException("Votre abonnement a expiré! ");
+            }
         }
+        
 
         const jwt = await this.jwtService.signAsync({id: user.id});
 
