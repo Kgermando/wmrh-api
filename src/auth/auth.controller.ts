@@ -60,11 +60,11 @@ export class AuthController {
     ) {
         const user = await this.personnelService.findOne({
             where: { matricule: matricule, code_entreprise: code_entreprise }
-        })
+        });
 
         const entreprise = await this.entrepriseService.findOne({
             where: { code_entreprise: user.code_entreprise }
-        })
+        });
 
         if(!user) {
             throw new NotFoundException('Identifiant non trouvé!');
