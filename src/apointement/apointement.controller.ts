@@ -176,18 +176,47 @@ export class ApointementController {
         entries.data.forEach(async element => {
           console.log("data csv", element);
           const personne = await this.apointementService.findOne({where: {matricule: element.matricule}});
+          const personnel = personne.id;
           const created = new Date();
           const update_created = new Date();
-          const personnel = personne.id;
-            return this.apointementService.create({
-              ...element,
-              created,
-              update_created,
-              personnel
-            });
+          return this.apointementService.create({
+            matricule: element.matricule,
+            apointement: (element.apointement) ? element.apointement : 'P',
+            prestation: (element.prestation) ? element.prestation : '1',
+            observation: (element.observation) ? element.observation : 'Rien à signaler',
+            date_entree: (element.date_entree) ? element.date_entree : new Date(),
+            date_sortie: (element.date_sortie) ? element.date_sortie : new Date(),
+            personnel: personnel,
+            site_location: (element.site_location) ? element.site_location : '-',
+            signature: (element.signature) ? element.signature : '-',
+            created: created, 
+            update_created : update_created, 
+            entreprise: (element.entreprise) ? element.entreprise: '-',
+            code_entreprise: (element.code_entreprise) ? element.code_entreprise: '-',
+          });
+            // return this.apointementService.create({
+            //   ...element,
+            //   created,
+            //   update_created,
+            //   personnel
+            // });
         });
       } catch (error) {
         console.log('error', error);
       }
     }
+
+
+    @Post('download-model-xlsx/:code_entreprise/:site_location')
+    async downloadModelReport(
+      @Res() res: Response,
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('site_location') site_location: string,
+      ) {
+        let result = await this.apointementService.downloadModelExcel(code_entreprise, site_location);
+          // console.log("result", result);  
+          res.set("Content-Type", "text/xlsx");
+        res.download(`${result}`);
+    } 
+
 }

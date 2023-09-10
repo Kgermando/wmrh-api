@@ -123,8 +123,8 @@ export class PersonnelController {
           signature: '-',
           created: created,
           update_created : update_created,
-          entreprise: element.entreprise,
-          code_entreprise: element.code_entreprise,
+          entreprise: (element.entreprise) ? element.entreprise: '-',
+          code_entreprise: (element.code_entreprise) ? element.code_entreprise: '-',
         }
       );
           // return this.personneService.create({

@@ -225,76 +225,40 @@ export class ApointementService extends AbstractService {
         return File;
     }
 
-    async downloadModelExcel() {
-
-        let data: any[] = [];
-
-        data = [
-            {
-                nom: 'Eenge',
-                postnom: 'Musala',
-                prenom: 'Jean de Dieu',
-                email: 'ekengejean@gmail.com',
-                telephone: '+243813530868',
-                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
-                sexe: 'Homme',
-                matricule: 'entreprise',
-                category: 'Cadres subalterne',
-                roles: 'Dashboard',
-                signature: 'Mon matricule',
-                created: new Date(),
-                update_created: new Date(), 
-                entreprise: 'Entreprise',
-                code_entreprise: 'Code Entreprise',
-            },
-            {
-                nom: 'Senga',
-                postnom: 'Mawete',
-                prenom: 'Benedicte',
-                email: 'sengabenedicte@gmail.com',
-                telephone: '0853530845',
-                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
-                sexe: 'Femme',
-                matricule: 'mon matricule',
-                category: 'Cadres subalterne',
-                roles: 'Personnels',
-                signature: 'Mon matricule',
-                created: new Date(),
-                update_created: new Date(), 
-                entreprise: 'Entreprise',
-                code_entreprise: 'Code Entreprise',
-            },
-        ]
+    async downloadModelExcel(code_entreprise, site_location) {
+        let data: PresenceExcel[] = [];
+        data = await this.dataSource.query(`
+            SELECT *
+            FROM apointements WHERE
+            code_entreprise='${code_entreprise}' AND
+            site_location='${site_location} 
+            LIMIT 1;
+        `);
 
         if(!data) {
             throw new NotFoundException("No data download");
         }
 
-        let rows: any[] = [];
+        let rows: PresenceExcel[] = [];
 
         data.forEach(doc => {
             rows.push(doc);
         });
 
         let book = new Workbook();
-        let sheet = book.addWorksheet('MODEL D\'EXPORTATION DES EMPLOYES');
+        let sheet = book.addWorksheet('FICHE DE PRESENCES');
 
         const headers = [ 
-            { header: 'Nom', key: 'nom', width: 20.5 },
-            { header: 'Post-nom', key: 'postnom', width: 20.5 },
-            { header: 'Prénom', key: 'prenom', width: 20.5 },
-            { header: 'Mail', key: 'email', width: 30.5 },
-            { header: 'Téléphone', key: 'telephone', width: 20.5 },
-            { header: 'Adresse', key: 'adresse', width: 30.5 },
-            { header: 'Sexe', key: 'sexe', width: 20.5 },
-            { header: 'Matricule', key: 'matricule', width: 20.5 },
-            { header: 'Catégorie', key: 'category', width: 30.5 }, 
-            { header: 'Accréditation', key: 'roles', width: 20.5 },
-            { header: 'Signature', key: 'signature', width: 20.5 },
-            { header: 'Date de création', key: 'created', width: 20.5 },
-            { header: 'Mise à jour', key: 'update_created', width: 20.5 },
-            { header: 'Entreprise', key: 'entreprise', width: 20.5 },
-            { header: 'Code Entreprise', key: 'code_entreprise', width: 20.5 },
+            { header: 'matricule', key: 'matricule', width: 20.5 },
+            { header: 'apointement', key: 'apointement', width: 20.5 },
+            { header: 'prestation', key: 'prestation', width: 20.5 },
+            { header: 'observation', key: 'observation', width: 30.5 },
+            { header: 'date_entree', key: 'date_entree', width: 20.5 },
+            { header: 'date_sortie', key: 'date_sortie', width: 30.5 },
+            { header: 'site_location', key: 'site_location', width: 20.5 },
+            { header: 'signature', key: 'signature', width: 30.5 },
+            { header: 'entreprise', key: 'entreprise', width: 20.5 },
+            { header: 'code_entreprise', key: 'code_entreprise', width: 20.5 },
         ]
 
         sheet.columns = headers;

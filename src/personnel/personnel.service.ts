@@ -246,6 +246,7 @@ export class PersonnelService extends AbstractService {
             { header: 'compte_bancaire', key: 'compte_bancaire', width: 30.5 }, 
             { header: 'nom_banque', key: 'nom_banque', width: 20.5 },
             { header: 'frais_bancaire', key: 'frais_bancaire', width: 20.5 },
+            { header: 'signature', key: 'signature', width: 30.5 }, 
             { header: 'entreprise', key: 'entreprise', width: 20.5 },
             { header: 'code_entreprise', key: 'code_entreprise', width: 20.5 },
         ]
