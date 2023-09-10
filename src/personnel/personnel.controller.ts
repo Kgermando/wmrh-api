@@ -84,7 +84,7 @@ export class PersonnelController {
         const matricule = `${element.matricule}-${element.code_entreprise}`;
         console.log("data csv", element);
         return this.personneService.create({
-          photo: '-',
+          photo: element.photo,
           nom: (element.nom) ? this.personneService.capitalizeTest(element.nom) : '-',
           postnom: (element.postnom) ? this.personneService.capitalizeTest(element.postnom) : '-',
           prenom: (element.prenom) ? this.personneService.capitalizeTest(element.prenom) : '-',
