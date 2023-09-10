@@ -231,7 +231,7 @@ export class ApointementService extends AbstractService {
             SELECT *
             FROM apointements WHERE
             code_entreprise='${code_entreprise}' AND
-            site_location='${site_location} 
+            site_location='${site_location}' 
             LIMIT 1;
         `);
 
