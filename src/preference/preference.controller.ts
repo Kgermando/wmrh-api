@@ -25,14 +25,15 @@ export class PreferenceController {
     }
 
  
-    @Put(':code_entreprise')
+    @Put(':code_entreprise/:signature')
     async update(
         @Param('code_entreprise') code_entreprise: string,
+        @Param('signature') signature: string,
         @Body() body: PreferenceUpdateDto
-    ) {
+    ) { 
         const update_created = new Date(); 
-        await this.preferenceService.updatePref({code_entreprise}, {...body, update_created});
-        return this.preferenceService.preference({where: {code_entreprise}});
+        await this.preferenceService.updatePref({code_entreprise}, {...body, signature, update_created});
+        return this.preferenceService.preference({code_entreprise}); 
     }
 
     @Delete(':id')

@@ -44,17 +44,22 @@ export class PersonnelService extends AbstractService {
     }
     
 
+    // mettre expandable panel dans profil avec certains de ces tables
+    // Mais voir aussi comment aleger la table personnels en retirant les tables
+    // que personnels ne fait pas appel Ex: Prime celui qui fait appel à personnel et non l'inverse
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
             relations: {
                 presences: true,
-                primes: true,
-                penalites: true,
-                avances_salaires: true,
-                heures_supp: true,
+                // primes: true,
+                // penalites: true,
+                // avances_salaires: true,
+                // heures_supp: true,
                 salaires: true,
-                performences: true,
+                // performences: true,
+                // pres_entreprises: true,
+                // notify: true,
 
                 departements: true,
                 titles: true,
@@ -77,16 +82,7 @@ export class PersonnelService extends AbstractService {
             }),
             meta
         }
-    }
-
-    // async deleteItem(condition): Promise<any> {
-    //     return await this.repository
-    //     .createQueryBuilder('personnels')
-    //     .delete()
-    //     .from(Personnel)
-    //     .where("id = :id", { id: condition })
-    //     .execute();
-    // }
+    } 
 
     async presence(condition): Promise<any> {
         return await this.repository.findOne(condition);
@@ -198,76 +194,60 @@ export class PersonnelService extends AbstractService {
 
 
 
-    async downloadModelExcel() {
+    async downloadModelExcel(code_entreprise) {
 
-        let data: any[] = [];
+        let data: PersonnelExcel[] = [];
 
-        data = [
-            {
-                nom: 'Eenge',
-                postnom: 'Musala',
-                prenom: 'Jean de Dieu',
-                email: 'ekengejean@gmail.com',
-                telephone: '+243813530868',
-                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
-                sexe: 'Homme',
-                matricule: 'entreprise',
-                category: 'Cadres subalterne',
-                roles: 'Dashboard',
-                signature: 'Mon matricule',
-                created: new Date(),
-                update_created: new Date(), 
-                entreprise: 'Entreprise',
-                code_entreprise: 'Code Entreprise',
-            },
-            {
-                nom: 'Senga',
-                postnom: 'Mawete',
-                prenom: 'Benedicte',
-                email: 'sengabenedicte@gmail.com',
-                telephone: '0853530845',
-                adresse: 'Av. 31bis Oshué, Q/Matonge, C/Kalamu, kinshasa',
-                sexe: 'Femme',
-                matricule: 'mon matricule',
-                category: 'Cadres subalterne',
-                roles: 'Personnels',
-                signature: 'Mon matricule',
-                created: new Date(),
-                update_created: new Date(), 
-                entreprise: 'Entreprise',
-                code_entreprise: 'Code Entreprise',
-            },
-        ]
+        data = await this.dataSource.query(`
+            SELECT * FROM personnels WHERE
+            code_entreprise='${code_entreprise}' LIMIT 2;
+        `);
 
         if(!data) {
             throw new NotFoundException("No data download");
         }
 
-        let rows: any[] = [];
+        let rows: PersonnelExcel[] = [];
 
         data.forEach(doc => {
             rows.push(doc);
         });
 
         let book = new Workbook();
-        let sheet = book.addWorksheet('MODEL D\'EXPORTATION DES EMPLOYES');
+        let sheet = book.addWorksheet('MODEL EMPLOYES');
 
-        const headers = [ 
-            { header: 'Nom', key: 'nom', width: 20.5 },
-            { header: 'Post-nom', key: 'postnom', width: 20.5 },
-            { header: 'Prénom', key: 'prenom', width: 20.5 },
-            { header: 'Mail', key: 'email', width: 30.5 },
-            { header: 'Téléphone', key: 'telephone', width: 20.5 },
-            { header: 'Adresse', key: 'adresse', width: 30.5 },
-            { header: 'Sexe', key: 'sexe', width: 20.5 },
-            { header: 'Matricule', key: 'matricule', width: 20.5 },
-            { header: 'Catégorie', key: 'category', width: 30.5 }, 
-            { header: 'Accréditation', key: 'roles', width: 20.5 },
-            { header: 'Signature', key: 'signature', width: 20.5 },
-            { header: 'Date de création', key: 'created', width: 20.5 },
-            { header: 'Mise à jour', key: 'update_created', width: 20.5 },
-            { header: 'Entreprise', key: 'entreprise', width: 20.5 },
-            { header: 'Code Entreprise', key: 'code_entreprise', width: 20.5 },
+        const headers = [
+            { header: 'nom', key: 'nom', width: 20.5 },
+            { header: 'postnom', key: 'postnom', width: 20.5 },
+            { header: 'prenom', key: 'prenom', width: 20.5 },
+            { header: 'email', key: 'email', width: 30.5 },
+            { header: 'telephone', key: 'telephone', width: 25.5 },
+            { header: 'adresse', key: 'adresse', width: 30.5 },
+            { header: 'sexe', key: 'sexe', width: 20.5 },
+            // { header: 'date_naissance', key: 'date_naissance', width: 20.5 },
+            // { header: 'nationalite', key: 'nationalite', width: 30.5 }, 
+            // { header: 'etat_civile', key: 'etat_civile', width: 20.5 },
+            { header: 'nbr_dependants', key: 'nbr_dependants', width: 20.5 },
+            { header: 'matricule', key: 'matricule', width: 20.5 },
+            { header: 'numero_cnss', key: 'numero_cnss', width: 20.5 },
+            // { header: 'category', key: 'category', width: 20.5 },
+            // { header: 'statut_personnel', key: 'statut_personnel', width: 20.5 },
+            // { header: 'roles', key: 'roles', width: 20.5 },
+            // { header: 'permission', key: 'permission', width: 20.5 },
+            // { header: 'type_contrat', key: 'type_contrat', width: 30.5 }, 
+            // { header: 'date_debut_contrat', key: 'date_debut_contrat', width: 20.5 },
+            // { header: 'date_fin_contrat', key: 'date_fin_contrat', width: 20.5 },
+            // { header: 'monnaie', key: 'monnaie', width: 20.5 },
+            { header: 'alloc_logement', key: 'alloc_logement', width: 20.5 },
+            { header: 'alloc_transport', key: 'alloc_transport', width: 20.5 },
+            { header: 'alloc_familliale', key: 'alloc_familliale', width: 20.5 },
+            { header: 'soins_medicaux', key: 'soins_medicaux', width: 20.5 },
+            { header: 'salaire_base', key: 'salaire_base', width: 20.5 },
+            { header: 'compte_bancaire', key: 'compte_bancaire', width: 30.5 }, 
+            { header: 'nom_banque', key: 'nom_banque', width: 20.5 },
+            { header: 'frais_bancaire', key: 'frais_bancaire', width: 20.5 },
+            { header: 'entreprise', key: 'entreprise', width: 20.5 },
+            { header: 'code_entreprise', key: 'code_entreprise', width: 20.5 },
         ]
 
         sheet.columns = headers;
@@ -320,7 +300,9 @@ export class PersonnelService extends AbstractService {
 
 
 
-
+    capitalizeTest(text: string): string {
+        return (text && text[0].toUpperCase() + text.slice(1)) || text;
+    }
 
     
 }

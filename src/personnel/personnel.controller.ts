@@ -74,16 +74,70 @@ export class PersonnelController {
       }
       const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
       entries.data.forEach(async element => {
-        const password = await bcrypt.hash('1234', 12);
+        const sexe = (element.sexe) ? this.personneService.capitalizeTest(element.sexe) : '-';
+        const monnaie = (element.monnaie) ? element.monnaie.toUpperCase() : 'USD';
+        const is_paie = 0;
+        const statut_paie = 'En attente';
+        const password = await bcrypt.hash('1234', 12); 
         const created = new Date();
         const update_created = new Date();
+        const matricule = `${element.matricule}-${element.code_entreprise}`;
         console.log("data csv", element);
-          return this.personneService.create({
-            ...element, 
-            password,
-            created,
-            update_created
-          });
+        return this.personneService.create({
+          photo: '-',
+          nom: (element.nom) ? this.personneService.capitalizeTest(element.nom) : '-',
+          postnom: (element.postnom) ? this.personneService.capitalizeTest(element.postnom) : '-',
+          prenom: (element.prenom) ? this.personneService.capitalizeTest(element.prenom) : '-',
+          email: (element.email) ? element.email : '-',
+          telephone: (element.telephone) ? element.telephone : '-',
+          adresse: (element.adresse) ? element.adresse : '-',
+          sexe: sexe,
+          date_naissance: (element.date_naissance) ? element.date_naissance : new Date(),
+          lieu_naissance: (element.lieu_naissance) ? element.lieu_naissance : '-',
+          nationalite: element.nationalite, 
+          etat_civile: (element.etat_civile) ? this.personneService.capitalizeTest(element.etat_civile) : '-',
+          nbr_dependants: (element.nbr_dependants) ? element.nbr_dependants : 0,
+          matricule: matricule,
+          numero_cnss: (element.numero_cnss) ? element.numero_cnss : '-',
+          category: 'Manoeuvres Ordinaires (MO)',
+          statut_personnel: false,
+          roles: element.roles,
+          permission: (element.permission) ? element.permission : 'R',
+          type_contrat: (element.type_contrat) ? element.type_contrat : 'CDD', 
+          date_debut_contrat: (element.date_debut_contrat) ? element.date_debut_contrat : new Date(), 
+          date_fin_contrat: (element.date_fin_contrat) ? element.date_fin_contrat : new Date(),
+          monnaie: monnaie,
+          alloc_logement: (element.alloc_logement) ? element.alloc_logement : '0', 
+          alloc_transport: (element.alloc_transport) ? element.alloc_transport : '0', 
+          alloc_familliale: (element.alloc_familliale) ? element.alloc_familliale : '0',
+          soins_medicaux: (element.soins_medicaux) ? element.soins_medicaux : '0', 
+          salaire_base: (element.salaire_base) ? element.soins_medicaux : '0', 
+          compte_bancaire: (element.compte_bancaire) ? element.compte_bancaire : '-', 
+          nom_banque: (element.nom_banque) ? element.nom_banque : '-', 
+          frais_bancaire: (element.frais_bancaire) ? element.frais_bancaire : '0', 
+          cv_url: '-',
+          syndicat: false,
+          is_paie: is_paie,
+          statut_paie: statut_paie,
+          password: password,
+          signature: '-',
+          created: created,
+          update_created : update_created,
+          entreprise: element.entreprise,
+          code_entreprise: element.code_entreprise,
+        }
+      );
+          // return this.personneService.create({
+          //   ...element,
+          //   statut_personnel,
+          //   syndicat,
+          //   is_paie,
+          //   statut_paie, 
+          //   password,
+          //   signature,
+          //   created,
+          //   update_created
+          // });
       });
     } catch (error) {
       console.log('error', error);
@@ -103,11 +157,12 @@ export class PersonnelController {
       res.download(`${result}`);
   } 
 
-  @Post('download-model-xlsx') 
+  @Post('download-model-xlsx/:code_entreprise')
   async downloadModelReport(
     @Res() res: Response,
+    @Param('code_entreprise') code_entreprise: string,
     ) {
-      let result = await this.personneService.downloadModelExcel();
+      let result = await this.personneService.downloadModelExcel(code_entreprise);
         // console.log("result", result);  
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);
