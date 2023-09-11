@@ -318,10 +318,10 @@ export class PersonnelService extends AbstractService {
 
 
 
-    capitalizeTest(text: string): string {
-        return (text && text[0].toUpperCase() + text.slice(1)) || text;
-    }
-
+  
+  capitalizeTest(text: string): string {
+    return (text && text[0].toUpperCase() + text.slice(1).toLowerCase()) || text;
+  }
     
 }
  
