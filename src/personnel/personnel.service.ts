@@ -95,6 +95,23 @@ export class PersonnelService extends AbstractService {
             }); 
     }
 
+    updateStatutPaieAll(code_entreprise) {
+        return this.dataSource.query(`
+            UPDATE personnels 
+            SET statut_paie = 'En attente'
+            WHERE code_entreprise='${code_entreprise}' AND statut_paie!='En attente' AND
+            EXTRACT(MONTH FROM age(update_created)) :: int > 1;
+    `);
+    }
+
+    updateStatutPaie(code_entreprise) {
+        return this.dataSource.query(`
+            UPDATE personnels 
+            SET statut_paie = 'En attente'
+            WHERE code_entreprise='${code_entreprise}' AND statut_paie!='En attente';
+    `);
+    }
+
 
 
     async downloadExcel(code_entreprise, start_date, end_date) {

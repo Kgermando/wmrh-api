@@ -54,6 +54,20 @@ export class PersonnelController {
     return this.personneService.getSyndicat(code_entreprise);
   }
 
+  @Get('update-statut-paie-all/:code_entreprise')
+  async updateStatutPaieAll(
+    @Param('code_entreprise') code_entreprise: string
+  ) {
+    return this.personneService.updateStatutPaieAll(code_entreprise);
+  }
+
+  @Get('update-statut-paie/:code_entreprise')
+  async updateStatutPaie(
+    @Param('code_entreprise') code_entreprise: string
+  ) {
+    return this.personneService.updateStatutPaie(code_entreprise);
+  }
+
 
   @Post()
   async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
@@ -141,6 +155,7 @@ export class PersonnelController {
       });
     } catch (error) {
       console.log('error', error);
+      throw new BadRequestException(error);
     }
   }
 
