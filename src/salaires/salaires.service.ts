@@ -240,7 +240,7 @@ export class SalairesService extends AbstractService {
     // qui ne sont pas encore payer de l'être
     fardeMaxValue(code_entreprise) {
         return this.dataSource.query(`
-            SELECT MAX(is_paie) FROM salaires
+            SELECT COALESCE(MAX(is_paie), 0) as max FROM salaires
             WHERE code_entreprise='${code_entreprise}';
         `);
     }
