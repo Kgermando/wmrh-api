@@ -12,6 +12,7 @@ import { PersonnelCreateDto } from './models/personnel-create.dto';
 import { PersonnelUpdateDto } from './models/personnel-update.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import type { Response } from 'express'; 
+import { SalairesService } from 'src/salaires/salaires.service';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
@@ -21,6 +22,7 @@ export class PersonnelController {
   constructor(
     private personneService: PersonnelService,
     private authService: AuthService,
+    private salaireService: SalairesService,
   ) {}
   
   @Get('get-all/:code_entreprise')
@@ -71,9 +73,13 @@ export class PersonnelController {
 
   @Post()
   async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
-    const password = await bcrypt.hash('1234', 12); 
+    const password = await bcrypt.hash('1234', 12);
+    var fardeMaxValue = await this.salaireService.fardeMaxValue(body.code_entreprise);
+    const is_paie = fardeMaxValue[0].max;
+    console.log('is_paie', is_paie);
     return this.personneService.create({ 
-      ...body, 
+      ...body,
+      is_paie,
       password
     });
   }
@@ -90,12 +96,11 @@ export class PersonnelController {
       entries.data.forEach(async element => {
         const sexe = (element.sexe) ? this.personneService.capitalizeTest(element.sexe) : '-';
         const monnaie = (element.monnaie) ? element.monnaie.toUpperCase() : 'USD';
-        const is_paie = 0;
+        const fardeMaxValue = await this.salaireService.fardeMaxValue(element.code_entreprise);
         const statut_paie = 'En attente';
         const password = await bcrypt.hash('1234', 12); 
         const created = new Date();
-        const update_created = new Date();
-        const matricule = `${element.matricule}-${element.code_entreprise}`;
+        const update_created = new Date(); 
         console.log("data csv", element);
         return this.personneService.create({
           photo: element.photo,
@@ -111,7 +116,7 @@ export class PersonnelController {
           nationalite: element.nationalite, 
           etat_civile: (element.etat_civile) ? this.personneService.capitalizeTest(element.etat_civile) : '-',
           nbr_dependants: (element.nbr_dependants) ? element.nbr_dependants : 0,
-          matricule: matricule,
+          matricule: `${element.matricule}-${element.code_entreprise}`,
           numero_cnss: (element.numero_cnss) ? element.numero_cnss : '-',
           category: 'Manoeuvres Ordinaires (MO)',
           statut_personnel: false,
@@ -131,10 +136,10 @@ export class PersonnelController {
           frais_bancaire: (element.frais_bancaire) ? element.frais_bancaire : '0', 
           cv_url: '-',
           syndicat: false,
-          is_paie: is_paie,
+          is_paie: fardeMaxValue[0].max,
           statut_paie: statut_paie,
           password: password,
-          signature: '-',
+          signature: (element.signature) ? element.signature : '-',
           created: created,
           update_created : update_created,
           entreprise: (element.entreprise) ? element.entreprise: '-',
