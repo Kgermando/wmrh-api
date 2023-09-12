@@ -44,7 +44,7 @@ export class PersonnelService extends AbstractService {
     }
     
 
-    // mettre expandable panel dans profil avec certains de ces tables
+    // Mettre expandable panel dans profil avec certains de ces tables
     // Mais voir aussi comment aleger la table personnels en retirant les tables
     // que personnels ne fait pas appel Ex: Prime celui qui fait appel à personnel et non l'inverse
     async findGetOne(condition): Promise<any> {

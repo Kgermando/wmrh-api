@@ -148,6 +148,20 @@ export class SalairesController {
       return this.salaireService.fraisBancaireTotal(code_entreprise, is_paie);
     }
 
+    @Get('get-farde-paie-only/:code_entreprise')
+    async fardeIsPaie(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.salaireService.fardeIsPaie(code_entreprise);
+    }
+
+    @Get('get-farde-paie-disponible-only/:code_entreprise')
+    async fardeIsPaieDisponible(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.salaireService.fardeIsPaieDisponible(code_entreprise);
+    }
+
     @Get('get-farde-paie/:code_entreprise')
     async farde(
       @Param('code_entreprise') code_entreprise: string,

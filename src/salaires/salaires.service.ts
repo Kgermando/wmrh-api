@@ -227,6 +227,23 @@ export class SalairesService extends AbstractService {
         `);
     }
 
+    fardeIsPaie(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT is_paie FROM salaires
+            WHERE code_entreprise='${code_entreprise}'
+            ORDER BY is_paie DESC;
+        `);
+    }
+
+    fardeIsPaieDisponible(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT is_paie FROM salaires
+            WHERE code_entreprise='${code_entreprise}' AND
+            statut='Disponible'
+            ORDER BY is_paie DESC;
+        `);
+    }
+
     fardeDisponible(code_entreprise) {
         return this.dataSource.query(`
             SELECT is_paie, created FROM salaires

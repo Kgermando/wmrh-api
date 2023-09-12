@@ -69,7 +69,7 @@ export class PerformenceService extends AbstractService {
 
     getPieYEAR(code_entreprise, id) {
         return this.dataSource.query(`
-        SELECT SUM(ponctualite) AS ponctualite, SUM(hospitalite) AS hospitalite, SUM(travail) AS travail, 
+        SELECT COALESCE(SUM(ponctualite), 0) AS ponctualite, COALESCE(SUM(hospitalite), 0) AS hospitalite, COALESCE(SUM(travail), 0) AS travail, 
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND
@@ -81,7 +81,7 @@ export class PerformenceService extends AbstractService {
 
     getPieAll(code_entreprise, id) {
         return this.dataSource.query(`
-            SELECT SUM(ponctualite) AS ponctualite, SUM(hospitalite) AS hospitalite, SUM(travail) AS travail, 
+            SELECT COALESCE(SUM(ponctualite), 0) AS ponctualite, COALESCE(SUM(hospitalite), 0) AS hospitalite, COALESCE(SUM(travail), 0) AS travail,
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND "personnelId"='${id}'

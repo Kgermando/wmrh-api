@@ -209,7 +209,7 @@ export class PersonnelController {
     const update_created = new Date();
     await this.personneService.update(id, {...body, update_created});
     
-    return this.personneService.findOne({where: {id}});
+    return this.personneService.findGetOne({id});
   }
 
 
@@ -230,7 +230,7 @@ export class PersonnelController {
       password: hashed
     });
     
-    return this.personneService.findOne({where: {id}});
+    return this.personneService.findGetOne({id});
   }
 
 
@@ -243,7 +243,7 @@ export class PersonnelController {
 
     const update_created = new Date();
     await this.personneService.update(id, {...body, update_created});   
-    return this.personneService.findOne({where: {id}});
+    return this.personneService.findGetOne({id});
   }
 
   @Delete(':id')
