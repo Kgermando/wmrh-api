@@ -56,8 +56,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -67,8 +67,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -78,8 +78,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -89,8 +89,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -100,8 +100,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -111,8 +111,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -125,8 +125,8 @@ export class SalairesService extends AbstractService {
                     FROM salaires WHERE 
                     code_entreprise='${code_entreprise}' AND 
                     statut='Disponible' AND
-                    EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-                        EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+                    EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+                        EXTRACT(YEAR FROM "date_paie"::TIMESTAMP) = '${year}'
                 )
                 +
                 (
@@ -134,11 +134,9 @@ export class SalairesService extends AbstractService {
                     FROM salaires WHERE 
                     code_entreprise='${code_entreprise}' AND 
                     statut='Disponible' AND
-                    EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-                    EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+                    EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+                    EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}'
                 )
-                
-             
             ) AS sum;
         `);
     }
@@ -149,8 +147,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
@@ -160,8 +158,8 @@ export class SalairesService extends AbstractService {
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
-            EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+            EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
