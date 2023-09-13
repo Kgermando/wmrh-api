@@ -108,60 +108,87 @@ export class SalairesController {
     }
 
 
-    @Get('get-net-a-payer-total/:code_entreprise/:is_paie')
+    @Get('get-net-a-payer-total/:code_entreprise/:month/:year')
     async netAPayerTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.netAPayerTotal(code_entreprise, is_paie);
+      return this.salaireService.netAPayerTotal(code_entreprise, month, year);
     }
 
-    @Get('get-ipr-total/:code_entreprise/:is_paie')
+    @Get('get-ipr-total/:code_entreprise/:month/:year')
     async iprTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.iprTotal(code_entreprise, is_paie);
+      return this.salaireService.iprTotal(code_entreprise, month, year);
     }
 
-    @Get('get-cnss-qpo-total/:code_entreprise/:is_paie')
+    @Get('get-cnss-qpo-total/:code_entreprise/:month/:year')
     async cnssQPOTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.cnssQPOTotal(code_entreprise, is_paie);
+      return this.salaireService.cnssQPOTotal(code_entreprise, month, year);
     }
 
-    @Get('get-rbi-total/:code_entreprise/:is_paie')
+    @Get('get-rbi-total/:code_entreprise/:month/:year')
     async rbiTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.rbiTotal(code_entreprise, is_paie);
+      return this.salaireService.rbiTotal(code_entreprise, month, year);
     }
     
-    @Get('get-frais-bancaire-total/:code_entreprise/:is_paie')
+    @Get('get-frais-bancaire-total/:code_entreprise/:month/:year')
     async fraisBancaireTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.fraisBancaireTotal(code_entreprise, is_paie);
+      return this.salaireService.fraisBancaireTotal(code_entreprise, month, year);
     }
 
-    @Get('get-farde-paie-only/:code_entreprise')
-    async fardeIsPaie(
+    @Get('get-heures-supp-total/:code_entreprise/:month/:year')
+    async heureSuppTotal(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.fardeIsPaie(code_entreprise);
+      return this.salaireService.heureSuppTotal(code_entreprise, month, year);
     }
 
-    @Get('get-farde-paie-disponible-only/:code_entreprise')
-    async fardeIsPaieDisponible(
+    @Get('get-primes-total/:code_entreprise/:month/:year')
+    async primeTotal(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.fardeIsPaieDisponible(code_entreprise);
+      return this.salaireService.primeTotal(code_entreprise, month, year);
     }
 
+    @Get('get-penalites-total/:code_entreprise/:month/:year')
+    async penalitesTotal(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('month') month: string,
+      @Param('year') year: string
+    ) {
+      return this.salaireService.penalitesTotal(code_entreprise, month, year);
+    }
+
+    @Get('get-syndicat-total/:code_entreprise/:month/:year')
+    async syndicatTotal(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('month') month: string,
+      @Param('year') year: string
+    ) {
+      return this.salaireService.syndicatTotal(code_entreprise, month, year);
+    }
+    
     @Get('get-farde-paie/:code_entreprise')
     async farde(
       @Param('code_entreprise') code_entreprise: string,
@@ -176,27 +203,29 @@ export class SalairesController {
       return this.salaireService.fardeDisponible(code_entreprise);
     }
 
-    @Get('get-farde-max-value/:code_entreprise')
-    async fardeMaxValue(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.salaireService.fardeMaxValue(code_entreprise);
-    }
+    // @Get('get-farde-max-value/:code_entreprise')
+    // async fardeMaxValue(
+    //   @Param('code_entreprise') code_entreprise: string,
+    // ) {
+    //   return this.salaireService.fardeMaxValue(code_entreprise);
+    // }
 
-    @Get('get-statut-paie/:code_entreprise/:is_paie')
+    @Get('get-statut-paie/:code_entreprise/:month/:year')
     async statutPaie(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.statutPaie(code_entreprise, is_paie);
+      return this.salaireService.statutPaie(code_entreprise, month, year);
     }
 
-    @Get('get-releve-paie/:code_entreprise/:is_paie')
+    @Get('get-releve-paie/:code_entreprise/:month/:year')
     async relevePaie(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('is_paie') is_paie: number
+      @Param('month') month: string,
+      @Param('year') year: string
     ) {
-      return this.salaireService.relevePaie(code_entreprise, is_paie);
+      return this.salaireService.relevePaie(code_entreprise, month, year);
     }
 
     @Get('get-mes-bulletins/:code_entreprise/:matricule')
@@ -208,15 +237,15 @@ export class SalairesController {
     }
 
 
-  @Post('download-xlsx/:code_entreprise/:is_paie/:start_date/:end_date')
+  @Post('download-xlsx/:code_entreprise/:date_paie/:start_date/:end_date')
   async downloadReport(
     @Res() res: Response,
     @Param('code_entreprise') code_entreprise: string,
-    @Param('is_paie') is_paie: number,
+    @Param('date_paie') date_paie: number,
     @Param('start_date') start_date: Date,
     @Param('end_date') end_date: Date
     ) {
-      let result = await this.salaireService.downloadExcel(code_entreprise, is_paie, start_date, end_date);
+      let result = await this.salaireService.downloadExcel(code_entreprise, date_paie, start_date, end_date);
         // console.log("result", result);
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);

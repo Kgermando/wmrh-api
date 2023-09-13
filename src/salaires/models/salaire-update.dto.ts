@@ -35,7 +35,7 @@ export class SalaireUpdateDto {
     pres_entreprise?: string;
     net_a_payer?: string;
     statut?: string;  // Pending, Generated
-    is_paie?: number;
+    date_paie?: Date;
     signature?: string;
     created?: Date;
     update_created: Date; 

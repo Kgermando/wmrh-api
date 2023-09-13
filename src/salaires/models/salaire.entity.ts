@@ -109,8 +109,8 @@ export class Salaire {
     @Column()
     statut: string; // Pending, Generated
 
-    @Column({default: 0})
-    is_paie: number; // Le  mois du bulletin deja généré
+    @Column({default: new Date()})
+    date_paie: Date; // Le  mois du bulletin deja généré
 
     @Column()    
     signature: string;

@@ -100,7 +100,7 @@ export class PersonnelCreateDto {
 
     syndicat: boolean; 
 
-    is_paie: number;
+    date_paie: Date;
 
     statut_paie: string;
 

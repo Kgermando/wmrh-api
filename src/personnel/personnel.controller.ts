@@ -74,12 +74,11 @@ export class PersonnelController {
   @Post()
   async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
     const password = await bcrypt.hash('1234', 12);
-    var fardeMaxValue = await this.salaireService.fardeMaxValue(body.code_entreprise);
-    const is_paie = fardeMaxValue[0].max;
-    console.log('is_paie', is_paie);
+    const date_paie = new Date();
+    console.log('date_paie', date_paie);
     return this.personneService.create({ 
       ...body,
-      is_paie,
+      date_paie,
       password
     });
   }
@@ -96,7 +95,6 @@ export class PersonnelController {
       entries.data.forEach(async element => {
         const sexe = (element.sexe) ? this.personneService.capitalizeTest(element.sexe) : '-';
         const monnaie = (element.monnaie) ? element.monnaie.toUpperCase() : 'USD';
-        const fardeMaxValue = await this.salaireService.fardeMaxValue(element.code_entreprise);
         const statut_paie = 'En attente';
         const password = await bcrypt.hash('1234', 12); 
         const created = new Date();
@@ -136,7 +134,7 @@ export class PersonnelController {
           frais_bancaire: (element.frais_bancaire) ? element.frais_bancaire : '0', 
           cv_url: '-',
           syndicat: false,
-          is_paie: fardeMaxValue[0].max,
+          date_paie: new Date(),
           statut_paie: statut_paie,
           password: password,
           signature: (element.signature) ? element.signature : '-',
@@ -150,7 +148,7 @@ export class PersonnelController {
           //   ...element,
           //   statut_personnel,
           //   syndicat,
-          //   is_paie,
+          //   date_paie,
           //   statut_paie, 
           //   password,
           //   signature,

@@ -90,7 +90,7 @@ export class PersonnelUpdateDto {
 
     syndicat?: boolean; 
 
-    is_paie?: number;
+    date_paie?: Date;
 
     statut_paie?: string;
 

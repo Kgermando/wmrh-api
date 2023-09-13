@@ -147,8 +147,8 @@ export class Personnel {
     @Column({default: false})
     syndicat: boolean; 
 
-    @Column({default: 0})
-    is_paie: number; // Le  mois du bulletin deja généré
+    @Column({default: new Date()})
+    date_paie: Date; // Le  mois du bulletin deja généré
 
     @Column({ nullable: true, default: 'En attente'})
     statut_paie: string;
