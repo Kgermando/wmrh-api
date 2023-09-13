@@ -14,98 +14,111 @@ export class SalairesController {
         private salaireService: SalairesService
     ) {} 
 
-    @Get('get-jrs-preste/:code_entreprise/:matricule')
+    @Get('get-jrs-preste/:code_entreprise/:matricule/:date_paie')
     async getJrPrestE(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('matricule') matricule: string
+      @Param('matricule') matricule: string,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.getJrPrestE(code_entreprise, matricule);
+      return this.salaireService.getJrPrestE(code_entreprise, matricule, date_paie);
     }
 
-    @Get('get-jrs-conge/:code_entreprise/:matricule')
+    @Get('get-jrs-conge/:code_entreprise/:matricule/:date_paie')
     async getJrCongePayE(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('matricule') matricule: string
+      @Param('matricule') matricule: string,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.getJrCongePayE(code_entreprise, matricule);
+      return this.salaireService.getJrCongePayE(code_entreprise, matricule, date_paie);
     }
 
-    @Get('get-nbr-heures-supp/:code_entreprise/:id')
+    @Get('get-nbr-heures-supp/:code_entreprise/:id/:date_paie')
     async nbrHeureSupp(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.nbrHeureSupp(code_entreprise, id);
+      return this.salaireService.nbrHeureSupp(code_entreprise, id, date_paie);
     }
 
-    @Get('get-prime-total-cdf/:code_entreprise/:id')
+    @Get('get-prime-total-cdf/:code_entreprise/:id/:date_paie')
     async primeTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.primeTotalCDF(code_entreprise, id);
+      return this.salaireService.primeTotalCDF(code_entreprise, id, date_paie);
     }
-    @Get('get-prime-total-usd/:code_entreprise/:id')
+    @Get('get-prime-total-usd/:code_entreprise/:id/:date_paie')
     async primeTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.primeTotalUSD(code_entreprise, id);
+      return this.salaireService.primeTotalUSD(code_entreprise, id, date_paie);
     }
 
-    @Get('get-penalite-total-cdf/:code_entreprise/:id')
+    @Get('get-penalite-total-cdf/:code_entreprise/:id/:date_paie')
     async penaliteTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.penaliteTotalCDF(code_entreprise, id);
+      return this.salaireService.penaliteTotalCDF(code_entreprise, id, date_paie);
     }
-    @Get('get-penalite-total-usd/:code_entreprise/:id')
+    @Get('get-penalite-total-usd/:code_entreprise/:id/:date_paie')
     async penaliteTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.penaliteTotalUSD(code_entreprise, id);
+      return this.salaireService.penaliteTotalUSD(code_entreprise, id, date_paie);
     }
 
-    @Get('get-avance-salaire-total-cdf/:code_entreprise/:id')
+    @Get('get-avance-salaire-total-cdf/:code_entreprise/:id/:date_paie')
     async avanceSalaireTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.avanceSalaireTotalCDF(code_entreprise, id);
+      return this.salaireService.avanceSalaireTotalCDF(code_entreprise, id, date_paie);
     }
-    @Get('get-avance-salaire-total-usd/:code_entreprise/:id')
+    @Get('get-avance-salaire-total-usd/:code_entreprise/:id/:date_paie')
     async avanceSalaireTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.avanceSalaireTotalUSD(code_entreprise, id);
+      return this.salaireService.avanceSalaireTotalUSD(code_entreprise, id, date_paie);
     }
 
-    @Get('get-date-debut-contrat/:code_entreprise/:id/:date_debut_contrat')
+    @Get('get-date-debut-contrat/:code_entreprise/:id/:date_debut_contrat/:date_paie')
     async getAnciennete(
       @Param('code_entreprise') code_entreprise: string,
       @Param('id') id: number,
       @Param('date_debut_contrat') date_debut_contrat: string,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.getAnciennete(code_entreprise, id, date_debut_contrat);
+      return this.salaireService.getAnciennete(code_entreprise, id, date_debut_contrat, date_paie);
     }
 
-    @Get('pres-entreprise-cdf/:code_entreprise/:id')
+    @Get('pres-entreprise-cdf/:code_entreprise/:id/:date_paie')
     async preEntrepriseCDF(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.preEntrepriseCDF(code_entreprise, id);
+      return this.salaireService.preEntrepriseCDF(code_entreprise, id, date_paie);
     }
-    @Get('pres-entreprise-usd/:code_entreprise/:id')
+    @Get('pres-entreprise-usd/:code_entreprise/:id/:date_paie')
     async preEntrepriseUSD(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('id') id: number
+      @Param('id') id: number,
+      @Param('date_paie') date_paie: string
     ) {
-      return this.salaireService.preEntrepriseUSD(code_entreprise, id);
+      return this.salaireService.preEntrepriseUSD(code_entreprise, id, date_paie);
     }
+    
 
 
     @Get('get-net-a-payer-total/:code_entreprise/:month/:year')
@@ -237,15 +250,14 @@ export class SalairesController {
     }
 
 
-  @Post('download-xlsx/:code_entreprise/:date_paie/:start_date/:end_date')
+  @Post('download-xlsx/:code_entreprise/:start_date/:end_date')
   async downloadReport(
     @Res() res: Response,
     @Param('code_entreprise') code_entreprise: string,
-    @Param('date_paie') date_paie: number,
     @Param('start_date') start_date: Date,
     @Param('end_date') end_date: Date
     ) {
-      let result = await this.salaireService.downloadExcel(code_entreprise, date_paie, start_date, end_date);
+      let result = await this.salaireService.downloadExcel(code_entreprise, start_date, end_date);
         // console.log("result", result);
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);
