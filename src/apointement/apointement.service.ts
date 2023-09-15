@@ -41,27 +41,17 @@ export class ApointementService extends AbstractService {
             order: {'created': 'DESC'}
         }); 
     }
-
-    registrePresenceAll(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT *
-            FROM apointements WHERE 
-            code_entreprise='${code_entreprise}' AND
-            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            ORDER BY created DESC;
-        `);
-    }
-    registrePresence(code_entreprise, site_location) {
+ 
+ 
+    registrePresence(code_entreprise, site_location, date_presence) {
         return this.dataSource.query(`
             SELECT *
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND 
             site_location='${site_location}' AND
-            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM '${date_presence}' ::TIMESTAMP) AND
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_presence}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_presence}' ::TIMESTAMP)
             ORDER BY created DESC;
         `);
     } 

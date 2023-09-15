@@ -48,20 +48,13 @@ export class ApointementController {
       return this.apointementService.getMatricule(code_entreprise, matricule);
     }
 
-    // ALL c'est pour le tableau de bord
-    @Get('get-registre/:code_entreprise')
-    async getRegisterPresenceAll(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.apointementService.registrePresenceAll(code_entreprise);
-    }
-
-    @Get('get-registre/:code_entreprise/:site_location') // Registre de presence par site de travail
+    @Get('get-registre/:code_entreprise/:site_location/:date_presence') // Registre de presence par site de travail
     async getRegisterPresence(
       @Param('code_entreprise') code_entreprise: string,
       @Param('site_location') site_location: string,
+      @Param('date_presence') date_presence: string,
     ) {
-      return this.apointementService.registrePresence(code_entreprise, site_location);
+      return this.apointementService.registrePresence(code_entreprise, site_location, date_presence);
     }
 
     @Get('get-last-item/:code_entreprise/:matricule')
