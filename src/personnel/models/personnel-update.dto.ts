@@ -94,6 +94,8 @@ export class PersonnelUpdateDto {
 
     statut_paie?: string;
 
+    is_delete?: boolean;
+
     presences?: Apointement [];
 
     primes?: Prime[];

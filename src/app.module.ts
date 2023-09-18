@@ -29,6 +29,7 @@ import { NotificationModule } from './notification/notification.module';
 import { NotifyModule } from './notify/notify.module';
 import { EntrepriseModule } from './admin/entreprise/entreprise.module';
 import { AbonnementClientModule } from './admin/abonnement_client/abonnement_client.module';
+import { HoraireModule } from './horaire/horaire.module';
 
 
 @Module({
@@ -77,6 +78,7 @@ import { AbonnementClientModule } from './admin/abonnement_client/abonnement_cli
     NotifyModule,
     EntrepriseModule,
     AbonnementClientModule,
+    HoraireModule,
   ],
 })
 export class AppModule {}

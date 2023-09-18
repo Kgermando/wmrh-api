@@ -153,6 +153,9 @@ export class Personnel {
     @Column({ nullable: true, default: 'En attente'})
     statut_paie: string;
 
+    @Column({ default: false})
+    is_delete: boolean;
+
     @OneToMany(() => Apointement, (item) => item.personnel, {cascade: true})
     presences: Apointement[];
 

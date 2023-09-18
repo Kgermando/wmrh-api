@@ -11,8 +11,7 @@ import { Personnel } from './models/personnel.entity';
 import { PersonnelCreateDto } from './models/personnel-create.dto';
 import { PersonnelUpdateDto } from './models/personnel-update.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import type { Response } from 'express'; 
-import { SalairesService } from 'src/salaires/salaires.service';
+import type { Response } from 'express';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
@@ -22,7 +21,6 @@ export class PersonnelController {
   constructor(
     private personneService: PersonnelService,
     private authService: AuthService,
-    private salaireService: SalairesService,
   ) {}
   
   @Get('get-all/:code_entreprise')
@@ -56,18 +54,19 @@ export class PersonnelController {
     return this.personneService.getSyndicat(code_entreprise);
   }
 
-  @Get('update-statut-paie-all/:code_entreprise')
-  async updateStatutPaieAll(
+  @Get('reset-statut-paie-all/:code_entreprise')
+  async resetStatutPaieAll(
     @Param('code_entreprise') code_entreprise: string
   ) {
-    return this.personneService.updateStatutPaieAll(code_entreprise);
+    return this.personneService.resetStatutPaieAll(code_entreprise);
   }
 
-  @Get('update-statut-paie/:code_entreprise')
-  async updateStatutPaie(
-    @Param('code_entreprise') code_entreprise: string
+  @Get('reset-statut-paie/:code_entreprise/:id')
+  async resetStatutPaie(
+    @Param('code_entreprise') code_entreprise: string,
+    @Param('id') id: number
   ) {
-    return this.personneService.updateStatutPaie(code_entreprise);
+    return this.personneService.resetStatutPaie(code_entreprise, id);
   }
 
 
@@ -144,17 +143,6 @@ export class PersonnelController {
           code_entreprise: (element.code_entreprise) ? element.code_entreprise: '-',
         }
       );
-          // return this.personneService.create({
-          //   ...element,
-          //   statut_personnel,
-          //   syndicat,
-          //   date_paie,
-          //   statut_paie, 
-          //   password,
-          //   signature,
-          //   created,
-          //   update_created
-          // });
       });
     } catch (error) {
       console.log('error', error);
@@ -211,7 +199,7 @@ export class PersonnelController {
   }
 
 
-  @Put('password')  
+  @Put('password')
   async updatePassword(
     @Req() request: Request, 
     @Body('password') password: string,

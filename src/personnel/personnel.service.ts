@@ -27,7 +27,7 @@ export class PersonnelService extends AbstractService {
             //     salaires: true,
             //     performences: true,
             // },
-            where: {code_entreprise},
+            where: {code_entreprise} && {is_delete: false},
             order: {'created': 'DESC'}
         }); 
     }
@@ -39,6 +39,7 @@ export class PersonnelService extends AbstractService {
         LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
+        "personnels"."is_delete"='false' AND
         "site_locations"."site_location"='${site_locations}';
     `);
     }
@@ -52,13 +53,13 @@ export class PersonnelService extends AbstractService {
             where: condition,
             relations: {
                 presences: true,
-                // primes: true,
-                // penalites: true,
-                // avances_salaires: true,
-                // heures_supp: true,
+                primes: true,
+                penalites: true,
+                avances_salaires: true,
+                heures_supp: true,
                 salaires: true,
-                // performences: true,
-                // pres_entreprises: true,
+                performences: true,
+                pres_entreprises: true,
                 // notify: true,
 
                 departements: true,
@@ -91,24 +92,31 @@ export class PersonnelService extends AbstractService {
     getSyndicat(code_entreprise): Promise<any[]> {
         return this.repository.find(
             {
-                where: {code_entreprise} && {syndicat: true}
+                where: {code_entreprise} && {is_delete: false} && {syndicat: true}
             }); 
     }
 
-    updateStatutPaieAll(code_entreprise) {
+    // Tous les employés qui ont été payés il y a un mois
+    resetStatutPaieAll(code_entreprise) {
         return this.dataSource.query(`
             UPDATE personnels 
             SET statut_paie = 'En attente'
-            WHERE code_entreprise='${code_entreprise}' AND statut_paie!='En attente' AND
-            EXTRACT(MONTH FROM age(update_created)) :: int > 1;
+            WHERE code_entreprise='${code_entreprise}' AND 
+            is_delete='false' AND
+            statut_paie='Disponible' AND
+            EXTRACT(MONTH FROM age(date_paie)) :: int >= 1;
     `);
     }
 
-    updateStatutPaie(code_entreprise) {
+    // Reinitialier indivuellement au cas ou l'on veut payer plusieurs fois un mois
+    resetStatutPaie(code_entreprise, id) {
         return this.dataSource.query(`
             UPDATE personnels 
             SET statut_paie = 'En attente'
-            WHERE code_entreprise='${code_entreprise}' AND statut_paie!='En attente';
+            WHERE code_entreprise='${code_entreprise}' AND 
+            is_delete='false' AND
+            id='${id}' AND
+            statut_paie='Disponible';
     `);
     }
 
@@ -128,6 +136,7 @@ export class PersonnelService extends AbstractService {
             LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
             WHERE
             "personnels"."code_entreprise"='${code_entreprise}' AND
+            "personnels"."is_delete"='false' AND
             "personnels"."created">='${start_date}' AND 
             "personnels"."created"<='${end_date}';
         `);
@@ -217,7 +226,9 @@ export class PersonnelService extends AbstractService {
 
         data = await this.dataSource.query(`
             SELECT * FROM personnels WHERE
-            code_entreprise='${code_entreprise}' LIMIT 2;
+            code_entreprise='${code_entreprise}' AND
+            is_delete='false'
+            LIMIT 2;
         `);
 
         if(!data) {
