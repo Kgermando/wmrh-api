@@ -1,6 +1,6 @@
 import { BadRequestException, Body, ClassSerializerInterceptor, 
     Controller, Delete, Get, Param, Post, Put, Query, Req, 
-    UploadedFile, UseGuards, UseInterceptors, Header, Res, StreamableFile } from '@nestjs/common';
+    UploadedFile, UseGuards, UseInterceptors, Res } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';  
 import * as Papa from 'papaparse';
 import { AuthGuard } from 'src/auth/auth.guard'; 
@@ -54,14 +54,14 @@ export class PersonnelController {
     return this.personneService.getSyndicat(code_entreprise);
   }
 
-  @Get('reset-statut-paie-all/:code_entreprise')
+  @Put('reset-statut-paie-all/:code_entreprise')
   async resetStatutPaieAll(
     @Param('code_entreprise') code_entreprise: string
   ) {
     return this.personneService.resetStatutPaieAll(code_entreprise);
   }
 
-  @Get('reset-statut-paie/:code_entreprise/:id')
+  @Put('reset-statut-paie/:code_entreprise/:id')
   async resetStatutPaie(
     @Param('code_entreprise') code_entreprise: string,
     @Param('id') id: number
@@ -141,6 +141,7 @@ export class PersonnelController {
           update_created : update_created,
           entreprise: (element.entreprise) ? element.entreprise: '-',
           code_entreprise: (element.code_entreprise) ? element.code_entreprise: '-',
+          is_delete: false
         }
       );
       });

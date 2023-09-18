@@ -50,73 +50,79 @@ export class SalairesService extends AbstractService {
         })
     }
 
-    netAPayerTotal(code_entreprise, month, year) {
+    netAPayerTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    iprTotal(code_entreprise, month, year) {
+    iprTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    cnssQPOTotal(code_entreprise, month, year) {
+    cnssQPOTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    rbiTotal(code_entreprise, month, year) {
+    rbiTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    fraisBancaireTotal(code_entreprise, month, year) {
+    fraisBancaireTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    heureSuppTotal(code_entreprise, month, year) {
+    heureSuppTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    primeTotal(code_entreprise, month, year) {
+    primeTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT  (
 
@@ -125,6 +131,7 @@ export class SalairesService extends AbstractService {
                     FROM salaires WHERE 
                     code_entreprise='${code_entreprise}' AND 
                     statut='Disponible' AND
+                    service='${service}' AND
                     EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
                         EXTRACT(YEAR FROM "date_paie"::TIMESTAMP) = '${year}'
                 )
@@ -134,6 +141,7 @@ export class SalairesService extends AbstractService {
                     FROM salaires WHERE 
                     code_entreprise='${code_entreprise}' AND 
                     statut='Disponible' AND
+                    service='${service}' AND
                     EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
                     EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}'
                 )
@@ -141,29 +149,31 @@ export class SalairesService extends AbstractService {
         `);
     }
 
-    penalitesTotal(code_entreprise, month, year) {
+    penalitesTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(penalites as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    syndicatTotal(code_entreprise, month, year) {
+    syndicatTotal(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(syndicat as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
+            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    statutPaie(code_entreprise, month, year) {
+    statutPaie(code_entreprise, service, month, year) {
         return this.dataSource.query(`
         SELECT "salaires"."id",
             "salaires"."monnaie",
@@ -217,13 +227,14 @@ export class SalairesService extends AbstractService {
             LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
+            "salaires"."service"='${service}' AND
             EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
        
         `);
     }
 
-    relevePaie(code_entreprise, month, year) {
+    relevePaie(code_entreprise, service, month, year) {
         return this.dataSource.query(`
             SELECT "salaires"."id",
                 "salaires"."monnaie",
@@ -278,11 +289,21 @@ export class SalairesService extends AbstractService {
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "salaires"."statut"='Disponible' AND
+            "salaires"."service"='${service}' AND
             EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
+
+    // Liste des entreprises
+    list_services(code_entreprise) {
+        return this.dataSource.query(`
+            SELECT service
+            FROM service_prefs WHERE code_entreprise='${code_entreprise}'
+            ORDER BY created DESC;
+        `);
+    }
 
     // Numero farde pour classer les differentes masses salariales
     farde(code_entreprise) {
