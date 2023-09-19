@@ -327,4 +327,14 @@ export class SalairesController {
     async delete(@Param('id') id: number) {
         return this.salaireService.delete(id);
     }
+
+    @Delete('delete-all-item/:code_entreprise')
+    async deleteAllItem(
+      @Param('code_entreprise') code_entreprise: string
+    ) {
+        return this.salaireService.deleteAllItem(code_entreprise);
+    }
+
+
+    
 }

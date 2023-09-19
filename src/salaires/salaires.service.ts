@@ -552,6 +552,12 @@ export class SalairesService extends AbstractService {
     }
 
 
+    deleteAllItem(code_entreprise) {
+        return this.dataSource.query(`
+            DELETE FROM salaires WHERE  
+            code_entreprise='${code_entreprise}';
+        `);
+    } 
   
 
     async downloadExcel(code_entreprise, start_date, end_date) {
@@ -679,80 +685,3 @@ export class SalairesService extends AbstractService {
 }
 
 
-
-
-
-// relevePaie(code_entreprise, date_paie) {
-//     // return this.repository.find({
-//     //     relations: [
-//     //         'personnel', 
-//     //         'personnel.departements', 
-//     //         'personnel.titles', 
-//     //         'personnel.fonctions', 
-//     //         'personnel.services', 
-//     //         'personnel.site_locations'
-//     //     ], 
-//     //     where: {code_entreprise} && {statut: 'Disponible'}, 
-//     //     order: {'created': 'DESC'} 
-//     // });
-//     return this.dataSource.query(`
-//         SELECT "salaires"."id",
-//             "salaires"."monnaie",
-//             "salaires"."taux_dollard",
-//             "salaires"."nbr_dependants",
-//             "salaires"."alloc_logement",
-//             "salaires"."alloc_transport", 
-//             "salaires"."alloc_familliale", 
-//             "salaires"."soins_medicaux", 
-//             "salaires"."salaire_base",
-//             "salaires"."primes", 
-//             "salaires"."anciennete_nbr_age", 
-//             "salaires"."prime_anciennete", 
-//             "salaires"."heures_supp", 
-//             "salaires"."heure_supplementaire_monnaie", 
-//             "salaires"."conge_paye", 
-//             "salaires"."nbre_jrs_preste", 
-//             "salaires"."nbre_jrs_ferie", 
-//             "salaires"."rbi", 
-//             "salaires"."cnss_qpo", 
-//             "salaires"."rni", 
-//             "salaires"."ipr", 
-//             "salaires"."impot_elide", 
-//             "salaires"."syndicat", 
-//             "salaires"."penalites", 
-//             "salaires"."avance_slaire", 
-//             "salaires"."prise_en_charge_frais_bancaire", 
-//             "salaires"."pres_entreprise", 
-//             "salaires"."net_a_payer", 
-//             "salaires"."statut",
-//             "salaires"."date_paie", 
-//             "salaires"."signature", 
-//             "salaires"."created",
-//             "salaires"."update_created",
-//             "salaires"."entreprise",
-//             "salaires"."code_entreprise",
-//             "salaires"."departement",
-//             "salaires"."fonction",
-
-//             "personnels"."matricule",
-//             "personnels"."nom",
-//             "personnels"."postnom",
-//             "personnels"."prenom",
-//             "personnels"."compte_bancaire",
-//             "personnels"."frais_bancaire",
-//             "personnels"."nom_banque",
-            
-//             "titles"."title",
-//             "service_prefs"."service",
-//             "site_locations"."site_location"
-//         FROM salaires
-//         LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId" 
-//         LEFT JOIN "titles" ON "titles"."id" = "salaires"."personnelId" 
-//         LEFT JOIN "service_prefs" ON "service_prefs"."id" = "salaires"."personnelId"
-//         LEFT JOIN "site_locations" ON "site_locations"."id" = "salaires"."personnelId"
-//         WHERE
-//         "salaires"."code_entreprise"='${code_entreprise}' AND
-//         "salaires"."statut"='Disponible' AND
-//         "salaires"."date_paie"='${date_paie}';
-//     `);
-// }

@@ -16,22 +16,61 @@ export class PersonnelService extends AbstractService {
         super(personnelRepository); 
     }
 
-    allGet(code_entreprise): Promise<any[]> {
-        return this.repository.find({
-            relations: {
-                // presences: true,
-                // primes: true,
-                // penalites: true,
-                // avances_salaires: true,
-                // heures_supp: true,
-                // salaires: true,
-                // performences: true,
+    corbeil(code_entreprise): Promise<any[]> {
+        return this.dataSource.query(`
+        SELECT "personnels"."id",
+        "personnels"."nom",
+        "personnels"."postnom",
+        "personnels"."prenom",
+        "personnels"."email",
+        "personnels"."telephone",
+        "personnels"."matricule",
+        "personnels"."sexe",
+        "service_prefs"."service"
+        FROM personnels
+         
+        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+        WHERE
+        "personnels"."code_entreprise"='${code_entreprise}' AND
+        "personnels"."is_delete"='true';
+    `);
+    }
+    
 
-                services: true,
-            },
-            where: {code_entreprise} && {is_delete: false},
-            order: {'created': 'DESC'}
-        }); 
+    allGet(code_entreprise): Promise<any[]> {
+        return this.dataSource.query(`
+        SELECT "personnels"."id",
+        "personnels"."nom",
+        "personnels"."postnom",
+        "personnels"."prenom",
+        "personnels"."email",
+        "personnels"."telephone",
+        "personnels"."matricule",
+        "personnels"."sexe",
+        "personnels"."salaire_base",
+        "personnels"."statut_paie",
+        "service_prefs"."service"
+        FROM personnels 
+        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+        WHERE
+        "personnels"."code_entreprise"='${code_entreprise}' AND
+        "personnels"."is_delete"='false' ORDER BY "personnels"."created" DESC;
+    `);
+        // return this.repository.find({
+        //     relations: {
+        //         // presences: true,
+        //         // primes: true,
+        //         // penalites: true,
+        //         // avances_salaires: true,
+        //         // heures_supp: true,
+        //         // salaires: true,
+        //         // performences: true,
+
+        //         services: true,
+        //     },
+        //     where: {code_entreprise} && {is_delete: false},
+        //     order: {'created': 'DESC'}
+        // }); 
     }
 
     allGetLocation(code_entreprise, site_locations): Promise<any[]> {

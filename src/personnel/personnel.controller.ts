@@ -54,6 +54,13 @@ export class PersonnelController {
     return this.personneService.getSyndicat(code_entreprise);
   }
 
+  @Get('get-corbeil/:code_entreprise')
+  async corbeil(
+    @Param('code_entreprise') code_entreprise: string
+  ) {
+    return this.personneService.corbeil(code_entreprise);
+  }
+
   @Put('reset-statut-paie-all/:code_entreprise')
   async resetStatutPaieAll(
     @Param('code_entreprise') code_entreprise: string
