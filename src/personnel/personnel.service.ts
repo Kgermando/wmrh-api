@@ -17,7 +17,21 @@ export class PersonnelService extends AbstractService {
     }
 
     getWithSupport(): Promise<any[]> {
-        return this.repository.find(); 
+        return this.dataSource.query(`
+        SELECT "personnels"."id",
+        "personnels"."nom",
+        "personnels"."postnom",
+        "personnels"."prenom",
+        "personnels"."email",
+        "personnels"."telephone",
+        "personnels"."matricule",
+        "personnels"."sexe",
+        "service_prefs"."service"
+        FROM personnels
+         
+        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+        WHERE "personnels"."is_delete"='false';
+    `);
     }
 
     corbeil(code_entreprise): Promise<any[]> {
