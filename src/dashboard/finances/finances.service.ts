@@ -8,134 +8,45 @@ export class FinancesService {
         @InjectDataSource() private dataSource: DataSource,
     ) {}
 
-    async iprMonth(code_entreprise) { 
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-    async cnssQPOMonth(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-
-    async totalRBIMonth(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-
-
-    async iprYear(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
-            statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-    async cnssQPOYear(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
-            statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-    async totalRBIYear(code_entreprise) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND  
-            statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
-        `);
-    }
-
-    async iprAll(code_entreprise) {
+    async iprAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
         `);
     }
 
-    async cnssQPOAll(code_entreprise) {
+    async cnssQPOAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
         `);
     }
 
-    async totalRBIAll(code_entreprise) {
+    async totalRBIAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
             BETWEEN
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
-            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
         `);
     }
 
 
-        // depensePayE
-        depensePayEMonth(code_entreprise) {
-            return this.dataSource.query(`
-            SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
-                SUM(cast(ipr as decimal(20,2))) AS ipr,
-                SUM(cast(cnss_qpo as decimal(20,2))) AS cnss_qpo, 
-                EXTRACT(DAY FROM "created" ::TIMESTAMP) as day
-                FROM salaires WHERE 
-                code_entreprise='${code_entreprise}' AND  
-                statut='Disponible' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-                GROUP BY day;
-            `);
-        }
-    
-        depensePayEYear(code_entreprise) {
-            return this.dataSource.query(`
-            SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
-            SUM(cast(ipr as decimal(20,2))) AS ipr,
-            SUM(cast(cnss_qpo as decimal(20,2))) AS cnss_qpo, 
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
-                FROM salaires WHERE 
-                code_entreprise='${code_entreprise}' AND 
-                statut='Disponible' AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-                GROUP BY month;
-            `);
-        }
-    
-        depensePayEALl(code_entreprise) {
+        // Masse salariale 
+        depensePayEALl(code_entreprise, start_date, end_date) {
             return this.dataSource.query(`  
                 SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
                 SUM(cast(ipr as decimal(20,2))) AS ipr,
@@ -146,17 +57,9 @@ export class FinancesService {
                 statut='Disponible' AND
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
                 BETWEEN
-                EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP) - 10 AND
-                EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+                EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
                 GROUP BY year_ans;
             `);
-        } 
-    
-        // async typeContact () {
-        //     return this.dataSource.query(`
-        //         WITH resultat AS (SELECT COUNT(id) AS total FROM epidemie) 
-        //         SELECT type_contact, COUNT(type_contact)*100/total AS pourcentage FROM resultat, 
-        //         epidemie GROUP BY total, type_contact; 
-        //     `);
-        // }
+        }
 }
