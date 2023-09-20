@@ -10,7 +10,6 @@ export default class DashAllService {
 
     // EMPLOYES
     // Total EMPLOYES 
-
     async totalEnmployesAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
             SELECT count(*) as total
@@ -23,10 +22,8 @@ export default class DashAllService {
             EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
         `);
     }
-
     
     // Total employés FEMMES 
-
     async totalEnmployeFemmeAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
             SELECT count(*) as total
@@ -41,7 +38,6 @@ export default class DashAllService {
     }
 
     // Total emlployés HOMMES 
-
     async totalEnmployeHommeAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
             SELECT count(*) as total
@@ -54,7 +50,6 @@ export default class DashAllService {
             EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
         `);
     }
-
 
     // Performences Employé  
     // Pour dans l'année il sufit de mettre YEAR

@@ -23,6 +23,11 @@ export class PersonnelController {
     private authService: AuthService,
   ) {}
   
+  @Get('get-all-support')
+  async getWithSupport() {
+    return this.personneService.getWithSupport();
+  }
+
   @Get('get-all/:code_entreprise')
   async getAll(
     @Param('code_entreprise') code_entreprise: string,
