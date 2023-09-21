@@ -418,22 +418,46 @@ export class SalairesService extends AbstractService {
         `);
     }
 
+    // nbrHeureSupp(code_entreprise, id, date_paie) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(nbr_heures), 0) as sum
+    //         FROM heures_supp  WHERE 
+    //         code_entreprise='${code_entreprise}' AND
+    //         "personnelId"='${id}' AND
+    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1  
+    //         AND
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+    //         OR 
+    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+    //     `);
+    // }
     nbrHeureSupp(code_entreprise, id, date_paie) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(nbr_heures), 0) as sum
             FROM heures_supp  WHERE 
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1  
-            AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-            OR 
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
     }
 
 
+    // primeTotalCDF(code_entreprise, id, date_paie) {
+    //     return this.dataSource.query(`
+    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+    //         FROM primes  WHERE 
+    //         monnaie='CDF' AND
+    //         code_entreprise='${code_entreprise}' AND
+    //         "personnelId"='${id}' AND
+    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
+    //         AND
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+    //     `);
+    // }
     primeTotalCDF(code_entreprise, id, date_paie) {
         return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
@@ -441,13 +465,24 @@ export class SalairesService extends AbstractService {
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-            AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
     }
+    // primeTotalUSD(code_entreprise, id, date_paie) {
+    //     return this.dataSource.query(`
+    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+    //         FROM primes WHERE 
+    //         monnaie='USD' AND
+    //         code_entreprise='${code_entreprise}' AND
+    //         "personnelId"='${id}' AND
+    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
+    //         AND
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+    //     `);
+    // }
     primeTotalUSD(code_entreprise, id, date_paie) {
         return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
@@ -455,15 +490,26 @@ export class SalairesService extends AbstractService {
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-            AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
     }
 
 
+    // penaliteTotalCDF(code_entreprise, id, date_paie) {
+    //     return this.dataSource.query(`
+    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+    //         FROM penalites WHERE 
+    //         monnaie='CDF' AND
+    //         code_entreprise='${code_entreprise}' AND
+    //         "personnelId"='${id}' AND
+    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
+    //         AND
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+    //     `);
+    // }
     penaliteTotalCDF(code_entreprise, id, date_paie) {
         return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
@@ -471,13 +517,24 @@ export class SalairesService extends AbstractService {
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-            AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
     }
+    // penaliteTotalUSD(code_entreprise, id, date_paie) {
+    //     return this.dataSource.query(`
+    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+    //         FROM penalites  WHERE 
+    //         monnaie='USD' AND
+    //         code_entreprise='${code_entreprise}' AND
+    //         "personnelId"='${id}' AND
+    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1
+    //         AND
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+    //     `);
+    // }
     penaliteTotalUSD(code_entreprise, id, date_paie) {
         return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
@@ -485,11 +542,8 @@ export class SalairesService extends AbstractService {
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-            AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
     }
 

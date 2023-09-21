@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module'; 
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { ImageModule } from './image/image.module';
@@ -30,6 +31,7 @@ import { NotifyModule } from './notify/notify.module';
 import { EntrepriseModule } from './admin/entreprise/entreprise.module';
 import { AbonnementClientModule } from './admin/abonnement_client/abonnement_client.module';
 import { HoraireModule } from './horaire/horaire.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
 
 
 @Module({
@@ -50,6 +52,10 @@ import { HoraireModule } from './horaire/horaire.module';
         synchronize: true,
       }),
       inject: [ConfigService],
+    }),
+    CacheModule.register({
+      ttl: 5,
+      max: 100
     }),
     CommonModule,
     ImageModule,
@@ -79,6 +85,12 @@ import { HoraireModule } from './horaire/horaire.module';
     EntrepriseModule,
     AbonnementClientModule,
     HoraireModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
   ],
 })
 export class AppModule {}
