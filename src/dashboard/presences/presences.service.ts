@@ -14,10 +14,10 @@ export class PresencesService {
             SELECT apointement, COUNT(*) 
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY apointement;
         `);
     }
@@ -29,34 +29,34 @@ export class PresencesService {
         
         (SELECT COUNT(apointement) FROM apointements WHERE
         code_entreprise='${code_entreprise}' AND apointement='P' AND
-        EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
-        BETWEEN
-        EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-        EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)) AS p,
+        created
+            BETWEEN
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP) AS p,
 
         (SELECT COUNT(apointement) FROM apointements WHERE
         code_entreprise='${code_entreprise}' AND apointement='A' AND
-        EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
-        BETWEEN
-        EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-        EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)) AS a,
+        created
+            BETWEEN
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP) AS a,
 
         (SELECT COUNT(apointement) FROM apointements WHERE
         code_entreprise='${code_entreprise}' AND apointement='AA' AND
-        EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
-        BETWEEN
-        EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-        EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)) AS aa, 
+        created
+            BETWEEN
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP) AS aa, 
  
  
         EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year
 
         FROM apointements WHERE
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY year;
         `);
     } 

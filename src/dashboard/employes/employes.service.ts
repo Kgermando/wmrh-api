@@ -13,10 +13,11 @@ export class EmployesService {
             SELECT sexe, COUNT(sexe) 
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND
             nom!='admin' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY sexe;
         `);
     }
@@ -27,10 +28,10 @@ export class EmployesService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM departements WHERE code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -38,11 +39,12 @@ export class EmployesService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND 
+            "personnels"."is_delete"='false' AND
             syndicat=true AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -50,10 +52,10 @@ export class EmployesService {
         return this.dataSource.query(`
         SELECT COUNT(*) 
             FROM site_locations WHERE code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -62,10 +64,11 @@ export class EmployesService {
             SELECT COUNT(*) 
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND  
             statut_personnel=true AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -79,10 +82,11 @@ export class EmployesService {
             FROM personnels
             LEFT JOIN "departements" ON "departements"."id" = "personnels"."departementsId"
             WHERE "personnels"."code_entreprise"='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "personnels"."created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            "personnels"."created"
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY "departement";
         `);
     }
@@ -93,10 +97,11 @@ export class EmployesService {
             FROM personnels
             LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
             WHERE "personnels"."code_entreprise"='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "personnels"."created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            "personnels"."created"
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY "service";
         `);
     }
@@ -107,10 +112,11 @@ export class EmployesService {
             FROM personnels
             LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
             WHERE "personnels"."code_entreprise"='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "personnels"."created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            "personnels"."created"
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY "site_location";
         `);
     }
@@ -127,10 +133,11 @@ export class EmployesService {
             COUNT(case when date_part('year', age(date_debut_contrat))>20 AND date_part('year', age(date_debut_contrat))<=25 then 1 end) as "Moins de 25 ans",
             COUNT(case when date_part('year', age(date_debut_contrat))>25 then 1 end) as "Plus de 25 ans"
             FROM personnels WHERE code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -145,10 +152,11 @@ export class EmployesService {
                 COUNT(case when date_part('year', age(date_naissance))>45 AND date_part('year', age(date_naissance))<=55 then 1 end) as "De 45-55 ans", 
                 COUNT(case when date_part('year', age(date_naissance))>55 AND date_part('year', age(date_naissance))<=65 then 1 end) as "De 55-65 ans"
                 FROM personnels WHERE code_entreprise='${code_entreprise}' AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+                "personnels"."is_delete"='false' AND
+                created
                 BETWEEN
-                EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+                '${start_date}' ::TIMESTAMP AND
+                '${end_date}' ::TIMESTAMP;
         `);
     }
 

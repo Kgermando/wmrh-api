@@ -13,10 +13,10 @@ export class FinancesService {
             SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -25,10 +25,10 @@ export class FinancesService {
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -37,10 +37,10 @@ export class FinancesService {
             SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -55,10 +55,10 @@ export class FinancesService {
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
                 statut='Disponible' AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+                created
                 BETWEEN
-                EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+                '${start_date}' ::TIMESTAMP AND
+                '${end_date}' ::TIMESTAMP
                 GROUP BY year_ans;
             `);
         }

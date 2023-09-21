@@ -28,7 +28,6 @@ export class PersonnelService extends AbstractService {
         "personnels"."sexe",
         "service_prefs"."service"
         FROM personnels
-         
         LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
         WHERE "personnels"."is_delete"='false';
     `);
@@ -46,10 +45,10 @@ export class PersonnelService extends AbstractService {
         "personnels"."sexe",
         "service_prefs"."service"
         FROM personnels
-         
         LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
+        nom!='admin' AND
         "personnels"."is_delete"='true';
     `);
     }
@@ -72,7 +71,9 @@ export class PersonnelService extends AbstractService {
         LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
-        "personnels"."is_delete"='false' ORDER BY "personnels"."created" DESC;
+        nom!='admin' AND
+        "personnels"."is_delete"='false' 
+        ORDER BY "personnels"."created" DESC;
     `);
         // return this.repository.find({
         //     relations: {
@@ -99,6 +100,7 @@ export class PersonnelService extends AbstractService {
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         "personnels"."is_delete"='false' AND
+        nom!='admin' AND
         "site_locations"."site_location"='${site_locations}';
     `);
     }
@@ -160,6 +162,7 @@ export class PersonnelService extends AbstractService {
             SET statut_paie = 'En attente'
             WHERE code_entreprise='${code_entreprise}' AND 
             is_delete='false' AND
+            nom!='admin' AND
             statut_paie='Disponible' AND
             EXTRACT(MONTH FROM age(date_paie)) :: int >= 1;
     `);
@@ -194,6 +197,7 @@ export class PersonnelService extends AbstractService {
             WHERE
             "personnels"."code_entreprise"='${code_entreprise}' AND
             "personnels"."is_delete"='false' AND
+            nom!='admin' AND
             "personnels"."created">='${start_date}' AND 
             "personnels"."created"<='${end_date}';
         `);
@@ -284,7 +288,8 @@ export class PersonnelService extends AbstractService {
         data = await this.dataSource.query(`
             SELECT * FROM personnels WHERE
             code_entreprise='${code_entreprise}' AND
-            is_delete='false'
+            nom!='admin' AND
+            is_delete='false' 
             LIMIT 2;
         `);
 

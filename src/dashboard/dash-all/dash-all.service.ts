@@ -15,12 +15,13 @@ export default class DashAllService {
             SELECT count(*) as total
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
+            "personnels"."is_delete"='false' AND
             nom!='admin' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
-        `);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
+        `); 
     }
     
     // Total employés FEMMES 
@@ -30,10 +31,11 @@ export default class DashAllService {
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
             sexe='Femme' AND nom!='admin' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -44,10 +46,11 @@ export default class DashAllService {
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
             sexe='Homme' AND nom!='admin' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -61,10 +64,10 @@ export default class DashAllService {
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) as year
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY year;
         `);
     } 
@@ -78,24 +81,25 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as net_a_payer
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
-    // Statut de paie disponible et traitement 
+    // Progression de paie En attente, disponible et traitement 
 
     async statutPaieAll(code_entreprise, start_date, end_date) {
         return this.dataSource.query(`
         SELECT statut_paie, COUNT(statut_paie) 
             FROM personnels  
             WHERE code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            "personnels"."is_delete"='false' AND
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY statut_paie; 
         `); 
     } 
@@ -111,10 +115,10 @@ export default class DashAllService {
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) as year_ans
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY year_ans;
         `);
     }
@@ -125,10 +129,9 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(primes as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
-            BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            created
+            BETWEEN '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -136,10 +139,10 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(prime_anciennete as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -147,10 +150,10 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(penalites as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible'  AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -158,10 +161,10 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(avance_slaire as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -169,10 +172,10 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(pres_entreprise as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -180,10 +183,10 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -191,10 +194,10 @@ export default class DashAllService {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(syndicat as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
@@ -208,10 +211,10 @@ export default class DashAllService {
             SELECT apointement, COUNT(*) 
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP)
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP
             GROUP BY apointement;
         `);
     }
@@ -224,10 +227,10 @@ export default class DashAllService {
             SELECT COUNT(*) 
             FROM postes WHERE 
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
  
@@ -237,10 +240,10 @@ export default class DashAllService {
             FROM candidatures WHERE 
             statut='Postulant' AND
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
  
@@ -251,10 +254,10 @@ export default class DashAllService {
             FROM candidatures WHERE 
             statut='Recrue' AND
             code_entreprise='${code_entreprise}' AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) 
+            created
             BETWEEN
-            EXTRACT(YEAR FROM '${start_date}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM '${end_date}' ::TIMESTAMP);
+            '${start_date}' ::TIMESTAMP AND
+            '${end_date}' ::TIMESTAMP;
         `);
     }
 
