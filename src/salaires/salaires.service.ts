@@ -670,7 +670,7 @@ export class SalairesService extends AbstractService {
             { header: 'Nbre des jr presté', key: 'nbre_jrs_preste', width: 20.5 },
             { header: 'Nbre des jrs ferié', key: 'nbre_jrs_ferie', width: 20.5 },
             { header: 'RBI', key: 'rbi', width: 20.5 },
-            { header: 'CNSS QPO', key: 'cnssQPO', width: 20.5 },
+            { header: 'CNSS QPO', key: 'cnss_qpo', width: 20.5 },
             { header: 'RNI', key: 'rni', width: 20.5 },
             { header: 'IPR', key: 'ipr', width: 20.5 },
             { header: 'Pénalités', key: 'penalites', width: 20.5 },

@@ -64,7 +64,7 @@ export class SalaireCreateDto {
     rbi: string;  // Remuneration brute imposable
 
  
-    cnssQPO: string; // Impôt de 5% => 0.05
+    cnss_qpo: string; // Impôt de 5% => 0.05
 
  
     rni: string;  // Remuneration Nette Imposable

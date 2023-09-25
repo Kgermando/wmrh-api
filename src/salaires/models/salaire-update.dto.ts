@@ -24,7 +24,7 @@ export class SalaireUpdateDto {
     nbre_jrs_preste?: number;
     nbre_jrs_ferie?: number;
     rbi?: string;
-    cnssQPO?: string;
+    cnss_qpo?: string;
     rni?: string;
     ipr?: string;
     impot_elide?: string;
