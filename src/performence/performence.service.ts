@@ -14,13 +14,34 @@ export class PerformenceService extends AbstractService {
     }
 
     allGet(code_entreprise): Promise<any[]> {
-        return this.repository.find({
-            relations: {
-                personnel: true
-            },
-            where: {code_entreprise},
-            order: {'created': 'DESC'}
-        }); 
+        // return this.repository.find({
+        //     relations: {
+        //         personnel: true
+        //     },
+        //     where: {code_entreprise},
+        //     order: {'created': 'DESC'}
+        // }); 
+        return this.dataSource.query(`
+        SELECT "performences"."id",
+            "performences"."ponctualite",
+            "performences"."hospitalite", 
+            "performences"."travail", 
+            "performences"."observation",
+            "performences"."signature", 
+            "performences"."created",
+            "performences"."update_created",
+            "performences"."entreprise",
+            "performences"."code_entreprise",
+
+            "personnels"."matricule",
+            "personnels"."nom",
+            "personnels"."postnom",
+            "personnels"."prenom"
+        FROM performences
+        LEFT JOIN "personnels" ON "personnels"."id" = "performences"."personnelId"  
+        WHERE
+        "performences"."code_entreprise"='${code_entreprise}';
+    `);
     }
 
     async findGetOne(condition): Promise<any> {

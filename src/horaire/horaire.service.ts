@@ -14,20 +14,14 @@ export class HoraireService extends AbstractService {
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
-            relations: {
-                personnel: true
-            },
             where: {code_entreprise},
             order: {'created': 'DESC'}
-        }); 
+        });
     }
 
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
-            relations: {
-                personnel: true
-            }
         })
     }
 }

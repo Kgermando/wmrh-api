@@ -12,16 +12,25 @@ export class HoraireCreateDto {
     date_shift_1: string[];
 
     @IsNotEmpty()
+    time_1: string;
+
+    @IsNotEmpty()
     personnel_shift_2: string[];
 
     @IsNotEmpty()
     date_shift_2: string[];
 
     @IsNotEmpty()
+    time_2: string;
+
+    @IsNotEmpty()
     personnel_shift_3: string[];
 
     @IsNotEmpty()
     date_shift_3: string[];
+
+    @IsNotEmpty()
+    time_3: string;
 
     @IsNotEmpty()
     signature: string;

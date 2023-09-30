@@ -16,7 +16,7 @@ export class PerformenceController {
         @Param('code_entreprise') code_entreprise: string,
         @Param('id') id: number
     ) {
-        return this.performenceService.getPieYEAR(code_entreprise, id);
+      return this.performenceService.getPieYEAR(code_entreprise, id);
     }
 
     @Get('get-pie-all/:code_entreprise/:id')
@@ -24,7 +24,7 @@ export class PerformenceController {
         @Param('code_entreprise') code_entreprise: string,
         @Param('id') id: number
     ) {
-        return this.performenceService.getPieAll(code_entreprise, id);
+      return this.performenceService.getPieAll(code_entreprise, id);
     }
 
     @Get('get-ponctualite-total-year/:code_entreprise/:id')

@@ -16,17 +16,26 @@ export class Horaire {
     @Column('simple-array', { nullable: true })
     date_shift_1: string[];
 
+    @Column()
+    time_1: string;
+
     @Column('simple-array', { nullable: true })
     personnel_shift_2: string[];
 
     @Column('simple-array', { nullable: true })
     date_shift_2: string[];
+    
+    @Column()
+    time_2: string;
 
     @Column('simple-array', { nullable: true })
     personnel_shift_3: string[];
 
     @Column('simple-array', { nullable: true })
     date_shift_3: string[];
+
+    @Column()
+    time_3: string;
 
     @Column()
     signature: string;
