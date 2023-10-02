@@ -75,21 +75,25 @@ export class PersonnelService extends AbstractService {
         "personnels"."is_delete"='false' 
         ORDER BY "personnels"."created" DESC;
     `);
-        // return this.repository.find({
-        //     relations: {
-        //         // presences: true,
-        //         // primes: true,
-        //         // penalites: true,
-        //         // avances_salaires: true,
-        //         // heures_supp: true,
-        //         // salaires: true,
-        //         performences: true,
+        
+    }
 
-        //         services: true,
-        //     },
-        //     where: {code_entreprise} && {is_delete: false},
-        //     order: {'created': 'DESC'}
-        // }); 
+
+    getAllPerformance(code_entreprise): Promise<any[]> {
+        return this.repository.find({
+            relations: {
+                // presences: true,
+                // primes: true,
+                // penalites: true,
+                // avances_salaires: true,
+                // heures_supp: true,
+                // salaires: true,
+                // performences: true,
+                // services: true,
+            },
+            where: {code_entreprise} && {is_delete: false},
+            order: {'created': 'DESC'}
+        }); 
     }
 
     allGetLocation(code_entreprise, site_locations): Promise<any[]> {

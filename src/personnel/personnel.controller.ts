@@ -35,6 +35,13 @@ export class PersonnelController {
     return this.personneService.allGet(code_entreprise);
   }
 
+  @Get('get-all-performance/:code_entreprise')
+  async getAllPerformance(
+    @Param('code_entreprise') code_entreprise: string,
+  ) {
+    return this.personneService.getAllPerformance(code_entreprise);
+  }
+
   @Get('get-all/:code_entreprise/:site_locations')
   async getAllLocation(
     @Param('code_entreprise') code_entreprise: string,
