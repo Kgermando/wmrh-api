@@ -118,6 +118,13 @@ export class Preference {
     @Column({default: 0})
     bareme_30: number;
 
+    // Paiement mois plus N+1
+    @Column({default: false})
+    pris_en_compte_mois_plus_1: boolean;
+
+    @Column({default: 3})
+    delai_edit_bulletin: number;
+
     @Column()
     signature: string;
 
@@ -125,7 +132,7 @@ export class Preference {
     created: Date;
 
     @Column()
-    update_created : Date;
+    update_created: Date;
 
     @Column()
     entreprise: string;

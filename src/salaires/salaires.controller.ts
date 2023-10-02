@@ -32,47 +32,52 @@ export class SalairesController {
       return this.salaireService.getJrCongePayE(code_entreprise, matricule, date_paie);
     }
 
-    @Get('get-nbr-heures-supp/:code_entreprise/:id/:date_paie')
+    @Get('get-nbr-heures-supp/:code_entreprise/:id/:date_paie/:pris_en_compte_mois_plus_1')
     async nbrHeureSupp(
       @Param('code_entreprise') code_entreprise: string,
       @Param('id') id: number,
-      @Param('date_paie') date_paie: string
+      @Param('date_paie') date_paie: string,
+      @Param('pris_en_compte_mois_plus_1') pris_en_compte_mois_plus_1: string
     ) {
-      return this.salaireService.nbrHeureSupp(code_entreprise, id, date_paie);
+      return this.salaireService.nbrHeureSupp(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1);
     }
 
-    @Get('get-prime-total-cdf/:code_entreprise/:id/:date_paie')
+    @Get('get-prime-total-cdf/:code_entreprise/:id/:date_paie/:pris_en_compte_mois_plus_1')
     async primeTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
       @Param('id') id: number,
-      @Param('date_paie') date_paie: string
+      @Param('date_paie') date_paie: string,
+      @Param('pris_en_compte_mois_plus_1') pris_en_compte_mois_plus_1: string
     ) {
-      return this.salaireService.primeTotalCDF(code_entreprise, id, date_paie);
+      return this.salaireService.primeTotalCDF(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1);
     }
-    @Get('get-prime-total-usd/:code_entreprise/:id/:date_paie')
+    @Get('get-prime-total-usd/:code_entreprise/:id/:date_paie/:pris_en_compte_mois_plus_1')
     async primeTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
       @Param('id') id: number,
-      @Param('date_paie') date_paie: string
+      @Param('date_paie') date_paie: string,
+      @Param('pris_en_compte_mois_plus_1') pris_en_compte_mois_plus_1: string
     ) {
-      return this.salaireService.primeTotalUSD(code_entreprise, id, date_paie);
+      return this.salaireService.primeTotalUSD(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1);
     }
 
-    @Get('get-penalite-total-cdf/:code_entreprise/:id/:date_paie')
+    @Get('get-penalite-total-cdf/:code_entreprise/:id/:date_paie/:pris_en_compte_mois_plus_1')
     async penaliteTotalCDF(
       @Param('code_entreprise') code_entreprise: string,
       @Param('id') id: number,
-      @Param('date_paie') date_paie: string
+      @Param('date_paie') date_paie: string,
+      @Param('pris_en_compte_mois_plus_1') pris_en_compte_mois_plus_1: string
     ) {
-      return this.salaireService.penaliteTotalCDF(code_entreprise, id, date_paie);
+      return this.salaireService.penaliteTotalCDF(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1);
     }
-    @Get('get-penalite-total-usd/:code_entreprise/:id/:date_paie')
+    @Get('get-penalite-total-usd/:code_entreprise/:id/:date_paie/:pris_en_compte_mois_plus_1')
     async penaliteTotalUSD(
       @Param('code_entreprise') code_entreprise: string,
       @Param('id') id: number,
-      @Param('date_paie') date_paie: string
+      @Param('date_paie') date_paie: string,
+      @Param('pris_en_compte_mois_plus_1') pris_en_compte_mois_plus_1: string
     ) {
-      return this.salaireService.penaliteTotalUSD(code_entreprise, id, date_paie);
+      return this.salaireService.penaliteTotalUSD(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1);
     }
 
     @Get('get-avance-salaire-total-cdf/:code_entreprise/:id/:date_paie')
@@ -120,117 +125,220 @@ export class SalairesController {
     }
     
 
+// ################################## Releve de paie ################################################################
 
-    @Get('get-net-a-payer-total/:code_entreprise/:service/:month/:year')
+    @Get('get-net-a-payer-total/:code_entreprise/:month/:year')
     async netAPayerTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.netAPayerTotal(code_entreprise, service, month, year);
+      return this.salaireService.netAPayerTotal(code_entreprise, month, year);
     }
 
-    @Get('get-ipr-total/:code_entreprise/:service/:month/:year')
+    @Get('get-ipr-total/:code_entreprise/:month/:year')
     async iprTotal(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_entreprise') code_entreprise: string, 
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.iprTotal(code_entreprise, service, month, year);
+      return this.salaireService.iprTotal(code_entreprise, month, year);
     }
 
-    @Get('get-cnss-qpo-total/:code_entreprise/:service/:month/:year')
+    @Get('get-cnss-qpo-total/:code_entreprise/:month/:year')
     async cnssQPOTotal(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_entreprise') code_entreprise: string, 
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.cnssQPOTotal(code_entreprise, service, month, year);
+      return this.salaireService.cnssQPOTotal(code_entreprise, month, year);
     }
 
-    @Get('get-rbi-total/:code_entreprise/:service/:month/:year')
+    @Get('get-rbi-total/:code_entreprise/:month/:year')
     async rbiTotal(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_entreprise') code_entreprise: string, 
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.rbiTotal(code_entreprise, service, month, year);
+      return this.salaireService.rbiTotal(code_entreprise, month, year);
     }
     
-    @Get('get-frais-bancaire-total/:code_entreprise/:service/:month/:year')
+    @Get('get-frais-bancaire-total/:code_entreprise/:month/:year')
     async fraisBancaireTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.fraisBancaireTotal(code_entreprise, service, month, year);
+      return this.salaireService.fraisBancaireTotal(code_entreprise, month, year);
     }
 
-    @Get('get-heures-supp-total/:code_entreprise/:service/:month/:year')
+    @Get('get-heures-supp-total/:code_entreprise/:month/:year')
     async heureSuppTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.heureSuppTotal(code_entreprise, service, month, year);
+      return this.salaireService.heureSuppTotal(code_entreprise, month, year);
     }
 
-    @Get('get-primes-total/:code_entreprise/:service/:month/:year')
+    @Get('get-primes-total/:code_entreprise/:month/:year')
     async primeTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.primeTotal(code_entreprise, service, month, year);
+      return this.salaireService.primeTotal(code_entreprise, month, year);
     }
 
-    @Get('get-penalites-total/:code_entreprise/:service/:month/:year')
+    @Get('get-penalites-total/:code_entreprise/:month/:year')
     async penalitesTotal(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_entreprise') code_entreprise: string, 
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.penalitesTotal(code_entreprise, service, month, year);
+      return this.salaireService.penalitesTotal(code_entreprise, month, year);
     }
 
-    @Get('get-syndicat-total/:code_entreprise/:service/:month/:year')
+    @Get('get-syndicat-total/:code_entreprise/:month/:year')
     async syndicatTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.syndicatTotal(code_entreprise, service, month, year);
+      return this.salaireService.syndicatTotal(code_entreprise, month, year);
     }
     
-
-    @Get('get-statut-paie/:code_entreprise/:service/:month/:year')
+    @Get('get-statut-paie/:code_entreprise/:month/:year')
     async statutPaie(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.statutPaie(code_entreprise, service, month, year);
+      return this.salaireService.statutPaie(code_entreprise, month, year);
     }
 
-    @Get('get-releve-paie/:code_entreprise/:service/:month/:year')
+    @Get('get-releve-paie/:code_entreprise/:month/:year')
     async relevePaie(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.relevePaie(code_entreprise, service, month, year);
+      return this.salaireService.relevePaie(code_entreprise, month, year);
     }
+
+    // @Get('get-net-a-payer-total/:code_entreprise/:service/:month/:year')
+    // async netAPayerTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.netAPayerTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-ipr-total/:code_entreprise/:service/:month/:year')
+    // async iprTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.iprTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-cnss-qpo-total/:code_entreprise/:service/:month/:year')
+    // async cnssQPOTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.cnssQPOTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-rbi-total/:code_entreprise/:service/:month/:year')
+    // async rbiTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.rbiTotal(code_entreprise, service, month, year);
+    // }
+    
+    // @Get('get-frais-bancaire-total/:code_entreprise/:service/:month/:year')
+    // async fraisBancaireTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.fraisBancaireTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-heures-supp-total/:code_entreprise/:service/:month/:year')
+    // async heureSuppTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.heureSuppTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-primes-total/:code_entreprise/:service/:month/:year')
+    // async primeTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.primeTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-penalites-total/:code_entreprise/:service/:month/:year')
+    // async penalitesTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.penalitesTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-syndicat-total/:code_entreprise/:service/:month/:year')
+    // async syndicatTotal(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.syndicatTotal(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-statut-paie/:code_entreprise/:service/:month/:year')
+    // async statutPaie(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.statutPaie(code_entreprise, service, month, year);
+    // }
+
+    // @Get('get-releve-paie/:code_entreprise/:service/:month/:year')
+    // async relevePaie(
+    //   @Param('code_entreprise') code_entreprise: string,
+    //   @Param('service') service: string,
+    //   @Param('month') month: string,
+    //   @Param('year') year: string
+    // ) {
+    //   return this.salaireService.relevePaie(code_entreprise, service, month, year);
+    // }
+
+
+
+   
 
     @Get('get-mes-bulletins/:code_entreprise/:matricule')
     async mesBulletins(

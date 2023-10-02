@@ -83,7 +83,7 @@ export class PersonnelService extends AbstractService {
         //         // avances_salaires: true,
         //         // heures_supp: true,
         //         // salaires: true,
-        //         // performences: true,
+        //         performences: true,
 
         //         services: true,
         //     },

@@ -51,6 +51,10 @@ export class PreferenceUpdateDto {
     bareme_15?: number; 
     bareme_30?: number;
 
+
+    pris_en_compte_mois_plus_1?: boolean;
+    delai_edit_bulletin?: number;
+
     signature?: string;
     created?: Date;
     update_created ?: Date;

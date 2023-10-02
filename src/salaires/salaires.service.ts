@@ -50,79 +50,73 @@ export class SalairesService extends AbstractService {
         })
     }
 
-    netAPayerTotal(code_entreprise, service, month, year) {
+    netAPayerTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-            service='${service}' AND
+            statut='Disponible' AND 
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    iprTotal(code_entreprise, service, month, year) {
+    iprTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
-            statut='Disponible' AND
-            service='${service}' AND
+            statut='Disponible' AND 
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    cnssQPOTotal(code_entreprise, service, month, year) {
+    cnssQPOTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    rbiTotal(code_entreprise, service, month, year) {
+    rbiTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    fraisBancaireTotal(code_entreprise, service, month, year) {
+    fraisBancaireTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    heureSuppTotal(code_entreprise, service, month, year) {
+    heureSuppTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    primeTotal(code_entreprise, service, month, year) {
+    primeTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT  (
 
@@ -131,7 +125,6 @@ export class SalairesService extends AbstractService {
                     FROM salaires WHERE 
                     code_entreprise='${code_entreprise}' AND 
                     statut='Disponible' AND
-                    service='${service}' AND
                     EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
                         EXTRACT(YEAR FROM "date_paie"::TIMESTAMP) = '${year}'
                 )
@@ -141,7 +134,6 @@ export class SalairesService extends AbstractService {
                     FROM salaires WHERE 
                     code_entreprise='${code_entreprise}' AND 
                     statut='Disponible' AND
-                    service='${service}' AND
                     EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
                     EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}'
                 )
@@ -149,31 +141,30 @@ export class SalairesService extends AbstractService {
         `);
     }
 
-    penalitesTotal(code_entreprise, service, month, year) {
+    penalitesTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(penalites as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    syndicatTotal(code_entreprise, service, month, year) {
+    syndicatTotal(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(syndicat as decimal(20,2))), 0) as sum
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND 
             statut='Disponible' AND
-            service='${service}' AND
             EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
-    statutPaie(code_entreprise, service, month, year) {
+
+    statutPaie(code_entreprise, month, year) {
         return this.dataSource.query(`
         SELECT "salaires"."id",
             "salaires"."monnaie",
@@ -226,15 +217,14 @@ export class SalairesService extends AbstractService {
             FROM salaires
             LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
             WHERE
-            "salaires"."code_entreprise"='${code_entreprise}' AND
-            "salaires"."service"='${service}' AND
+            "salaires"."code_entreprise"='${code_entreprise}' AND 
             EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
        
         `);
     }
 
-    relevePaie(code_entreprise, service, month, year) {
+    relevePaie(code_entreprise, month, year) {
         return this.dataSource.query(`
             SELECT "salaires"."id",
                 "salaires"."monnaie",
@@ -289,14 +279,260 @@ export class SalairesService extends AbstractService {
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "salaires"."statut"='Disponible' AND
-            "salaires"."service"='${service}' AND
             EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
             EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
         `);
     }
 
 
+    // netAPayerTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // iprTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // cnssQPOTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // rbiTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // fraisBancaireTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(prise_en_charge_frais_bancaire as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // heureSuppTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // primeTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT  (
+
+    //             (
+    //                 SELECT COALESCE(SUM(cast(primes as decimal(20,2))), 0) as divers
+    //                 FROM salaires WHERE 
+    //                 code_entreprise='${code_entreprise}' AND 
+    //                 statut='Disponible' AND
+    //                 service='${service}' AND
+    //                 EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //                     EXTRACT(YEAR FROM "date_paie"::TIMESTAMP) = '${year}'
+    //             )
+    //             +
+    //             (
+    //                 SELECT COALESCE(SUM(cast(prime_anciennete as decimal(20,2))), 0) as anciennete
+    //                 FROM salaires WHERE 
+    //                 code_entreprise='${code_entreprise}' AND 
+    //                 statut='Disponible' AND
+    //                 service='${service}' AND
+    //                 EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //                 EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}'
+    //             )
+    //         ) AS sum;
+    //     `);
+    // }
+
+    // penalitesTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(penalites as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // syndicatTotal(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT COALESCE(SUM(cast(syndicat as decimal(20,2))), 0) as sum
+    //         FROM salaires WHERE 
+    //         code_entreprise='${code_entreprise}' AND 
+    //         statut='Disponible' AND
+    //         service='${service}' AND
+    //         EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+    // statutPaie(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //     SELECT "salaires"."id",
+    //         "salaires"."monnaie",
+    //         "salaires"."taux_dollard",
+    //         "salaires"."nbr_dependants",
+    //         "salaires"."alloc_logement",
+    //         "salaires"."alloc_transport", 
+    //         "salaires"."alloc_familliale", 
+    //         "salaires"."soins_medicaux", 
+    //         "salaires"."salaire_base",
+    //         "salaires"."primes", 
+    //         "salaires"."anciennete_nbr_age", 
+    //         "salaires"."prime_anciennete", 
+    //         "salaires"."heures_supp", 
+    //         "salaires"."heure_supplementaire_monnaie", 
+    //         "salaires"."conge_paye", 
+    //         "salaires"."nbre_jrs_preste", 
+    //         "salaires"."nbre_jrs_ferie", 
+    //         "salaires"."rbi", 
+    //         "salaires"."cnss_qpo", 
+    //         "salaires"."rni", 
+    //         "salaires"."ipr", 
+    //         "salaires"."impot_elide", 
+    //         "salaires"."syndicat", 
+    //         "salaires"."penalites", 
+    //         "salaires"."avance_slaire", 
+    //         "salaires"."prise_en_charge_frais_bancaire", 
+    //         "salaires"."pres_entreprise", 
+    //         "salaires"."net_a_payer", 
+    //         "salaires"."statut",
+    //         "salaires"."date_paie", 
+    //         "salaires"."signature", 
+    //         "salaires"."created",
+    //         "salaires"."update_created",
+    //         "salaires"."entreprise",
+    //         "salaires"."code_entreprise",
+    //         "salaires"."departement",
+    //         "salaires"."fonction",
+    //         "salaires"."title",
+    //         "salaires"."service",
+    //         "salaires"."site_location",
+
+    //         "personnels"."matricule",
+    //         "personnels"."nom",
+    //         "personnels"."postnom",
+    //         "personnels"."prenom",
+    //         "personnels"."compte_bancaire",
+    //         "personnels"."frais_bancaire",
+    //         "personnels"."nom_banque"
+    //         FROM salaires
+    //         LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
+    //         WHERE
+    //         "salaires"."code_entreprise"='${code_entreprise}' AND
+    //         "salaires"."service"='${service}' AND
+    //         EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+       
+    //     `);
+    // }
+
+    // relevePaie(code_entreprise, service, month, year) {
+    //     return this.dataSource.query(`
+    //         SELECT "salaires"."id",
+    //             "salaires"."monnaie",
+    //             "salaires"."taux_dollard",
+    //             "salaires"."nbr_dependants",
+    //             "salaires"."alloc_logement",
+    //             "salaires"."alloc_transport", 
+    //             "salaires"."alloc_familliale", 
+    //             "salaires"."soins_medicaux", 
+    //             "salaires"."salaire_base",
+    //             "salaires"."primes", 
+    //             "salaires"."anciennete_nbr_age", 
+    //             "salaires"."prime_anciennete", 
+    //             "salaires"."heures_supp", 
+    //             "salaires"."heure_supplementaire_monnaie", 
+    //             "salaires"."conge_paye", 
+    //             "salaires"."nbre_jrs_preste", 
+    //             "salaires"."nbre_jrs_ferie", 
+    //             "salaires"."rbi", 
+    //             "salaires"."cnss_qpo", 
+    //             "salaires"."rni", 
+    //             "salaires"."ipr", 
+    //             "salaires"."impot_elide", 
+    //             "salaires"."syndicat", 
+    //             "salaires"."penalites", 
+    //             "salaires"."avance_slaire", 
+    //             "salaires"."prise_en_charge_frais_bancaire", 
+    //             "salaires"."pres_entreprise", 
+    //             "salaires"."net_a_payer", 
+    //             "salaires"."statut",
+    //             "salaires"."date_paie", 
+    //             "salaires"."signature", 
+    //             "salaires"."created",
+    //             "salaires"."update_created",
+    //             "salaires"."entreprise",
+    //             "salaires"."code_entreprise",
+    //             "salaires"."departement",
+    //             "salaires"."fonction",
+    //             "salaires"."title",
+    //             "salaires"."service",
+    //             "salaires"."site_location",
+
+    //             "personnels"."matricule",
+    //             "personnels"."nom",
+    //             "personnels"."postnom",
+    //             "personnels"."prenom",
+    //             "personnels"."compte_bancaire",
+    //             "personnels"."frais_bancaire",
+    //             "personnels"."nom_banque"
+    //         FROM salaires
+    //         LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"  
+    //         WHERE
+    //         "salaires"."code_entreprise"='${code_entreprise}' AND
+    //         "salaires"."statut"='Disponible' AND
+    //         "salaires"."service"='${service}' AND
+    //         EXTRACT(MONTH FROM "salaires"."date_paie" ::TIMESTAMP) = '${month}' AND
+    //         EXTRACT(YEAR FROM "salaires"."date_paie" ::TIMESTAMP) = '${year}';
+    //     `);
+    // }
+
+
     // Liste des entreprises
+    
     list_services(code_entreprise) {
         return this.dataSource.query(`
             SELECT service
@@ -379,6 +615,10 @@ export class SalairesService extends AbstractService {
 
 
 
+
+
+    // ####################### CALCUL SALAIRE ####################################################
+    
     getJrPrestE(code_entreprise, matricule, date_paie) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(prestation ::FLOAT), 0) as presence
@@ -418,126 +658,140 @@ export class SalairesService extends AbstractService {
         `);
     }
 
-    // nbrHeureSupp(code_entreprise, id, date_paie) {
-    //     return this.dataSource.query(`
-    //         SELECT COALESCE(SUM(nbr_heures), 0) as sum
-    //         FROM heures_supp  WHERE 
-    //         code_entreprise='${code_entreprise}' AND
-    //         "personnelId"='${id}' AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1  
-    //         AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-    //         OR 
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-    //     `);
-    // }
-    nbrHeureSupp(code_entreprise, id, date_paie) {
-        return this.dataSource.query(`
-            SELECT COALESCE(SUM(nbr_heures), 0) as sum
-            FROM heures_supp  WHERE 
-            code_entreprise='${code_entreprise}' AND
-            "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-        `);
+    nbrHeureSupp(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1) {
+        // Si oui prendre en compte le mois actuel
+        if (pris_en_compte_mois_plus_1) {
+            return this.dataSource.query(`
+                SELECT COALESCE(SUM(nbr_heures), 0) as sum
+                FROM heures_supp  WHERE 
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1  
+                AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+                OR 
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);
+        } else {
+            return this.dataSource.query(`
+                SELECT COALESCE(SUM(nbr_heures), 0) as sum
+                FROM heures_supp  WHERE 
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);
+        }
+       
     }
 
 
-    // primeTotalCDF(code_entreprise, id, date_paie) {
-    //     return this.dataSource.query(`
-    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
-    //         FROM primes  WHERE 
-    //         monnaie='CDF' AND
-    //         code_entreprise='${code_entreprise}' AND
-    //         "personnelId"='${id}' AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-    //         AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-    //     `);
-    // }
-    primeTotalCDF(code_entreprise, id, date_paie) {
-        return this.dataSource.query(`
+    primeTotalCDF(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1) {
+        // Si oui prendre en compte le mois actuel
+        if (pris_en_compte_mois_plus_1) {
+             return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM primes  WHERE 
             monnaie='CDF' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
+            AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
-    }
-    // primeTotalUSD(code_entreprise, id, date_paie) {
-    //     return this.dataSource.query(`
-    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
-    //         FROM primes WHERE 
-    //         monnaie='USD' AND
-    //         code_entreprise='${code_entreprise}' AND
-    //         "personnelId"='${id}' AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-    //         AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-    //     `);
-    // }
-    primeTotalUSD(code_entreprise, id, date_paie) {
-        return this.dataSource.query(`
+        } else {
+            return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+                FROM primes  WHERE 
+                monnaie='CDF' AND
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);
+        }
+        
+    } 
+
+    primeTotalUSD(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1) {
+        // Si oui prendre en compte le mois actuel
+        if (pris_en_compte_mois_plus_1) {
+              return this.dataSource.query(`
         SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM primes WHERE 
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
             "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
+            AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+            OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
-    }
+        } else {
+            return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+                FROM primes WHERE 
+                monnaie='USD' AND
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);  
+        }
+        
+    } 
 
-
-    // penaliteTotalCDF(code_entreprise, id, date_paie) {
-    //     return this.dataSource.query(`
-    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
-    //         FROM penalites WHERE 
-    //         monnaie='CDF' AND
-    //         code_entreprise='${code_entreprise}' AND
-    //         "personnelId"='${id}' AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
-    //         AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-    //     `);
-    // }
-    penaliteTotalCDF(code_entreprise, id, date_paie) {
-        return this.dataSource.query(`
-        SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
-            FROM penalites WHERE 
-            monnaie='CDF' AND
-            code_entreprise='${code_entreprise}' AND
-            "personnelId"='${id}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-        `);
+    penaliteTotalCDF(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1) {
+        // Si oui prendre en compte le mois actuel
+        if (pris_en_compte_mois_plus_1) {
+             return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+                FROM penalites WHERE 
+                monnaie='CDF' AND
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP)- 1  
+                AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+                OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);
+        } else {
+            return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+                FROM penalites WHERE 
+                monnaie='CDF' AND
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);
+        }
+        
     }
-    // penaliteTotalUSD(code_entreprise, id, date_paie) {
-    //     return this.dataSource.query(`
-    //     SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
-    //         FROM penalites  WHERE 
-    //         monnaie='USD' AND
-    //         code_entreprise='${code_entreprise}' AND
-    //         "personnelId"='${id}' AND
-    //         EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1
-    //         AND
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
-    //         OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
-    //         EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
-    //     `);
-    // }
-    penaliteTotalUSD(code_entreprise, id, date_paie) {
-        return this.dataSource.query(`
-        SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+ 
+    penaliteTotalUSD(code_entreprise, id, date_paie, pris_en_compte_mois_plus_1) {
+         // Si oui prendre en compte le mois actuel
+         if (pris_en_compte_mois_plus_1) {
+           return this.dataSource.query(`
+                SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
+                FROM penalites  WHERE 
+                monnaie='USD' AND
+                code_entreprise='${code_entreprise}' AND
+                "personnelId"='${id}' AND
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) - 1
+                AND
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP)
+                OR EXTRACT(MONTH FROM "created" ::TIMESTAMP) = 12 AND 
+                EXTRACT(YEAR FROM "created" ::TIMESTAMP) < EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
+            `);
+        } else {
+            return this.dataSource.query(`
+            SELECT COALESCE(SUM(cast(montant as decimal(20,2))), 0) as sum
             FROM penalites  WHERE 
             monnaie='USD' AND
             code_entreprise='${code_entreprise}' AND
@@ -545,7 +799,10 @@ export class SalairesService extends AbstractService {
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_paie}' ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_paie}' ::TIMESTAMP);
         `);
+        }
+       
     }
+ 
 
 
     avanceSalaireTotalCDF(code_entreprise, id, date_paie) {

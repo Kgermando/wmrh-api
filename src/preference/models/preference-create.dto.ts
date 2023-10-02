@@ -113,6 +113,12 @@ export class PreferenceCreateDto {
     bareme_30: number;
 
     @IsNotEmpty()
+    pris_en_compte_mois_plus_1: boolean;
+
+    @IsNotEmpty()
+    delai_edit_bulletin: number; // Jours
+
+    @IsNotEmpty()
     signature: string;
 
     @IsNotEmpty()
