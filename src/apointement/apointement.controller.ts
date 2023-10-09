@@ -80,7 +80,7 @@ export class ApointementController {
     ) {
       return this.apointementService.getItemsPAAA(code_entreprise, site_location);
     }
-
+ 
     // ALL c'est pour le tableau de bord
     @Get('get-item-conge/:code_entreprise')
     async getItemsCongEALL(

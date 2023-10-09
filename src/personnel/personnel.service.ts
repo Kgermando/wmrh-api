@@ -66,10 +66,9 @@ export class PersonnelService extends AbstractService {
         "personnels"."sexe",
         "personnels"."salaire_base",
         "personnels"."statut_paie",
-        "service_prefs"."service"
-        FROM personnels 
-        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
-        WHERE
+        "service_prefs"."service",
+        "personnels"."corporates"
+        FROM personnels WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         nom!='admin' AND
         "personnels"."is_delete"='false' 
@@ -112,23 +111,44 @@ export class PersonnelService extends AbstractService {
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
-            relations: {
-                presences: true,
-                primes: true,
-                penalites: true,
-                avances_salaires: true,
-                heures_supp: true,
-                salaires: true,
-                performences: true,
-                pres_entreprises: true,
-                // notify: true,
+            relations: [
+                'presences',
+                'primes',
+                'penalites',
+                'avances_salaires',
+                'heures_supp',
+                'salaires',
+                'performences',
+                'pres_entreprises',
 
-                departements: true,
-                titles: true,
-                fonctions: true,
-                services: true,
-                site_locations: true,
-            }
+                'corporates.departements',
+                'corporates.titles',
+                'corporates.fonctions',
+                'corporates.services',
+                'corporates.site_locations',
+                'departements', 
+                'titles', 
+                'fonctions', 
+                'services', 
+                'site_locations'
+            ],
+            // relations: {
+            //     presences: true,
+            //     primes: true,
+            //     penalites: true,
+            //     avances_salaires: true,
+            //     heures_supp: true,
+            //     salaires: true,
+            //     performences: true,
+            //     pres_entreprises: true,
+            //     // notify: true,
+            //     corporates: true,
+            //     departements: true,
+            //     titles: true,
+            //     fonctions: true,
+            //     services: true,
+            //     site_locations: true,
+            // }
         });
     }
 

@@ -304,7 +304,7 @@ export class SalairesService extends AbstractService {
             ORDER BY created DESC;
         `);
     }
-
+    site_location
     // Numero farde pour classer les differentes masses salariales
     farde(code_entreprise) {
         return this.dataSource.query(`

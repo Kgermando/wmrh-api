@@ -1,6 +1,7 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-
+import { Corporate } from "src/corporate/models/corporate.entity";
+import { Column, Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+ 
 @Entity('site_locations')
 export class SiteLocation {
 
@@ -18,6 +19,9 @@ export class SiteLocation {
 
     @OneToMany(() => Personnel, (item) => item.site_locations, {cascade: true})
     personnels: Personnel[];
+
+    @ManyToOne(() => Corporate, (co)=> co.site_locations, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @Column()    
     signature: string;

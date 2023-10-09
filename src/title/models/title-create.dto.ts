@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class TitleCreateDto {
@@ -7,6 +8,8 @@ export class TitleCreateDto {
     title: string;   
 
     personnels: Personnel[];
+
+    corporate: Corporate;
 
     @IsNotEmpty()
     signature: string;  

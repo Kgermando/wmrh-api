@@ -45,5 +45,5 @@ export class Apointement {
     
     @Column()
     code_entreprise: string;
-
+ 
 }

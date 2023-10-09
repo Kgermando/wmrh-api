@@ -1,4 +1,5 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
+import { Corporate } from "src/corporate/models/corporate.entity";
 
 export class ServicePrefUpdateDto {
 
@@ -6,6 +7,8 @@ export class ServicePrefUpdateDto {
 
 
     personnels?: Personnel[];
+
+    corporate?: Corporate;
 
 
     signature?: string;

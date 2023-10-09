@@ -1,4 +1,5 @@
 import { AbonnementClient } from "src/admin/abonnement_client/models/abonnement_client.entity";
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('entreprises')
@@ -48,6 +49,9 @@ export class Entreprise {
 
     @OneToMany(() => AbonnementClient, (item) => item.entreprise, {cascade: true})
     abonnements: AbonnementClient[];
+
+    @OneToMany(() => Corporate, (item) => item.entreprise_id, {cascade: true})
+    corporates: Corporate[];
 
     @Column()
     signature: string;

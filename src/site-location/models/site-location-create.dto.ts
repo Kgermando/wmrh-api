@@ -1,5 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 import { Personnel } from "src/personnel/models/personnel.entity";
+import { Corporate } from "src/corporate/models/corporate.entity";
 
 export class SiteLocationCreateDto {
    
@@ -13,6 +14,8 @@ export class SiteLocationCreateDto {
     adresse: string; 
 
     personnels: Personnel[];
+    
+    corporate: Corporate;
 
     @IsNotEmpty()
     signature: string;  

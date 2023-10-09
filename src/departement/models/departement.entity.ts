@@ -1,5 +1,6 @@
 import { Personnel } from "src/personnel/models/personnel.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Corporate } from "src/corporate/models/corporate.entity";
+import { Column, Entity, OneToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('departements')
 export class Departement {
@@ -12,6 +13,9 @@ export class Departement {
 
     @OneToMany(() => Personnel, (item) => item.departements, {cascade: true})
     personnels: Personnel[];
+
+    @ManyToOne(() => Corporate, (co)=> co.departements, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @Column()    
     signature: string;

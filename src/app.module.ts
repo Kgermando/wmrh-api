@@ -31,7 +31,9 @@ import { NotifyModule } from './notify/notify.module';
 import { EntrepriseModule } from './admin/entreprise/entreprise.module';
 import { AbonnementClientModule } from './admin/abonnement_client/abonnement_client.module';
 import { HoraireModule } from './horaire/horaire.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_INTERCEPTOR } from '@nestjs/core'; 
+import { CorporateModule } from './corporate/corporate.module'; 
+import { CorporateReglageModule } from './corporate-reglage/corporate-reglage.module';
 
 
 @Module({
@@ -85,6 +87,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     EntrepriseModule,
     AbonnementClientModule,
     HoraireModule,
+    CorporateModule,
+    CorporateReglageModule, 
   ],
   providers: [
     {

@@ -1,6 +1,7 @@
 import { Title } from "aws-sdk/clients/codecommit";
 import { Apointement } from "src/apointement/models/apointement.entity";
 import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Departement } from "src/departement/models/departement.entity";
 import { Fonction } from "src/fonction/models/fonction.entity";
 import { Notify } from "src/notify/models/notifiy.entity";
@@ -46,11 +47,15 @@ export class PersonnelUpdateDto {
 
     category?: string;
 
-    statut_personnel?: boolean; 
+    statut_personnel?: boolean;
 
     roles?: string[];
     
-    permission?: string; 
+    permission?: string;
+
+    corporate_view: string[];
+
+    corporates?: Corporate;
 
     departements?: Departement; 
 

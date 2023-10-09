@@ -13,6 +13,7 @@ import { Salaire } from "src/salaires/models/salaire.entity";
 import { ServicePref } from "src/service-pref/models/service-pref.entity";
 import { SiteLocation } from "src/site-location/models/site-location.entity";
 import { Title } from "src/title/models/title.entity";
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('personnels')
@@ -79,9 +80,13 @@ export class Personnel {
     @Column({nullable: true})
     permission: string;  // Give access to CRUD  [Create, Read, Update, Delete] C R U D
   
-
+    @Column('simple-array', { nullable: true })
+    corporate_view: string[];
 
     // Travail
+    @ManyToOne(() => Corporate, (co)=> co.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporates: Corporate;
+
     @ManyToOne(() => Departement, (dep)=> dep.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     departements: Departement;
 
