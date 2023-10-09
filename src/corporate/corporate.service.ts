@@ -14,10 +14,14 @@ export class CorporateService extends AbstractService {
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
-            relations: {
-                personnels: true,
-                site_locations: true,
-            },
+            // relations: {
+            //     personnels: true,
+            //     site_locations: true,
+            // },
+            relations: [
+                'personnels',  
+                'site_locations.personnels'
+            ],
             where: {code_entreprise},
             order: {'created': 'DESC'}
         }); 
