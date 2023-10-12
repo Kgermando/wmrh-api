@@ -6,6 +6,13 @@ import { Fonction } from "src/fonction/models/fonction.entity";
 import { ServicePref } from "src/service-pref/models/service-pref.entity";
 import { SiteLocation } from "src/site-location/models/site-location.entity";
 import { Title } from "src/title/models/title.entity";
+import { Prime } from "src/prime/models/prime.entity";
+import { Penalite } from "src/penalite/models/pernalite.entity";
+import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { Salaire } from "src/salaires/models/salaire.entity";
+import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
+import { Performence } from "src/performence/models/performence.entity";
+import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
 
 export class CorporateCreateDto {
 
@@ -60,6 +67,20 @@ export class CorporateCreateDto {
     services: ServicePref; 
  
     site_locations: SiteLocation;
+
+    primes: Prime[];
+
+    penalites: Penalite[];
+
+    avances_salaires: AvanceSalaire[];
+    
+    heures_supp: HeureSupp[];
+
+    salaires: Salaire[];
+
+    performences: Performence[];
+
+    pres_entreprises: PresEntreprise[];
 
     @IsNotEmpty()
     code_entreprise: string;

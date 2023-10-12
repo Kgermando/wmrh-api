@@ -11,6 +11,13 @@ export class CorporateController {
         private corporateService: CorporateService
     ) {}
 
+    @Get('get-all-navigation/:code_entreprise')
+    async allGetNavigation(
+      @Param('code_entreprise') code_entreprise: string,
+    ) {
+      return this.corporateService.allGetNavigation(code_entreprise);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,

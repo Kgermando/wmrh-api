@@ -1,3 +1,4 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { DecimalTransformer } from "src/decimal.transformer";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -7,6 +8,9 @@ export class Performence {
 
     @PrimaryGeneratedColumn()
     id: number;
+
+    @ManyToOne(() => Corporate, (co)=> co.performences, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @ManyToOne(() => Personnel, (personnel)=> personnel.performences, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;

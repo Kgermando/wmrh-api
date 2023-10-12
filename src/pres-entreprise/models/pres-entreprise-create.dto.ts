@@ -1,9 +1,12 @@
 import { IsNotEmpty } from "class-validator";
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
- 
-
 export class PresEntrepriseCreateDto { 
+
+    @IsNotEmpty()
+    corporate: Corporate;
+
     @IsNotEmpty()
     personnel: Personnel;
 

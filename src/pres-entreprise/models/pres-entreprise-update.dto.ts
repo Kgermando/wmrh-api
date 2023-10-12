@@ -1,6 +1,8 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity"; 
 
 export class PresEntrepriseUpdateDto { 
+    corporate?: Corporate;
     personnel?: Personnel;
     intitule?: string;
     monnaie?: string;

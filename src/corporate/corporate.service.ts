@@ -12,6 +12,13 @@ export class CorporateService extends AbstractService {
         super(corporateRepository); 
     }
 
+    allGetNavigation(code_entreprise): Promise<any[]> {
+        return this.repository.find({ 
+            where: {code_entreprise},
+            order: {'created': 'DESC'}
+        }); 
+    }
+
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
             // relations: {
@@ -20,7 +27,7 @@ export class CorporateService extends AbstractService {
             // },
             relations: [
                 'personnels',  
-                'site_locations.personnels'
+                'site_locations.personnels', 
             ],
             where: {code_entreprise},
             order: {'created': 'DESC'}
@@ -30,27 +37,37 @@ export class CorporateService extends AbstractService {
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
-            // relations: [
-            //     'personnel', 
-            //     'departements', 
-            //     'titles', 
-            //     'fonctions', 
-            //     'services', 
-            //     'site_locations',
-            //     'corporate.departements', 
-            //     'corporate.titles', 
-            //     'corporate.fonctions', 
-            //     'corporate.services', 
-            //     'corporate.site_locations',
-            // ],
-            relations: {
-                personnels: true,
-                departements: true,
-                site_locations: true,
-                services: true,
-                fonctions: true,
-                titles: true,
-            }
+            relations: [
+                // 'personnel', 
+                'departements', 
+                'titles', 
+                'fonctions', 
+                'services',  
+                'departements', 
+                'titles', 
+                'fonctions', 
+                'services', 
+                'site_locations',
+
+                'personnels',
+                'site_locations.personnels',
+
+                'primes',
+                'penalites',
+                'avances_salaires',
+                'heures_supp',
+                'salaires',
+                'performences',
+                'pres_entreprises',
+            ],
+            // relations: {
+            //     personnels: true,
+            //     departements: true,
+            //     site_locations: true,
+            //     services: true,
+            //     fonctions: true,
+            //     titles: true,
+            // }
         })
     }
 }

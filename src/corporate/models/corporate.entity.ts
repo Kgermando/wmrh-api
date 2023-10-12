@@ -6,6 +6,13 @@ import { ServicePref } from "src/service-pref/models/service-pref.entity";
 import { SiteLocation } from "src/site-location/models/site-location.entity";
 import { Title } from "src/title/models/title.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Prime } from "src/prime/models/prime.entity";
+import { Penalite } from "src/penalite/models/pernalite.entity";
+import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
+import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
+import { Salaire } from "src/salaires/models/salaire.entity";
+import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
+import { Performence } from "src/performence/models/performence.entity";
 
 @Entity('corporate')
 export class Corporate {
@@ -72,6 +79,27 @@ export class Corporate {
 
     @OneToMany(() => Title, (item) => item.corporate, {cascade: true})
     titles: Title[];
+
+    @OneToMany(() => Prime, (item) => item.corporate, {cascade: true})
+    primes: Prime[];
+
+    @OneToMany(() => Penalite, (item) => item.corporate, {cascade: true})
+    penalites: Penalite[];
+
+    @OneToMany(() => AvanceSalaire, (item) => item.corporate, {cascade: true})
+    avances_salaires: AvanceSalaire[];
+
+    @OneToMany(() => HeureSupp, (item) => item.corporate, {cascade: true})
+    heures_supp: HeureSupp[];
+
+    @OneToMany(() => Salaire, (item) => item.corporate, {cascade: true})
+    salaires: Salaire[];
+
+    @OneToMany(() => Performence, (item) => item.corporate, {cascade: true})
+    performences: Performence[];
+
+    @OneToMany(() => PresEntreprise, (item) => item.corporate, {cascade: true})
+    pres_entreprises: PresEntreprise[];
 
     @Column()
     signature: string;

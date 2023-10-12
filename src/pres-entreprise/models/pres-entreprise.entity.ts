@@ -1,3 +1,4 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -5,6 +6,9 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 export class PresEntreprise {
     @PrimaryGeneratedColumn()
     id: number;  
+
+    @ManyToOne(() => Corporate, (co)=> co.pres_entreprises, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @ManyToOne(() => Personnel, (personnel)=> personnel.pres_entreprises, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;

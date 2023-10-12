@@ -195,7 +195,7 @@ export class PersonnelController {
 
   @Get('get-matricule/:matricule')
   async getMatricule(@Param('matricule') matricule: string) {
-    return this.personneService.findGetOne({matricule});
+    return this.personneService.getMatricule({matricule});
   }
 
   // User lui meme modifie

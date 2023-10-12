@@ -65,9 +65,7 @@ export class PersonnelService extends AbstractService {
         "personnels"."matricule",
         "personnels"."sexe",
         "personnels"."salaire_base",
-        "personnels"."statut_paie",
-        "service_prefs"."service",
-        "personnels"."corporates"
+        "personnels"."statut_paie"
         FROM personnels WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         nom!='admin' AND
@@ -149,6 +147,15 @@ export class PersonnelService extends AbstractService {
             //     services: true,
             //     site_locations: true,
             // }
+        });
+    }
+
+    async getMatricule(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+            relations: [
+                'presences',
+            ],
         });
     }
 

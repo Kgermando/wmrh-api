@@ -23,7 +23,7 @@ export class ApointementService extends AbstractService {
             },
             where: {code_entreprise},
             order: {'created': 'DESC'}
-        }); 
+        });
     }
 
     async findGetOne(condition): Promise<any> {
@@ -39,22 +39,22 @@ export class ApointementService extends AbstractService {
         return this.repository.find({ 
             where: {code_entreprise} && {matricule},
             order: {'created': 'DESC'}
-        }); 
+        });
     }
- 
- 
+
+
     registrePresence(code_entreprise, site_location, date_presence) {
         return this.dataSource.query(`
             SELECT *
-            FROM apointements WHERE 
-            code_entreprise='${code_entreprise}' AND 
+            FROM apointements WHERE
+            code_entreprise='${code_entreprise}' AND
             site_location='${site_location}' AND
             EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM '${date_presence}' ::TIMESTAMP) AND
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_presence}' ::TIMESTAMP) AND
             EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_presence}' ::TIMESTAMP)
             ORDER BY created DESC;
         `);
-    } 
+    }
 
     getLastItem(code_entreprise, matricule) {
         return this.dataSource.query(`

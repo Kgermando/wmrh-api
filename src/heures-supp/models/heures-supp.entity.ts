@@ -1,11 +1,15 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('heures_supp')
 export class HeureSupp {
 
+    @ManyToOne(() => Corporate, (co)=> co.heures_supp, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
+
     @PrimaryGeneratedColumn()
-    id: number; 
+    id: number;
 
     @Column()
     motif: string; // Tavaills effectues ou tâches

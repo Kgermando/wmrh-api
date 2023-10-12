@@ -1,3 +1,4 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -6,6 +7,9 @@ export class Salaire {
 
     @PrimaryGeneratedColumn()
     id: number;
+
+    @ManyToOne(() => Corporate, (co)=> co.salaires, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @ManyToOne(() => Personnel, (personnel)=> personnel.salaires, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
