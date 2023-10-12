@@ -27,7 +27,7 @@ export class CorporateService extends AbstractService {
             // },
             relations: [
                 'personnels',  
-                'site_locations.personnels', 
+                'site_locations.personnels',
             ],
             where: {code_entreprise},
             order: {'created': 'DESC'}
@@ -37,8 +37,7 @@ export class CorporateService extends AbstractService {
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
-            relations: [
-                // 'personnel', 
+            relations: [ 
                 'departements', 
                 'titles', 
                 'fonctions', 
@@ -60,14 +59,6 @@ export class CorporateService extends AbstractService {
                 'performences',
                 'pres_entreprises',
             ],
-            // relations: {
-            //     personnels: true,
-            //     departements: true,
-            //     site_locations: true,
-            //     services: true,
-            //     fonctions: true,
-            //     titles: true,
-            // }
         })
     }
 }

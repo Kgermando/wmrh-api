@@ -43,9 +43,9 @@ export class PersonnelService extends AbstractService {
         "personnels"."telephone",
         "personnels"."matricule",
         "personnels"."sexe",
-        "service_prefs"."service"
+        "corporate"."corporate_name"
         FROM personnels
-        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+        LEFT JOIN "corporate" ON "corporate"."id" = "personnels"."corporatesId"
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         nom!='admin' AND
@@ -65,8 +65,11 @@ export class PersonnelService extends AbstractService {
         "personnels"."matricule",
         "personnels"."sexe",
         "personnels"."salaire_base",
-        "personnels"."statut_paie"
-        FROM personnels WHERE
+        "personnels"."statut_paie",
+        "site_locations"."site_location"
+        FROM personnels 
+        LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
+        WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         nom!='admin' AND
         "personnels"."is_delete"='false' 

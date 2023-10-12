@@ -121,115 +121,115 @@ export class SalairesController {
     
 
 
-    @Get('get-net-a-payer-total/:code_entreprise/:service/:month/:year')
+    @Get('get-net-a-payer-total/:code_entreprise/:code_corporate/:month/:year')
     async netAPayerTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.netAPayerTotal(code_entreprise, service, month, year);
+      return this.salaireService.netAPayerTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-ipr-total/:code_entreprise/:service/:month/:year')
+    @Get('get-ipr-total/:code_entreprise/:code_corporate/:month/:year')
     async iprTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.iprTotal(code_entreprise, service, month, year);
+      return this.salaireService.iprTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-cnss-qpo-total/:code_entreprise/:service/:month/:year')
+    @Get('get-cnss-qpo-total/:code_entreprise/:code_corporate/:month/:year')
     async cnssQPOTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.cnssQPOTotal(code_entreprise, service, month, year);
+      return this.salaireService.cnssQPOTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-rbi-total/:code_entreprise/:service/:month/:year')
+    @Get('get-rbi-total/:code_entreprise/:code_corporate/:month/:year')
     async rbiTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.rbiTotal(code_entreprise, service, month, year);
+      return this.salaireService.rbiTotal(code_entreprise, code_corporate, month, year);
     }
     
-    @Get('get-frais-bancaire-total/:code_entreprise/:service/:month/:year')
+    @Get('get-frais-bancaire-total/:code_entreprise/:code_corporate/:month/:year')
     async fraisBancaireTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.fraisBancaireTotal(code_entreprise, service, month, year);
+      return this.salaireService.fraisBancaireTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-heures-supp-total/:code_entreprise/:service/:month/:year')
+    @Get('get-heures-supp-total/:code_entreprise/:code_corporate/:month/:year')
     async heureSuppTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.heureSuppTotal(code_entreprise, service, month, year);
+      return this.salaireService.heureSuppTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-primes-total/:code_entreprise/:service/:month/:year')
+    @Get('get-primes-total/:code_entreprise/:code_corporate/:month/:year')
     async primeTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.primeTotal(code_entreprise, service, month, year);
+      return this.salaireService.primeTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-penalites-total/:code_entreprise/:service/:month/:year')
+    @Get('get-penalites-total/:code_entreprise/:code_corporate/:month/:year')
     async penalitesTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.penalitesTotal(code_entreprise, service, month, year);
+      return this.salaireService.penalitesTotal(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-syndicat-total/:code_entreprise/:service/:month/:year')
+    @Get('get-syndicat-total/:code_entreprise/:code_corporate/:month/:year')
     async syndicatTotal(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.syndicatTotal(code_entreprise, service, month, year);
+      return this.salaireService.syndicatTotal(code_entreprise, code_corporate, month, year);
     }
     
 
-    @Get('get-statut-paie/:code_entreprise/:service/:month/:year')
+    @Get('get-statut-paie/:code_entreprise/:code_corporate/:month/:year')
     async statutPaie(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.statutPaie(code_entreprise, service, month, year);
+      return this.salaireService.statutPaie(code_entreprise, code_corporate, month, year);
     }
 
-    @Get('get-releve-paie/:code_entreprise/:service/:month/:year')
+    @Get('get-releve-paie/:code_entreprise/:code_corporate/:month/:year')
     async relevePaie(
       @Param('code_entreprise') code_entreprise: string,
-      @Param('service') service: string,
+      @Param('code_corporate') code_corporate: string,
       @Param('month') month: string,
       @Param('year') year: string
     ) {
-      return this.salaireService.relevePaie(code_entreprise, service, month, year);
+      return this.salaireService.relevePaie(code_entreprise, code_corporate, month, year);
     }
 
     @Get('get-mes-bulletins/:code_entreprise/:matricule')
@@ -240,26 +240,28 @@ export class SalairesController {
       return this.salaireService.mesBulletins(code_entreprise, matricule);
     }
 
-    @Get('get-farde-paie/:code_entreprise')
-    async farde(
+    @Get('get-classer-paie/:code_entreprise/:corporate_id')
+    async classer(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('corporate_id') corporate_id: number,
     ) {
-      return this.salaireService.farde(code_entreprise);
+      return this.salaireService.classer(code_entreprise, corporate_id);
     }
 
-    @Get('get-farde-disponible-paie/:code_entreprise')
-    async fardeDisponible(
+    @Get('get-classer-disponible-paie/:code_entreprise/:corporate_id')
+    async classerDisponible(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('corporate_id') corporate_id: number,
     ) {
-      return this.salaireService.fardeDisponible(code_entreprise);
+      return this.salaireService.classerDisponible(code_entreprise, corporate_id);
     }
 
-    @Get('get-list-services/:code_entreprise')
-    async list_services(
-      @Param('code_entreprise') code_entreprise: string,
-    ) {
-      return this.salaireService.list_services(code_entreprise);
-    }
+    // @Get('get-list-services/:code_entreprise')
+    // async list_services(
+    //   @Param('code_entreprise') code_entreprise: string,
+    // ) {
+    //   return this.salaireService.list_services(code_entreprise);
+    // }
 
 
   @Post('download-xlsx/:code_entreprise/:start_date/:end_date')
