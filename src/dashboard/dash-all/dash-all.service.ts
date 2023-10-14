@@ -10,11 +10,13 @@ export default class DashAllService {
 
     // EMPLOYES
     // Total EMPLOYES 
-    async totalEnmployesAll(code_entreprise, start_date, end_date) {
+    async totalEnmployesAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT count(*) as total
-            FROM personnels WHERE 
+            FROM personnels  
+            WHERE 
             code_entreprise='${code_entreprise}' AND
+            "corporatesId"='${corporateId}' AND
             "personnels"."is_delete"='false' AND
             nom!='admin' AND
             created
@@ -25,11 +27,12 @@ export default class DashAllService {
     }
     
     // Total employés FEMMES 
-    async totalEnmployeFemmeAll(code_entreprise, start_date, end_date) {
+    async totalEnmployeFemmeAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT count(*) as total
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
+            "corporatesId"='${corporateId}' AND
             sexe='Femme' AND nom!='admin' AND
             "personnels"."is_delete"='false' AND
             created
@@ -40,11 +43,12 @@ export default class DashAllService {
     }
 
     // Total emlployés HOMMES 
-    async totalEnmployeHommeAll(code_entreprise, start_date, end_date) {
+    async totalEnmployeHommeAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT count(*) as total
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
+            "corporatesId"='${corporateId}' AND
             sexe='Homme' AND nom!='admin' AND
             "personnels"."is_delete"='false' AND
             created
@@ -56,7 +60,7 @@ export default class DashAllService {
 
     // Performences Employé  
     // Pour dans l'année il sufit de mettre YEAR
-    getPerformencesAll(code_entreprise, start_date, end_date) {
+    getPerformencesAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT SUM(ponctualite) AS ponctualite, 
                 SUM(hospitalite) AS hospitalite, 
@@ -64,23 +68,25 @@ export default class DashAllService {
                 EXTRACT(MONTH FROM "created" ::TIMESTAMP) as year
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND
-            created
-            BETWEEN
+            "corporateId"='${corporateId}' AND
+            created BETWEEN
             '${start_date}' ::TIMESTAMP AND
             '${end_date}' ::TIMESTAMP
             GROUP BY year;
         `);
-    } 
+    }
 
 
     // Finances
 
     // Masse salarial 
 
-    async masseSalarialAll(code_entreprise, start_date, end_date) {
+    async masseSalarialAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(net_a_payer as decimal(20,2))), 0) as net_a_payer
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            "corporateId"='${corporateId}' AND
+            statut='Disponible' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -90,12 +96,14 @@ export default class DashAllService {
 
     // Progression de paie En attente, disponible et traitement 
 
-    async statutPaieAll(code_entreprise, start_date, end_date) {
+    async statutPaieAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
         SELECT statut_paie, COUNT(statut_paie) 
             FROM personnels  
             WHERE code_entreprise='${code_entreprise}' AND
+            "corporatesId"='${corporateId}' AND
             "personnels"."is_delete"='false' AND
+            nom!='admin' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -106,7 +114,7 @@ export default class DashAllService {
 
 
     // Alocations logement, transport, famillial, soins medicaux 
-    allocationALl(code_entreprise, start_date, end_date) {
+    allocationALl(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
         SELECT SUM(cast(alloc_logement as decimal(20,2))) AS logement, 
             SUM(cast(alloc_transport as decimal(20,2))) AS transport, 
@@ -115,6 +123,7 @@ export default class DashAllService {
             EXTRACT(MONTH FROM "created" ::TIMESTAMP) as year_ans
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            "corporateId"='${corporateId}' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -125,20 +134,24 @@ export default class DashAllService {
 
 
 
-    async primesAll(code_entreprise, start_date, end_date) {
+    async primesAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(primes as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
+            statut='Disponible' AND
             created
             BETWEEN '${start_date}' ::TIMESTAMP AND
             '${end_date}' ::TIMESTAMP;
         `);
     }
 
-    async primeAncienneteAll(code_entreprise, start_date, end_date) {
+    async primeAncienneteAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(prime_anciennete as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
+            statut='Disponible' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -146,10 +159,12 @@ export default class DashAllService {
         `);
     }
 
-    async penaliteAll(code_entreprise, start_date, end_date) {
+    async penaliteAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(penalites as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible'  AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
+            statut='Disponible'  AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -157,7 +172,7 @@ export default class DashAllService {
         `);
     }
 
-    async avanceSalaireAll(code_entreprise, start_date, end_date) {
+    async avanceSalaireAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(avance_slaire as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
@@ -168,10 +183,12 @@ export default class DashAllService {
         `);
     }
 
-    async presEntrepriseAll(code_entreprise, start_date, end_date) {
+    async presEntrepriseAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(pres_entreprise as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
+            statut='Disponible' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -179,10 +196,12 @@ export default class DashAllService {
         `);
     }
 
-    async heureSuppAll(code_entreprise, start_date, end_date) {
+    async heureSuppAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(heure_supplementaire_monnaie as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
+            statut='Disponible' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -190,10 +209,12 @@ export default class DashAllService {
         `);
     }
 
-    async syndicatAll(code_entreprise, start_date, end_date) {
+    async syndicatAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(syndicat as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND statut='Disponible' AND
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
+            statut='Disponible' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
@@ -206,11 +227,12 @@ export default class DashAllService {
     // Presences
 
     // Taux de presence, absence, maladie, .... 
-    presencePieAll(code_entreprise, start_date, end_date) {
+    presencePieAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT apointement, COUNT(*) 
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
             created
             BETWEEN
             '${start_date}' ::TIMESTAMP AND

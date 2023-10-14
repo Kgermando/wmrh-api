@@ -650,7 +650,8 @@ export class SalairesService extends AbstractService {
         data = await this.dataSource.query(`
             SELECT *
             FROM salaires 
-            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId"
+            LEFT JOIN "corporate" ON "corporate"."id" = "salaires"."corporateId"
+            LEFT JOIN "personnels" ON "personnels"."id" = "salaires"."personnelId" 
             WHERE
             "salaires"."code_entreprise"='${code_entreprise}' AND
             "salaires"."created">='${start_date}' AND 
@@ -674,6 +675,7 @@ export class SalairesService extends AbstractService {
 
         const headers = [
             { header: 'ID', key: 'id', width: 10.5 }, 
+            { header: 'Entreprise', key: 'corporate_name', width: 20.5 },
             { header: 'Matricule', key: 'matricule', width: 20.5 },
             { header: 'Nom', key: 'nom', width: 20.5 },
             { header: 'Post-nom', key: 'postnom', width: 20.5 },

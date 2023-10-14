@@ -8,10 +8,11 @@ export class FinancesService {
         @InjectDataSource() private dataSource: DataSource,
     ) {}
 
-    async iprAll(code_entreprise, start_date, end_date) {
+    async iprAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(ipr as decimal(20,2))), 0) as total
-            FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            FROM salaires WHERE code_entreprise='${code_entreprise}' AND
+            "corporateId"='${corporateId}' AND
             statut='Disponible' AND
             created
             BETWEEN
@@ -20,10 +21,11 @@ export class FinancesService {
         `);
     }
 
-    async cnssQPOAll(code_entreprise, start_date, end_date) {
+    async cnssQPOAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(cnss_qpo as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            "corporateId"='${corporateId}' AND
             statut='Disponible' AND
             created
             BETWEEN
@@ -32,10 +34,11 @@ export class FinancesService {
         `);
     }
 
-    async totalRBIAll(code_entreprise, start_date, end_date) {
+    async totalRBIAll(code_entreprise, corporateId, start_date, end_date) {
         return this.dataSource.query(`
             SELECT COALESCE(SUM(cast(rbi as decimal(20,2))), 0) as total
             FROM salaires WHERE code_entreprise='${code_entreprise}' AND 
+            "corporateId"='${corporateId}' AND
             statut='Disponible' AND
             created
             BETWEEN
@@ -46,7 +49,7 @@ export class FinancesService {
 
 
         // Masse salariale 
-        depensePayEALl(code_entreprise, start_date, end_date) {
+        depensePayEALl(code_entreprise, corporateId, start_date, end_date) {
             return this.dataSource.query(`  
                 SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
                 SUM(cast(ipr as decimal(20,2))) AS ipr,
@@ -54,6 +57,7 @@ export class FinancesService {
                 EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year_ans
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
+                "corporateId"='${corporateId}' AND
                 statut='Disponible' AND
                 created
                 BETWEEN

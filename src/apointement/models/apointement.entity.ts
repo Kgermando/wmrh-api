@@ -1,3 +1,4 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -27,6 +28,9 @@ export class Apointement {
 
     @ManyToOne(() => Personnel, (personnel)=> personnel.presences, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     personnel: Personnel;
+
+    @ManyToOne(() => Corporate, (corporate)=> corporate.presences, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @Column({default: 'ALL'})   
     site_location: string;

@@ -8,43 +8,47 @@ export class FinancesController {
     ) {}
 
     
-    @Get('total-ipr-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-ipr-all/:code_entreprise/:corporate_id/:start_date/:end_date')
     async iprAll(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('corporate_id') corporate_id: number,
       @Param('start_date') start_date: string,
       @Param('end_date') end_date: string
     ) {
-      return this.financesService.iprAll(code_entreprise, start_date, end_date);
+      return this.financesService.iprAll(code_entreprise, corporate_id, start_date, end_date);
     }
 
-    @Get('total-cnss-qpo-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-cnss-qpo-all/:code_entreprise/:corporate_id/:start_date/:end_date')
     async cnssQPOAll(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('corporate_id') corporate_id: number,
       @Param('start_date') start_date: string,
       @Param('end_date') end_date: string
     ) {
-      return this.financesService.cnssQPOAll(code_entreprise, start_date, end_date);
+      return this.financesService.cnssQPOAll(code_entreprise, corporate_id, start_date, end_date);
     }
 
-    @Get('total-rbi-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-rbi-all/:code_entreprise/:corporate_id/:start_date/:end_date')
     async totalRBIAll(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('corporate_id') corporate_id: number,
       @Param('start_date') start_date: string,
       @Param('end_date') end_date: string
     ) {
-      return this.financesService.totalRBIAll(code_entreprise, start_date, end_date);
+      return this.financesService.totalRBIAll(code_entreprise, corporate_id, start_date, end_date);
     }
 
 
 
     // Depenses 
-    @Get('total-depenses-paye-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-depenses-paye-all/:code_entreprise/:corporate_id/:start_date/:end_date')
     async depensePayEALl(
       @Param('code_entreprise') code_entreprise: string,
+      @Param('corporate_id') corporate_id: number,
       @Param('start_date') start_date: string,
       @Param('end_date') end_date: string
     ) {
-      return this.financesService.depensePayEALl(code_entreprise, start_date, end_date);
+      return this.financesService.depensePayEALl(code_entreprise, corporate_id, start_date, end_date);
     }
 
 }
