@@ -13,6 +13,8 @@ import { Salaire } from "src/salaires/models/salaire.entity";
 import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
 import { Performence } from "src/performence/models/performence.entity";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
+import { Horaire } from "src/horaire/models/horaire.entity";
+import { Indemnite } from "src/indemnite/models/indemnite.entity";
 
 export class CorporateCreateDto {
 
@@ -81,6 +83,10 @@ export class CorporateCreateDto {
     performences: Performence[];
 
     pres_entreprises: PresEntreprise[];
+
+    horaires: Horaire[];
+
+    indemnites: Indemnite[];
 
     @IsNotEmpty()
     code_entreprise: string;

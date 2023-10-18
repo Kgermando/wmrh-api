@@ -14,6 +14,8 @@ import { Salaire } from "src/salaires/models/salaire.entity";
 import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
 import { Performence } from "src/performence/models/performence.entity";
 import { Apointement } from "src/apointement/models/apointement.entity";
+import { Horaire } from "src/horaire/models/horaire.entity";
+import { Indemnite } from "src/indemnite/models/indemnite.entity";
 
 @Entity('corporate')
 export class Corporate {
@@ -104,6 +106,12 @@ export class Corporate {
 
     @OneToMany(() => PresEntreprise, (item) => item.corporate, {cascade: true})
     pres_entreprises: PresEntreprise[];
+
+    @OneToMany(() => Horaire, (item) => item.corporate, {cascade: true})
+    horaires: Horaire[];
+
+    @OneToMany(() => Indemnite, (item) => item.corporate, {cascade: true})
+    indemnites: Indemnite[];
 
     @Column()
     signature: string;

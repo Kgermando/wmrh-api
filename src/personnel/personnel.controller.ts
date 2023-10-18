@@ -66,11 +66,12 @@ export class PersonnelController {
     return this.personneService.corbeil(code_entreprise);
   }
 
-  @Put('reset-statut-paie-all/:code_entreprise')
+  @Put('reset-statut-paie-all/:code_entreprise/:corporate_id')
   async resetStatutPaieAll(
-    @Param('code_entreprise') code_entreprise: string
+    @Param('code_entreprise') code_entreprise: string,
+    @Param('corporate_id') corporate_id: string
   ) {
-    return this.personneService.resetStatutPaieAll(code_entreprise);
+    return this.personneService.resetStatutPaieAll(code_entreprise, corporate_id);
   }
 
   @Put('reset-statut-paie/:code_entreprise/:id')

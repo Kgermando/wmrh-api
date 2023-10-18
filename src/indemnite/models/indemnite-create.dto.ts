@@ -1,15 +1,20 @@
 import { IsNotEmpty } from "class-validator";
-import { Personnel } from "src/personnel/models/personnel.entity";
+import { Personnel } from "src/personnel/models/personnel.entity"; 
+import { IndemniteContentModel } from "./indemnite.entity";
 import { Corporate } from "src/corporate/models/corporate.entity";
 
-export class FonctionCreateDto {
-   
-    @IsNotEmpty()
-    fonction: string;   
+export class IndemniteCreateDto {
 
-    personnels: Personnel[];
-    
     corporate: Corporate;
+
+    personnel: Personnel; 
+
+    intitule: string;
+
+    @IsNotEmpty()
+    statut: boolean;
+
+    content: IndemniteContentModel;
 
     @IsNotEmpty()
     signature: string;  

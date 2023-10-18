@@ -1,4 +1,4 @@
-import { Personnel } from "src/personnel/models/personnel.entity";
+import { Corporate } from "src/corporate/models/corporate.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('horaires')
@@ -6,6 +6,9 @@ export class Horaire {
 
     @PrimaryGeneratedColumn()
     id: number; 
+
+    @ManyToOne(() => Corporate, (co)=> co.horaires, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    corporate: Corporate;
 
     @Column()
     name_horaire: string; // Horaire 

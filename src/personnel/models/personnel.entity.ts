@@ -15,6 +15,7 @@ import { SiteLocation } from "src/site-location/models/site-location.entity";
 import { Title } from "src/title/models/title.entity";
 import { Corporate } from "src/corporate/models/corporate.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Indemnite } from "src/indemnite/models/indemnite.entity";
 
 @Entity('personnels')
 export class Personnel {
@@ -150,7 +151,7 @@ export class Personnel {
     password: string;
 
     @Column({default: false})
-    syndicat: boolean; 
+    syndicat: boolean;
 
     @Column({default: new Date()})
     date_paie: Date; // Le  mois du bulletin deja généré
@@ -175,6 +176,9 @@ export class Personnel {
 
     @OneToMany(() => HeureSupp, (item) => item.personnel, {cascade: true})
     heures_supp: HeureSupp[];
+
+    @OneToMany(() => Indemnite, (item) => item.personnel, {cascade: true})
+    indemnites: Indemnite
 
     @OneToMany(() => Salaire, (item) => item.personnel, {cascade: true})
     salaires: Salaire[];

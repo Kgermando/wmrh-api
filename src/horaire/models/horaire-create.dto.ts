@@ -1,6 +1,10 @@
 import { IsNotEmpty } from "class-validator"; 
+import { Corporate } from "src/corporate/models/corporate.entity";
 
 export class HoraireCreateDto {
+
+    @IsNotEmpty()
+    corporate: Corporate;
 
     @IsNotEmpty()
     name_horaire: string; // Horaire 

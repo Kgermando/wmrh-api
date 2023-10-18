@@ -1,24 +1,22 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
-import { FonctionService } from './fonction.service';
-import { FonctionUpdateDto } from './models/fonction-update.dto';
-import { FonctionCreateDto } from './models/fonction-create.dto';
-
+import { IndemniteService } from './indemnite.service';
+import { IndemniteUpdateDto } from './models/indemnite-update.dto';
+import { IndemniteCreateDto } from './models/indemnite-create.dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
-@Controller('fonctions')
-export class FonctionController {
+@Controller('indemnites')
+export class IndemniteController {
     constructor(
-        private fonctionService: FonctionService
+        private indemniteService: IndemniteService
     ) {}
-
 
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
     ) {
-      return this.fonctionService.allGet(code_entreprise);
+      return this.indemniteService.allGet(code_entreprise);
     }
 
     @Get(':code_entreprise')
@@ -26,34 +24,34 @@ export class FonctionController {
         @Query('page') page = 1,
         @Param('code_entreprise') code_entreprise: string,
         ) {
-        return this.fonctionService.paginate(page, code_entreprise);
+        return this.indemniteService.paginate(page, code_entreprise);
     }
 
     @Post()
     async create(
-        @Body() body: FonctionCreateDto
+        @Body() body: IndemniteCreateDto
     ) {
-        return this.fonctionService.create(body);
+        return this.indemniteService.create(body);
     }
 
 
     @Get('get/:id')
     async get(@Param('id') id: number) {
-      return this.fonctionService.findGetOne({id});
+      return this.indemniteService.findGetOne({id});
     }
 
     @Put(':id')
     async update(
         @Param('id') id: number,
-        @Body() body: FonctionUpdateDto
+        @Body() body: IndemniteUpdateDto
     ) {
         const update_created = new Date();
-        await this.fonctionService.update(id, {...body, update_created});   
-        return this.fonctionService.findOne({where: {id}});
+        await this.indemniteService.update(id, {...body, update_created});   
+        return this.indemniteService.findOne({where: {id}});
     }
 
     @Delete(':id')
     async delete(@Param('id') id: number) {
-        return this.fonctionService.delete(id);
+        return this.indemniteService.delete(id);
     }
 }

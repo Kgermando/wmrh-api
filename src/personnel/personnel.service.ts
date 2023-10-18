@@ -186,13 +186,14 @@ export class PersonnelService extends AbstractService {
     }
 
     // Tous les employés qui ont été payés il y a un mois
-    resetStatutPaieAll(code_entreprise) {
+    resetStatutPaieAll(code_entreprise, corporate_id) {
         return this.dataSource.query(`
             UPDATE personnels 
             SET statut_paie = 'En attente'
             WHERE code_entreprise='${code_entreprise}' AND 
+            "corporatesId"='${corporate_id}' AND
             is_delete='false' AND
-            nom!='admin' AND
+            nom!='admin' AND 
             statut_paie='Disponible' AND
             EXTRACT(MONTH FROM age(date_paie)) :: int >= 1;
     `);

@@ -1,4 +1,8 @@
+import { Corporate } from "src/corporate/models/corporate.entity";
+
 export class HoraireUpdateDto { 
+
+    corporate?: Corporate;
 
     name_horaire?: string; // Horaire 
     
@@ -6,19 +10,19 @@ export class HoraireUpdateDto {
     
     date_shift_1?: string[];
 
-    time_1: string;
+    time_1?: string;
     
     personnel_shift_2?: string[];
     
     date_shift_2?: string[];
 
-    time_2: string;
+    time_2?: string;
     
     personnel_shift_3?: string[];
     
     date_shift_3?: string[];
 
-    time_3: string;
+    time_3?: string;
 
     signature?: string; 
 

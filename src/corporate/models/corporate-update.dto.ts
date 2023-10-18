@@ -12,6 +12,8 @@ import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
+import { Horaire } from "src/horaire/models/horaire.entity";
+import { Indemnite } from "src/indemnite/models/indemnite.entity";
 
 export class CorporateUpdateDto {
     entreprise_id?: Entreprise;
@@ -41,6 +43,8 @@ export class CorporateUpdateDto {
     salaires?: Salaire[];
     performences?: Performence[];
     pres_entreprises?: PresEntreprise[];
+    horaires?: Horaire[];
+    indemnites?: Indemnite[];
     code_entreprise?: string;
     signature?: string; 
     created?: Date; 

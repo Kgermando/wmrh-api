@@ -58,6 +58,8 @@ export class CorporateService extends AbstractService {
                 'salaires',
                 'performences',
                 'pres_entreprises',
+                'horaires',
+                'indemnites',
             ],
         })
     }
