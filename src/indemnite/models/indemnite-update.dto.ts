@@ -10,7 +10,11 @@ export class IndemniteUpdateDto {
 
     intitule?: string;
     
-    statut?: boolean;
+    statut?: string;
+
+    monnaie?: string;
+ 
+    taux_dollard?: string;
 
     content?: IndemniteContentModel;
 

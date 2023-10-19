@@ -14,19 +14,20 @@ export class IndemniteService extends AbstractService {
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
-            relations: {
-                personnels: true,
-            },
+            relations: [
+                'personnel',
+                'personnel.departements',
+            ],
             where: {code_entreprise},
             order: {'created': 'DESC'}
-        }); 
+        });
     }
 
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
             relations: {
-                personnels: true,
+                personnel: true,
             }
         })
     }

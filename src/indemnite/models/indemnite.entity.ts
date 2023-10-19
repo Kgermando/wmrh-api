@@ -17,8 +17,14 @@ export class Indemnite {
     @Column({default: '-'})
     intitule: string;
 
-    @Column({default: false})
-    statut: boolean;
+    @Column({default: 'En attente'})
+    statut: string;
+
+    @Column({default: 'CDF'})
+    monnaie: string;
+
+    @Column({default: '0'})
+    taux_dollard: string;
 
     @Column('jsonb', { nullable: false, default: {} })
     content: IndemniteContentModel;
@@ -41,6 +47,5 @@ export class Indemnite {
 
 export interface IndemniteContentModel {
     nom: string;
-    monnaie: string;
     montant: string;
 }

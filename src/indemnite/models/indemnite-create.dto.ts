@@ -12,7 +12,11 @@ export class IndemniteCreateDto {
     intitule: string;
 
     @IsNotEmpty()
-    statut: boolean;
+    statut: string;
+
+    monnaie: string;
+ 
+    taux_dollard: string;
 
     content: IndemniteContentModel;
 

@@ -131,7 +131,8 @@ export class PersonnelService extends AbstractService {
                 'titles', 
                 'fonctions', 
                 'services', 
-                'site_locations'
+                'site_locations',
+                'indemnites',
             ],
             // relations: {
             //     presences: true,
