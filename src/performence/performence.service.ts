@@ -166,5 +166,14 @@ export class PerformenceService extends AbstractService {
             "personnelId"='${id}';
         `);
     }
+
+    cumulTotal(code_entreprise, id) {
+        return this.dataSource.query(`
+            SELECT COALESCE(COUNT(travail), 0) as count
+            FROM performences WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            "personnelId"='${id}';
+        `);
+    }
     
 }

@@ -99,6 +99,14 @@ export class PerformenceController {
       return this.performenceService.travailTotal(code_entreprise, id);
     }
 
+    @Get('get-cumul-total/:code_entreprise/:id')
+    async cumulTotal(
+      @Param('code_entreprise') code_entreprise: string,
+      @Param('id') id: number
+    ) {
+      return this.performenceService.cumulTotal(code_entreprise, id);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
