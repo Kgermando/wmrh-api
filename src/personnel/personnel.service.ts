@@ -143,6 +143,9 @@ export class PersonnelService extends AbstractService {
     async getMatricule(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
+            relations: [
+                'presences',
+            ],
         });
     }
 
