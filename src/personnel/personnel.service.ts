@@ -136,6 +136,12 @@ export class PersonnelService extends AbstractService {
         });
     }
 
+    async getMatricule(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+        });
+    }
+
     async paginate(page: number = 1, code_entreprise): Promise<any> {
         const {data, meta} = await super.paginate(page, code_entreprise);
         
