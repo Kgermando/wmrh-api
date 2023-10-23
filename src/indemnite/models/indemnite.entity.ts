@@ -1,6 +1,7 @@
 import { Corporate } from "src/corporate/models/corporate.entity";
+import { IndemniteContent } from "src/indemnite-content/models/indemnite-content.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('indemnites')
 export class Indemnite {
@@ -12,7 +13,7 @@ export class Indemnite {
     corporate: Corporate;
 
     @ManyToOne(() => Personnel, (co)=> co.indemnites, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    personnel: Personnel; 
+    personnel: Personnel;
 
     @Column({default: '-'})
     intitule: string;
@@ -26,8 +27,11 @@ export class Indemnite {
     @Column({default: '0'})
     taux_dollard: string;
 
-    @Column('jsonb', { nullable: false, default: {} })
-    content: IndemniteContentModel;
+    @OneToMany(() => IndemniteContent, (item) => item.indemnite, {cascade: true})
+    content: IndemniteContent[];
+
+    @Column({default: '0'})
+    total_a_payer: string;
  
     @Column()    
     signature: string;
@@ -43,9 +47,4 @@ export class Indemnite {
     
     @Column()
     code_entreprise: string;
-}
-
-export interface IndemniteContentModel {
-    nom: string;
-    montant: string;
 }

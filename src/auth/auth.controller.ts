@@ -58,13 +58,15 @@ export class AuthController {
         @Body('code_entreprise') code_entreprise: string,
         @Res({passthrough: true}) response: Response
     ) {
+        console.log('matricule', matricule)
+        console.log('code_entreprise', code_entreprise)
         const user = await this.personnelService.findOne({
             where: { matricule: matricule, code_entreprise: code_entreprise }
         });
 
-        const entreprise = await this.entrepriseService.findOne({
-            where: { code_entreprise: user.code_entreprise }
-        });
+        // const entreprise = await this.entrepriseService.findOne({
+        //     where: { code_entreprise: user.code_entreprise }
+        // });
 
         if(!user) {
             throw new NotFoundException('Identifiant non trouvé!');
@@ -78,12 +80,11 @@ export class AuthController {
             throw new BadRequestException("Ce compte n'est pas actif! ");
         }
 
-        if (user.code_entreprise != 'et015') {
-            if(!entreprise) {
-                throw new BadRequestException("Votre abonnement a expiré! ");
-            }
-        }
-        
+        // if (user.code_entreprise != 'et015') {
+        //     if(!entreprise) {
+        //         throw new BadRequestException("Votre abonnement a expiré! ");
+        //     }
+        // }
 
         const jwt = await this.jwtService.signAsync({id: user.id});
 

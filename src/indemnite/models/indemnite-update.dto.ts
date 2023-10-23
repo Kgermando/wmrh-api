@@ -1,6 +1,6 @@
 import { Personnel } from "src/personnel/models/personnel.entity"; 
-import { IndemniteContentModel } from "./indemnite.entity";
 import { Corporate } from "src/corporate/models/corporate.entity";
+import { IndemniteContent } from "src/indemnite-content/models/indemnite-content.entity";
 
 export class IndemniteUpdateDto {
 
@@ -16,7 +16,9 @@ export class IndemniteUpdateDto {
  
     taux_dollard?: string;
 
-    content?: IndemniteContentModel;
+    content?: IndemniteContent[];
+
+    total_a_payer?: string;
 
     signature?: string;  
  

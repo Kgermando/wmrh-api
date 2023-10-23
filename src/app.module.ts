@@ -35,6 +35,7 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { CorporateModule } from './corporate/corporate.module'; 
 import { CorporateReglageModule } from './corporate-reglage/corporate-reglage.module';
 import { IndemniteModule } from './indemnite/indemnite.module';
+import { IndemniteContentModule } from './indemnite-content/indemnite-content.module';
 
 
 @Module({
@@ -90,7 +91,8 @@ import { IndemniteModule } from './indemnite/indemnite.module';
     HoraireModule,
     CorporateModule,
     CorporateReglageModule,
-    IndemniteModule, 
+    IndemniteModule,
+    IndemniteContentModule, 
   ],
   providers: [
     {

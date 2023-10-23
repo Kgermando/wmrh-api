@@ -1,22 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
+import { IndemniteContent } from './models/indemnite-content.entity';
 import { Repository } from 'typeorm';
-import { Indemnite } from './models/indemnite.entity';
 
 @Injectable()
-export class IndemniteService extends AbstractService {
+export class IndemniteContentService extends AbstractService {
     constructor(
-        @InjectRepository(Indemnite) private readonly indemniteRepository: Repository<Indemnite>
+        @InjectRepository(IndemniteContent) private readonly indemniteConentRepository: Repository<IndemniteContent>
     ) {
-        super(indemniteRepository);
+        super(indemniteConentRepository);
     }
 
     allGet(code_entreprise): Promise<any[]> {
         return this.repository.find({
             relations: [
-                'personnel',
-                'personnel.departements',
+                'indemnites',
             ],
             where: {code_entreprise},
             order: {'created': 'DESC'}
@@ -26,11 +25,6 @@ export class IndemniteService extends AbstractService {
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
-            relations: [
-                'personnel',
-                'personnel.departements',
-                'content',
-            ],
         })
     }
 

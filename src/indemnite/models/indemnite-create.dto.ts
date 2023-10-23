@@ -1,7 +1,7 @@
 import { IsNotEmpty } from "class-validator";
-import { Personnel } from "src/personnel/models/personnel.entity"; 
-import { IndemniteContentModel } from "./indemnite.entity";
+import { Personnel } from "src/personnel/models/personnel.entity";
 import { Corporate } from "src/corporate/models/corporate.entity";
+import { IndemniteContent } from "src/indemnite-content/models/indemnite-content.entity";
 
 export class IndemniteCreateDto {
 
@@ -18,7 +18,9 @@ export class IndemniteCreateDto {
  
     taux_dollard: string;
 
-    content: IndemniteContentModel;
+    content: IndemniteContent[];
+
+    total_a_payer: string;
 
     @IsNotEmpty()
     signature: string;  
