@@ -54,15 +54,28 @@ export class AuthController {
     @Post('login')
     async login(
         @Body('matricule') matricule: string,
-        @Body('password') password: string,
-        @Body('code_entreprise') code_entreprise: string,
+        @Body('password') password: string, 
         @Res({passthrough: true}) response: Response
-    ) {
+    ) { 
+        var code = matricule.split("-");
+        var code_entreprise = code[1];
+        var code_entreprise2 = code[2];
         console.log('matricule', matricule)
         console.log('code_entreprise', code_entreprise)
-        const user = await this.personnelService.findOne({
-            where: { matricule: matricule, code_entreprise: code_entreprise }
-        });
+
+        let user: any
+
+        if (code_entreprise2) {
+            user = await this.personnelService.findOne({
+                where: { matricule: matricule, 
+                    code_entreprise: `${code_entreprise}-${code_entreprise2}`}
+            });
+        } else {
+            user = await this.personnelService.findOne({
+                where: { matricule: matricule, code_entreprise: code_entreprise}
+            });
+        }
+        
 
         // const entreprise = await this.entrepriseService.findOne({
         //     where: { code_entreprise: user.code_entreprise }
