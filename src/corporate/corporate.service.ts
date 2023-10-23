@@ -13,6 +13,9 @@ export class CorporateService extends AbstractService {
     }
 
     allGetNavigation(code_entreprise): Promise<any[]> {
+        var code = code_entreprise.split("-");
+        var code_entreprise = code[0];
+        
         return this.repository.find({ 
             where: {code_entreprise},
             order: {'created': 'DESC'}

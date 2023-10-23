@@ -166,5 +166,14 @@ export class PerformenceService extends AbstractService {
             "personnelId"='${id}';
         `);
     }
+
+    cumulCount(code_entreprise, id) {
+        return this.dataSource.query(`
+            SELECT COUNT(*) as count
+            FROM performences WHERE 
+            code_entreprise='${code_entreprise}' AND 
+            "personnelId"='${id}';
+        `);
+    }
     
 }
