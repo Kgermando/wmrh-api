@@ -23,11 +23,9 @@ export class CorporateService extends AbstractService {
     }
 
     allGet(code_entreprise): Promise<any[]> {
+        var code = code_entreprise.split("-");
+        var code_entreprise = code[0];
         return this.repository.find({
-            // relations: {
-            //     personnels: true,
-            //     site_locations: true,
-            // },
             relations: [
                 'personnels',  
                 'site_locations.personnels',
