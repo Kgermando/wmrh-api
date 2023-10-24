@@ -32,6 +32,8 @@ import { EntrepriseModule } from './admin/entreprise/entreprise.module';
 import { AbonnementClientModule } from './admin/abonnement_client/abonnement_client.module';
 import { HoraireModule } from './horaire/horaire.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { IndemniteModule } from './indemnite/indemnite.module';
+import { IndemniteContentModule } from './indemnite-content/indemnite-content.module';
 
 
 @Module({
@@ -85,6 +87,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     EntrepriseModule,
     AbonnementClientModule,
     HoraireModule,
+    IndemniteModule,
+    IndemniteContentModule,
   ],
   providers: [
     {

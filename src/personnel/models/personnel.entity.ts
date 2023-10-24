@@ -4,6 +4,7 @@ import { AvanceSalaire } from "src/avance-salaire/models/avance-salaire.entity";
 import { Departement } from "src/departement/models/departement.entity";
 import { Fonction } from "src/fonction/models/fonction.entity";
 import { HeureSupp } from "src/heures-supp/models/heures-supp.entity";
+import { Indemnite } from "src/indemnite/models/indemnite.entity";
 import { Notify } from "src/notify/models/notifiy.entity";
 import { Penalite } from "src/penalite/models/pernalite.entity";
 import { Performence } from "src/performence/models/performence.entity";
@@ -170,6 +171,9 @@ export class Personnel {
 
     @OneToMany(() => HeureSupp, (item) => item.personnel, {cascade: true})
     heures_supp: HeureSupp[];
+
+    @OneToMany(() => Indemnite, (item) => item.personnel, {cascade: true})
+    indemnites: Indemnite
 
     @OneToMany(() => Salaire, (item) => item.personnel, {cascade: true})
     salaires: Salaire[];
