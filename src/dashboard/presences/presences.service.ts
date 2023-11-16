@@ -59,6 +59,6 @@ export class PresencesService {
             '${end_date}' ::TIMESTAMP
             GROUP BY year;
         `);
-    } 
+    }
 }
  

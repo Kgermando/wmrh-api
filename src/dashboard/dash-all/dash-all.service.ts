@@ -70,7 +70,7 @@ export default class DashAllService {
             '${end_date}' ::TIMESTAMP
             GROUP BY year;
         `);
-    } 
+    }
 
 
     // Finances
