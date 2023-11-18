@@ -58,9 +58,7 @@ export class PerformenceService extends AbstractService {
             SELECT COALESCE(SUM(ponctualite), 0) as sum
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND 
-            "personnelId"='${id}' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+            "personnelId"='${id}';
         `);
     }
 
@@ -70,9 +68,7 @@ export class PerformenceService extends AbstractService {
             SELECT COALESCE(SUM(hospitalite), 0) as sum
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND 
-            "personnelId"='${id}' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+            "personnelId"='${id}';
         `);
     }
 
@@ -81,12 +77,9 @@ export class PerformenceService extends AbstractService {
             SELECT COALESCE(SUM(travail), 0) as sum
             FROM performences WHERE 
             code_entreprise='${code_entreprise}' AND 
-            "personnelId"='${id}' AND
-                EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP);
+            "personnelId"='${id}';
         `);
     }
-
 
     getPieYEAR(code_entreprise, id) {
         return this.dataSource.query(`
