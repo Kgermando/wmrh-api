@@ -866,9 +866,22 @@ export class SalairesService extends AbstractService {
     deleteAllItem(code_entreprise) {
         return this.dataSource.query(`
             DELETE FROM salaires WHERE  
-            code_entreprise='${code_entreprise}';
+            code_entreprise='${code_entreprise}'
+            ORDER BY created DESC;
         `);
     } 
+
+
+    isNotify(id) {
+        return this.dataSource.query(`
+            SELECT *
+            FROM salaires WHERE  
+            "personnelId"='${id}' AND
+            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = 
+            EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            ORDER BY created DESC LIMIT 6;
+        `);
+    }
   
 
     async downloadExcel(code_entreprise, start_date, end_date) {

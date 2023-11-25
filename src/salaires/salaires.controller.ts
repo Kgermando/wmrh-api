@@ -226,6 +226,13 @@ export class SalairesController {
       return this.salaireService.relevePaie(code_entreprise, month, year);
     }
 
+    @Get('get-notify/:id')
+    async isNotify(
+      @Param('id') id: number,
+    ) {
+      return this.salaireService.isNotify(id);
+    }
+
     // @Get('get-net-a-payer-total/:code_entreprise/:service/:month/:year')
     // async netAPayerTotal(
     //   @Param('code_entreprise') code_entreprise: string,
