@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
 import { IndemniteContent } from './models/indemnite-content.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
 export class IndemniteContentService extends AbstractService {
     constructor(
-        @InjectRepository(IndemniteContent) private readonly indemniteConentRepository: Repository<IndemniteContent>
+        @InjectRepository(IndemniteContent) private readonly indemniteConentRepository: Repository<IndemniteContent>,
+        @InjectDataSource() private dataSource: DataSource,
     ) {
         super(indemniteConentRepository);
+    }
+
+    findGetAll(id): Promise<any[]> {
+        return this.dataSource.query(`
+            SELECT *
+            FROM indemnite_contents 
+            WHERE "indemniteId"='${id}' ORDER BY created ASC;
+        `);
     }
 
     allGet(code_entreprise): Promise<any[]> {

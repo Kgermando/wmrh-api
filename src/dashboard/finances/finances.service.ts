@@ -45,13 +45,13 @@ export class FinancesService {
     }
 
 
-        // Masse salariale 
+        // Deduction (Net à payer, IPR, CNSS)
         depensePayEALl(code_entreprise, start_date, end_date) {
             return this.dataSource.query(`  
                 SELECT SUM(cast(net_a_payer as decimal(20,2))) AS net_a_payer,  
                 SUM(cast(ipr as decimal(20,2))) AS ipr,
                 SUM(cast(cnss_qpo as decimal(20,2))) AS cnss_qpo, 
-                EXTRACT(YEAR FROM "created" ::TIMESTAMP) as year_ans
+                EXTRACT(MONTH FROM "created" ::TIMESTAMP) as month
                 FROM salaires WHERE 
                 code_entreprise='${code_entreprise}' AND  
                 statut='Disponible' AND
@@ -59,7 +59,8 @@ export class FinancesService {
                 BETWEEN
                 '${start_date}' ::TIMESTAMP AND
                 '${end_date}' ::TIMESTAMP
-                GROUP BY year_ans;
+                GROUP BY month 
+                ORDER BY month ASC;
             `);
         }
 }

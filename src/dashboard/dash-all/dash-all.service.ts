@@ -68,7 +68,8 @@ export default class DashAllService {
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
             '${end_date}' ::TIMESTAMP
-            GROUP BY year;
+            GROUP BY year
+            ORDER BY year ASC;
         `);
     }
 
@@ -119,7 +120,8 @@ export default class DashAllService {
             BETWEEN
             '${start_date}' ::TIMESTAMP AND
             '${end_date}' ::TIMESTAMP
-            GROUP BY year_ans;
+            GROUP BY year_ans
+            ORDER BY year_ans ASC;
         `);
     }
 
