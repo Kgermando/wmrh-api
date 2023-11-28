@@ -1,11 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { FonctionService } from './fonction.service';
 import { FonctionUpdateDto } from './models/fonction-update.dto';
 import { FonctionCreateDto } from './models/fonction-create.dto';
 
 
-// @UseGuards(AuthGuard)
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('fonctions')
 export class FonctionController {
     constructor(

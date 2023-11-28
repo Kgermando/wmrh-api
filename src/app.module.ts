@@ -34,6 +34,8 @@ import { HoraireModule } from './horaire/horaire.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { IndemniteModule } from './indemnite/indemnite.module';
 import { IndemniteContentModule } from './indemnite-content/indemnite-content.module';
+import { SupportModule } from './support/support.module';
+import { SupportModuleModule } from './support-module/support-module.module';
 
 
 @Module({
@@ -89,6 +91,8 @@ import { IndemniteContentModule } from './indemnite-content/indemnite-content.mo
     HoraireModule,
     IndemniteModule,
     IndemniteContentModule,
+    SupportModule,
+    SupportModuleModule,
   ],
   providers: [
     {

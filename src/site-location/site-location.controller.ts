@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SiteLocationService } from './site-location.service';
 import { SiteLocationCreateDto } from './models/site-location-create.dto';
 import { SiteLocationUpdateDto } from './models/site-location-update.dto';
 
-
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller('site-locations')
 export class SiteLocationController {

@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { DepartementService } from './departement.service'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { DepartementCreateDto } from './models/departement.create.dto';
 import { DepartementUpdateDto } from './models/departement.update.dto';
 
 
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller('departements')
 export class DepartementController {

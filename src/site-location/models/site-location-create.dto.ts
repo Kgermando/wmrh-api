@@ -21,7 +21,7 @@ export class SiteLocationCreateDto {
     created: Date;
 
     @IsNotEmpty()
-    update_created : Date; 
+    update_created: Date; 
 
     @IsNotEmpty()
     entreprise: string;

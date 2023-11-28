@@ -1,10 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common'; 
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ServicePrefService } from './service-pref.service';
 import { ServicePrefCreateDto } from './models/service-pref-create.dto';
 import { ServicePrefUpdateDto } from './models/service-pref-update.dto';
 
-
+@UseInterceptors(ClassSerializerInterceptor)
 @UseGuards(AuthGuard)
 @Controller('service-prefs')
 export class ServicePrefController {
