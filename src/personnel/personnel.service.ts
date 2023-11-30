@@ -344,7 +344,7 @@ export class PersonnelService extends AbstractService {
             // { header: 'type_contrat', key: 'type_contrat', width: 30.5 }, 
             // { header: 'date_debut_contrat', key: 'date_debut_contrat', width: 20.5 },
             // { header: 'date_fin_contrat', key: 'date_fin_contrat', width: 20.5 },
-            // { header: 'monnaie', key: 'monnaie', width: 20.5 },
+            { header: 'monnaie', key: 'monnaie', width: 20.5 },
             { header: 'alloc_logement', key: 'alloc_logement', width: 20.5 },
             { header: 'alloc_transport', key: 'alloc_transport', width: 20.5 },
             { header: 'alloc_familliale', key: 'alloc_familliale', width: 20.5 },
