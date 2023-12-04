@@ -111,7 +111,7 @@ export class PersonnelController {
       }
       const entries = Papa.parse(csv, { header: true, delimiter: ';', dynamicTyping: true });
       entries.data.forEach(async element => {
-        const sexe = (element.sexe) ? this.personneService.capitalizeTest(element.sexe) : '-';
+        const sexe = (element.sexe) ? element.sexe : 'Homme';
         const monnaie = (element.monnaie) ? element.monnaie.toUpperCase() : 'USD';
         const statut_paie = 'En attente';
         const password = await bcrypt.hash('1234', 12); 
@@ -120,9 +120,9 @@ export class PersonnelController {
         console.log("data csv", element);
         return this.personneService.create({
           photo: element.photo,
-          nom: (element.nom) ? this.personneService.capitalizeTest(element.nom) : '-',
-          postnom: (element.postnom) ? this.personneService.capitalizeTest(element.postnom) : '-',
-          prenom: (element.prenom) ? this.personneService.capitalizeTest(element.prenom) : '-',
+          nom: (element.nom) ? element.nom : '-',
+          postnom: (element.postnom) ? element.postnom : '-',
+          prenom: (element.prenom) ? element.prenom : '-',
           email: (element.email) ? element.email : '-',
           telephone: (element.telephone) ? element.telephone : '-',
           adresse: (element.adresse) ? element.adresse : '-',
@@ -130,14 +130,14 @@ export class PersonnelController {
           date_naissance: (element.date_naissance) ? element.date_naissance : new Date(),
           lieu_naissance: (element.lieu_naissance) ? element.lieu_naissance : '-',
           nationalite: element.nationalite, 
-          etat_civile: (element.etat_civile) ? this.personneService.capitalizeTest(element.etat_civile) : '-',
+          etat_civile: (element.etat_civile) ? element.etat_civile : 'Marié(e)',
           nbr_dependants: (element.nbr_dependants) ? element.nbr_dependants : 0,
           matricule: `${element.matricule}-${element.code_entreprise}`,
           numero_cnss: (element.numero_cnss) ? element.numero_cnss : '-',
           category: 'Manoeuvres Ordinaires (MO)',
           statut_personnel: false,
-          roles: element.roles,
-          permission: (element.permission) ? element.permission : 'R',
+          roles: ['Mes Bulletins'],
+          permission: 'R',
           type_contrat: (element.type_contrat) ? element.type_contrat : 'CDD', 
           date_debut_contrat: (element.date_debut_contrat) ? element.date_debut_contrat : new Date(), 
           date_fin_contrat: (element.date_fin_contrat) ? element.date_fin_contrat : new Date(),
@@ -162,7 +162,7 @@ export class PersonnelController {
           code_entreprise: (element.code_entreprise) ? element.code_entreprise: '-',
           is_delete: false
         }
-      );
+      ); 
       });
     } catch (error) {
       console.log('error', error);

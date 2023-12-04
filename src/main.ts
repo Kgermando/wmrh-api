@@ -12,7 +12,7 @@ async function bootstrap() {
   app.enableCors({
     origin: isProduction
       ? 'https://wm-rh-015.web.app'
-      : 'http://localhost:4200',
+      : 'http://0.0.0.0:4200',
     credentials: true
   });
   const PORT = process.env.PORT || 3000;

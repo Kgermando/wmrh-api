@@ -1,9 +1,27 @@
 version: '3'
 
-services: 
+services:
+  wmrh-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wmrh-api
+    image: wmrh-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    volumes:
+      - ./wmrh-api/:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    env_file:
+      - .env
   db:
     restart: always
-    image: postgres:latest
+    image: postgres:15
     container_name: wmrh-db
     command: ["-c", "shared_buffers=256MB", "-c", "max_connections=500"]
     volumes:
@@ -38,3 +56,5 @@ volumes:
 networks:
   app-network:
     driver: bridge
+    # external: true
+ 
