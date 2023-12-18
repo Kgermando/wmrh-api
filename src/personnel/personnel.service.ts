@@ -26,9 +26,9 @@ export class PersonnelService extends AbstractService {
         "personnels"."telephone",
         "personnels"."matricule",
         "personnels"."sexe",
-        "service_prefs"."service"
+        "serviceprefs"."service"
         FROM personnels
-        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+        LEFT JOIN "serviceprefs" ON "serviceprefs"."id" = "personnels"."servicesId"
         WHERE "personnels"."is_delete"='false';
     `);
     }
@@ -43,9 +43,9 @@ export class PersonnelService extends AbstractService {
         "personnels"."telephone",
         "personnels"."matricule",
         "personnels"."sexe",
-        "service_prefs"."service"
+        "serviceprefs"."service"
         FROM personnels
-        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+        LEFT JOIN "serviceprefs" ON "serviceprefs"."id" = "personnels"."servicesId"
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         nom!='admin' AND
@@ -65,10 +65,8 @@ export class PersonnelService extends AbstractService {
         "personnels"."matricule",
         "personnels"."sexe",
         "personnels"."salaire_base",
-        "personnels"."statut_paie",
-        "service_prefs"."service"
+        "personnels"."statut_paie"
         FROM personnels 
-        LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
         nom!='admin' AND
@@ -209,7 +207,7 @@ export class PersonnelService extends AbstractService {
             LEFT JOIN "departements" ON "departements"."id" = "personnels"."departementsId"
             LEFT JOIN "titles" ON "titles"."id" = "personnels"."titlesId"
             LEFT JOIN "fonctions" ON "fonctions"."id" = "personnels"."fonctionsId"
-            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+            LEFT JOIN "serviceprefs" ON "serviceprefs"."id" = "personnels"."servicesId"
             LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
             WHERE
             "personnels"."code_entreprise"='${code_entreprise}' AND
