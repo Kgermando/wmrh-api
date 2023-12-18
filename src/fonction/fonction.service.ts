@@ -28,6 +28,7 @@ export class FonctionService extends AbstractService {
             where: condition,
             relations: {
                 personnels: true,
+                departement: true,
             }
         })
     }

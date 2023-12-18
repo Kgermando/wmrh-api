@@ -11,7 +11,7 @@ import { Performence } from "src/performence/models/performence.entity";
 import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Salaire } from "src/salaires/models/salaire.entity";
-import { ServicePref } from "src/service-pref/models/service-pref.entity";
+import { Serviceprefs } from "src/service-pref/models/service-pref.entity";
 import { SiteLocation } from "src/site-location/models/site-location.entity";
 import { Title } from "src/title/models/title.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
@@ -92,8 +92,8 @@ export class Personnel {
     @ManyToOne(() => Fonction, (fonc)=> fonc.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     fonctions: Fonction;
 
-    @ManyToOne(() => ServicePref, (serv)=> serv.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
-    services: ServicePref; // caisse
+    @ManyToOne(() => Serviceprefs, (serv)=> serv.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    services: Serviceprefs; // Ex: Tresorie, ..0
 
     @ManyToOne(() => SiteLocation, (site)=> site.personnels, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     site_locations: SiteLocation; // Site de travail

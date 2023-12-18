@@ -28,6 +28,8 @@ export class DepartementService extends AbstractService {
             where: condition,
             relations: {
                 personnels: true,
+                fonctions: true,
+                services: true,
             }
         })
     }

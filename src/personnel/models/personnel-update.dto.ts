@@ -9,7 +9,7 @@ import { Performence } from "src/performence/models/performence.entity";
 import { PresEntreprise } from "src/pres-entreprise/models/pres-entreprise.entity";
 import { Prime } from "src/prime/models/prime.entity";
 import { Salaire } from "src/salaires/models/salaire.entity";
-import { ServicePref } from "src/service-pref/models/service-pref.entity";
+import { Serviceprefs } from "src/service-pref/models/service-pref.entity";
 import { SiteLocation } from "src/site-location/models/site-location.entity";
 
 export class PersonnelUpdateDto {
@@ -58,7 +58,7 @@ export class PersonnelUpdateDto {
 
     fonctions?: Fonction; 
 
-    services?: ServicePref; 
+    services?: Serviceprefs; 
 
     site_locations?: SiteLocation;
 

@@ -1,6 +1,6 @@
 import { Fonction } from "src/fonction/models/fonction.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
-import { ServicePref } from "src/service-pref/models/service-pref.entity";
+import { Serviceprefs } from "src/service-pref/models/service-pref.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('departements')
@@ -15,11 +15,11 @@ export class Departement {
     @OneToMany(() => Personnel, (item) => item.departements, {cascade: true})
     personnels: Personnel[];
 
-    @OneToMany(() => ServicePref, (item) => item.departement, {cascade: true})
-    services: ServicePref[];
+    @OneToMany(() => Serviceprefs, (item) => item.departement, {cascade: true})
+    services: Serviceprefs[];
 
     @OneToMany(() => Fonction, (item) => item.departement, {cascade: true})
-    fonctions: Fonction[]
+    fonctions: Fonction[];
 
     @Column()    
     signature: string;

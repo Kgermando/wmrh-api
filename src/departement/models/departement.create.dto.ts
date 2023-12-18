@@ -3,9 +3,7 @@ import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class DepartementCreateDto { 
     @IsNotEmpty()
-    departement: string; 
-
-    personnels: Personnel[];
+    departement: string;  
 
     @IsNotEmpty()
     signature: string;  

@@ -2,8 +2,8 @@ import { Departement } from "src/departement/models/departement.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('service_prefs')
-export class ServicePref {
+@Entity('serviceprefs')
+export class Serviceprefs {
 
     @PrimaryGeneratedColumn()
     id: number;
