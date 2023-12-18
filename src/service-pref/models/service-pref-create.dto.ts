@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty } from "class-validator";
+import { Departement } from "src/departement/models/departement.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class ServicePrefCreateDto {
@@ -7,6 +8,9 @@ export class ServicePrefCreateDto {
     service: string;   
 
     personnels: Personnel[];
+
+    @IsNotEmpty()
+    departement: Departement;
 
     @IsNotEmpty()
     signature: string;  

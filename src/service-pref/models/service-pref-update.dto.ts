@@ -1,3 +1,4 @@
+import { Departement } from "src/departement/models/departement.entity";
 import { Personnel } from "src/personnel/models/personnel.entity";
 
 export class ServicePrefUpdateDto {
@@ -6,6 +7,8 @@ export class ServicePrefUpdateDto {
 
 
     personnels?: Personnel[];
+
+    departement?: Departement;
 
 
     signature?: string;
