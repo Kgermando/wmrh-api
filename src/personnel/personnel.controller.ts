@@ -150,7 +150,7 @@ export class PersonnelController {
           compte_bancaire: (element.compte_bancaire) ? element.compte_bancaire : '-', 
           nom_banque: (element.nom_banque) ? element.nom_banque : '-', 
           frais_bancaire: (element.frais_bancaire) ? element.frais_bancaire : '0', 
-          cv_url: '-',
+          // cv_url: ,
           syndicat: false,
           date_paie: new Date(),
           statut_paie: statut_paie,
