@@ -95,7 +95,7 @@ export class EmployesService {
         return this.dataSource.query(`
             SELECT COALESCE("service", LEFT('Non affecté', 40)) AS service, COUNT(*)
             FROM personnels
-            LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
+            LEFT JOIN "serviceprefs" ON "serviceprefs"."id" = "personnels"."servicesId"
             WHERE "personnels"."code_entreprise"='${code_entreprise}' AND
             "personnels"."is_delete"='false' AND
             "personnels"."created"

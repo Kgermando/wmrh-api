@@ -288,7 +288,7 @@ export class SalairesService extends AbstractService {
     list_services(code_entreprise) {
         return this.dataSource.query(`
             SELECT service
-            FROM service_prefs WHERE code_entreprise='${code_entreprise}'
+            FROM serviceprefs WHERE code_entreprise='${code_entreprise}'
             ORDER BY created DESC;
         `);
     }
