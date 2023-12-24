@@ -3,7 +3,7 @@ import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
 import { DataSource, Repository } from 'typeorm';
 import { Apointement } from './models/apointement.entity';
-import * as tmp  from 'tmp'; 
+import * as tmp  from 'tmp';
 import { Workbook } from 'exceljs';
 import { PresenceExcel } from './models/presence_excel';
 
