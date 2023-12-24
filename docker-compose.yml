@@ -9,7 +9,7 @@ services:
     image: wmrh-api
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3001:3000"
     networks:
       - app-network
     volumes:
@@ -30,11 +30,11 @@ services:
     environment:
       - POSTGRES_PASSWORD=kataku
     ports:
-      - 5432:5432
+      - 5454:5432
     env_file:
       - .env
     expose:
-      - 5432
+      - 5454
     networks:
       - app-network
 
