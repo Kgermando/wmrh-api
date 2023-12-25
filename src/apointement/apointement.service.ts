@@ -49,12 +49,12 @@ export class ApointementService extends AbstractService {
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND 
             site_location='${site_location}' AND
-            EXTRACT(DAY FROM "created" ::TIMESTAMP) = EXTRACT(DAY FROM '${date_presence}' ::TIMESTAMP) AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_presence}' ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_presence}' ::TIMESTAMP)
-            ORDER BY created DESC;
+            EXTRACT(DAY FROM "date_entree" ::TIMESTAMP) = EXTRACT(DAY FROM '${date_presence}' ::TIMESTAMP) AND
+            EXTRACT(MONTH FROM "date_entree" ::TIMESTAMP) = EXTRACT(MONTH FROM '${date_presence}' ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "date_entree" ::TIMESTAMP) = EXTRACT(YEAR FROM '${date_presence}' ::TIMESTAMP)
+            ORDER BY date_entree DESC;
         `);
-    } 
+    }
 
     getLastItem(code_entreprise, matricule) {
         return this.dataSource.query(`
