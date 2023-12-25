@@ -246,9 +246,6 @@ export class ApointementService extends AbstractService {
             { header: 'date_entree', key: 'date_entree', width: 20.5 },
             { header: 'date_sortie', key: 'date_sortie', width: 30.5 },
             { header: 'site_location', key: 'site_location', width: 20.5 },
-            { header: 'signature', key: 'signature', width: 30.5 },
-            { header: 'entreprise', key: 'entreprise', width: 20.5 },
-            { header: 'code_entreprise', key: 'code_entreprise', width: 20.5 },
         ]
 
         sheet.columns = headers;

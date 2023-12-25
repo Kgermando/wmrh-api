@@ -93,7 +93,6 @@ export class PersonnelController {
   async create(@Body() body: PersonnelCreateDto): Promise<Personnel> {
     const password = await bcrypt.hash('1234', 12);
     const date_paie = new Date();
-    console.log('date_paie', date_paie);
     return this.personneService.create({ 
       ...body,
       date_paie,
