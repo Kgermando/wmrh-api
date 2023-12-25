@@ -38,7 +38,7 @@ export class ApointementService extends AbstractService {
     getMatricule(code_entreprise, matricule): Promise<any[]> {
         return this.repository.find({ 
             where: {code_entreprise} && {matricule},
-            order: {'created': 'DESC'}
+            order: {'date_entree': 'DESC'}
         }); 
     }
  
