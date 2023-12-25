@@ -237,7 +237,7 @@ export class ApointementService extends AbstractService {
 
         let book = new Workbook();
         let sheet = book.addWorksheet('FICHE DE PRESENCES');
-z
+
         const headers = [ 
             { header: 'matricule', key: 'matricule', width: 20.5 },
             { header: 'apointement', key: 'apointement', width: 20.5 },
