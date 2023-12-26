@@ -58,7 +58,7 @@ export class Personnel {
     etat_civile: string;
 
     @Column({default: 0})
-    nbr_dependants: number; 
+    nbr_dependants: number;
     
     // Accès
     @Column({unique : true})

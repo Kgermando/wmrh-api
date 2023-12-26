@@ -39,7 +39,7 @@ export class ApointementService extends AbstractService {
         return this.repository.find({ 
             where: {code_entreprise} && {matricule},
             order: {'date_entree': 'DESC'}
-        }); 
+        });
     }
  
  
