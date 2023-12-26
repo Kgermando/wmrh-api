@@ -62,9 +62,9 @@ export class ApointementService extends AbstractService {
             FROM apointements WHERE 
             code_entreprise='${code_entreprise}' AND
             matricule='${matricule}' AND
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
-            EXTRACT(YEAR FROM "created" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
-            ORDER BY created DESC LIMIT 1;
+            EXTRACT(MONTH FROM "date_entree" ::TIMESTAMP) = EXTRACT(MONTH FROM CURRENT_DATE ::TIMESTAMP) AND
+            EXTRACT(YEAR FROM "date_entree" ::TIMESTAMP) = EXTRACT(YEAR FROM CURRENT_DATE ::TIMESTAMP)
+            ORDER BY date_entree DESC LIMIT 1;
         `);
     } 
 
