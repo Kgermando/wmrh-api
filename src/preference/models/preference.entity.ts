@@ -58,6 +58,9 @@ export class Preference {
     @Column({default: '0'})
     montant_travailler_non_quadre : string;
 
+    @Column({default: 26})
+    total_jours_a_prester: number;
+
     // Jours feries
     @Column()
     new_year: Date;

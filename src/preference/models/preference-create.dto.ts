@@ -52,6 +52,8 @@ export class PreferenceCreateDto {
     @IsNotEmpty()
     montant_travailler_non_quadre : string;
 
+    total_jours_a_prester: number;
+
     // Jours feries
     @IsNotEmpty()
     new_year: Date;

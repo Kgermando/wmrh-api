@@ -26,6 +26,8 @@ export class PreferenceUpdateDto {
     montant_travailler_quadre?: string;
     montant_travailler_non_quadre?: string;
 
+    total_jours_a_prester?: number;
+
     // Jours feries
     new_year?: Date;
     noel?: Date;
