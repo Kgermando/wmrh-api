@@ -12,6 +12,14 @@ export class HoraireController {
         private horaireService: HoraireService
     ) {}
 
+    @Get('get-all-corporate-id/:id')
+    async findGetAll(
+      @Param('id') id: number,
+    ) {
+      return this.horaireService.findGetAll(id);
+    }
+
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,
