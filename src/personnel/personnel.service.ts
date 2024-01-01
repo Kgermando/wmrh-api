@@ -13,7 +13,7 @@ export class PersonnelService extends AbstractService {
         @InjectRepository(Personnel) private readonly  personnelRepository: Repository<Personnel>,
         @InjectDataSource() private dataSource: DataSource,
     ) {
-        super(personnelRepository); 
+        super(personnelRepository);
     }
 
     getWithSupport(): Promise<any[]> {
@@ -90,6 +90,27 @@ export class PersonnelService extends AbstractService {
         //     where: {code_entreprise} && {is_delete: false},
         //     order: {'created': 'DESC'}
         // }); 
+    }
+
+    getAllPerformance(code_entreprise): Promise<any[]> {
+        return this.dataSource.query(`
+        SELECT "personnels"."id",
+        "personnels"."nom",
+        "personnels"."postnom",
+        "personnels"."prenom",
+        "personnels"."email",
+        "personnels"."telephone",
+        "personnels"."matricule",
+        "personnels"."sexe",
+        "personnels"."salaire_base",
+        "personnels"."statut_paie"
+        FROM personnels 
+        WHERE
+        "personnels"."code_entreprise"='${code_entreprise}' AND
+        nom!='admin' AND
+        "personnels"."is_delete"='false' 
+        ORDER BY "personnels"."created" DESC;
+    `);
     }
 
     allGetLocation(code_entreprise, site_locations): Promise<any[]> {

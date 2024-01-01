@@ -120,7 +120,7 @@ export default class DashAllService {
             SUM(cast(alloc_transport as decimal(20,2))) AS transport, 
             SUM(cast(alloc_familliale as decimal(20,2))) AS familliale,
             SUM(cast(soins_medicaux as decimal(20,2))) AS soins_medicaux, 
-            EXTRACT(MONTH FROM "created" ::TIMESTAMP) as year_ans
+            EXTRACT(MONTH FROM "date_paie" ::TIMESTAMP) as year_ans
             FROM salaires WHERE 
             code_entreprise='${code_entreprise}' AND statut='Disponible' AND
             "corporateId"='${corporateId}' AND
