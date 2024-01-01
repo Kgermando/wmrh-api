@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common'; 
 import { AuthGuard } from 'src/auth/auth.guard';
 import type { Response } from 'express'; 
-import * as bcrypt from 'bcrypt';  
+import * as bcrypt from 'bcrypt';
 import * as Papa from 'papaparse';
 import { ApointementService } from './apointement.service';
 import { ApointementCreateDto } from './models/apointement-create.dto';
