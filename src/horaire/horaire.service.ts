@@ -17,7 +17,7 @@ export class HoraireService extends AbstractService {
         return this.dataSource.query(`
             SELECT *
             FROM horaires 
-            WHERE "corporateId"='${id}' ORDER BY created ASC;
+            WHERE "corporateId"='${id}' ORDER BY created DESC;
         `);
     }
 
