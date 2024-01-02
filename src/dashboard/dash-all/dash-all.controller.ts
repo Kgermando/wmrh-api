@@ -7,31 +7,25 @@ export class DashAllController {
         private dashAllService: DashAllService
     ) {}
 
-    @Get('total-enmployes-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-enmployes-all/:code_entreprise')
     async totalEnmployesAll(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('start_date') start_date: string,
-      @Param('end_date') end_date: string
+      @Param('code_entreprise') code_entreprise: string
     ) {
-      return this.dashAllService.totalEnmployesAll(code_entreprise, start_date, end_date);
+      return this.dashAllService.totalEnmployesAll(code_entreprise);
     }
 
-    @Get('total-enmployes-femme-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-enmployes-femme-all/:code_entreprise')
     async totalEnmployeFemmeAll(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('start_date') start_date: string,
-      @Param('end_date') end_date: string
+      @Param('code_entreprise') code_entreprise: string
     ) {
-      return this.dashAllService.totalEnmployeFemmeAll(code_entreprise, start_date, end_date);
+      return this.dashAllService.totalEnmployeFemmeAll(code_entreprise);
     }
 
-    @Get('total-enmployes-homme-all/:code_entreprise/:start_date/:end_date')
+    @Get('total-enmployes-homme-all/:code_entreprise')
     async totalEnmployeHommeAll(
-      @Param('code_entreprise') code_entreprise: string,
-      @Param('start_date') start_date: string,
-      @Param('end_date') end_date: string
+      @Param('code_entreprise') code_entreprise: string
     ) {
-      return this.dashAllService.totalEnmployeHommeAll(code_entreprise, start_date, end_date);
+      return this.dashAllService.totalEnmployeHommeAll(code_entreprise);
     }
 
 
