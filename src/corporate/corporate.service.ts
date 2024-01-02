@@ -13,9 +13,9 @@ export class CorporateService extends AbstractService {
         super(corporateRepository); 
     }
 
-    allGetNavigation(code_entreprise): Promise<any[]> {
-        // var code = code_entreprise.split("-");
-        // var code_entreprise = code[0];
+    allGetNavigation(entreprise): Promise<any[]> {
+        var code = entreprise.split("-");
+        var code_entreprise = code[0];
         
         return this.dataSource.query(`
             SELECT *
@@ -29,8 +29,8 @@ export class CorporateService extends AbstractService {
         // });
     }
 
-    allGet(code_entreprise): Promise<any[]> {
-        var code = code_entreprise.split("-");
+    allGet(entreprise): Promise<any[]> {
+        var code = entreprise.split("-");
         var code_entreprise = code[0];
         return this.repository.find({
             relations: [
