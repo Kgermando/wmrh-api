@@ -1,16 +1,26 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service'; 
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { SiteLocation } from './models/site-location.entity';
 
 
 @Injectable()
 export class SiteLocationService extends AbstractService {
     constructor(
+        @InjectDataSource() private dataSource: DataSource,
         @InjectRepository(SiteLocation) private readonly siteLocationRepository: Repository<SiteLocation>
     ) {
         super(siteLocationRepository); 
+    }
+    
+
+    findGetAll(id): Promise<any[]> {
+        return this.dataSource.query(`
+            SELECT *
+            FROM site_locations 
+            WHERE "corporateId"='${id}' ORDER BY created ASC;
+        `);
     }
 
     allGet(code_entreprise): Promise<any[]> {

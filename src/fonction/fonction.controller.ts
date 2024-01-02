@@ -13,6 +13,13 @@ export class FonctionController {
         private fonctionService: FonctionService
     ) {}
 
+    @Get('get-all-id/:id')
+    async findGetAll(
+      @Param('id') id: number,
+    ) {
+      return this.fonctionService.findGetAll(id);
+    }
+
 
     @Get('get-all/:code_entreprise')
     async getAll(
