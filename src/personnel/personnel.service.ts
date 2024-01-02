@@ -52,6 +52,29 @@ export class PersonnelService extends AbstractService {
         "personnels"."is_delete"='true';
     `);
     }
+
+    getPersennelByCorporate(id: number): Promise<any[]> {
+        return this.dataSource.query(`
+            SELECT "personnels"."id",
+            "personnels"."nom",
+            "personnels"."postnom",
+            "personnels"."prenom",
+            "personnels"."email",
+            "personnels"."telephone",
+            "personnels"."matricule",
+            "personnels"."sexe",
+            "personnels"."salaire_base",
+            "personnels"."statut_paie",
+            "site_locations"."site_location"
+            FROM personnels 
+            LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
+            WHERE
+            "corporatesId"='${id}' AND
+            nom!='admin' AND
+            "personnels"."is_delete"='false' 
+            ORDER BY "personnels"."created" DESC;
+        `);
+    }
     
 
     allGet(code_entreprise): Promise<any[]> {

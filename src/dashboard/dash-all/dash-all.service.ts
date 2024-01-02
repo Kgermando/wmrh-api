@@ -10,7 +10,7 @@ export default class DashAllService {
 
     // EMPLOYES
     // Total EMPLOYES 
-    async totalEnmployesAll(code_entreprise, corporateId, start_date, end_date) {
+    async totalEnmployesAll(code_entreprise, corporateId) {
         return this.dataSource.query(`
             SELECT count(*) as total
             FROM personnels  
@@ -18,43 +18,31 @@ export default class DashAllService {
             code_entreprise='${code_entreprise}' AND
             "corporatesId"='${corporateId}' AND
             "personnels"."is_delete"='false' AND
-            nom!='admin' AND
-            created
-            BETWEEN
-            '${start_date}' ::TIMESTAMP AND
-            '${end_date}' ::TIMESTAMP;
+            nom!='admin';
         `); 
     }
     
     // Total employés FEMMES 
-    async totalEnmployeFemmeAll(code_entreprise, corporateId, start_date, end_date) {
+    async totalEnmployeFemmeAll(code_entreprise, corporateId) {
         return this.dataSource.query(`
             SELECT count(*) as total
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
             "corporatesId"='${corporateId}' AND
             sexe='Femme' AND nom!='admin' AND
-            "personnels"."is_delete"='false' AND
-            created
-            BETWEEN
-            '${start_date}' ::TIMESTAMP AND
-            '${end_date}' ::TIMESTAMP;
+            "personnels"."is_delete"='false';
         `);
     }
 
     // Total emlployés HOMMES 
-    async totalEnmployeHommeAll(code_entreprise, corporateId, start_date, end_date) {
+    async totalEnmployeHommeAll(code_entreprise, corporateId) {
         return this.dataSource.query(`
             SELECT count(*) as total
             FROM personnels WHERE 
             code_entreprise='${code_entreprise}' AND
             "corporatesId"='${corporateId}' AND
             sexe='Homme' AND nom!='admin' AND
-            "personnels"."is_delete"='false' AND
-            created
-            BETWEEN
-            '${start_date}' ::TIMESTAMP AND
-            '${end_date}' ::TIMESTAMP;
+            "personnels"."is_delete"='false';
         `);
     }
 

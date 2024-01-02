@@ -28,6 +28,13 @@ export class PersonnelController {
     return this.personneService.getWithSupport();
   }
 
+  @Get('get-personnel-corporate/:id')
+  async findGetAll(
+    @Param('id') id: number,
+  ) {
+    return this.personneService.getPersennelByCorporate(id);
+  }
+
   @Get('get-all/:code_entreprise')
   async getAll(
     @Param('code_entreprise') code_entreprise: string,
