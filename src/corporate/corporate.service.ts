@@ -46,17 +46,11 @@ export class CorporateService extends AbstractService {
         return await this.repository.findOne({
             where: condition,
             relations: [ 
-                'departements', 
-                'titles', 
-                'fonctions', 
-                'services',  
-                'departements', 
-                'titles', 
-                'fonctions', 
-                'services', 
-                'site_locations',
-
                 'personnels',
+                'departements.personnels', 
+                'titles.personnels', 
+                'fonctions.personnels', 
+                'services.personnels',
                 'site_locations.personnels',
 
                 'primes',
