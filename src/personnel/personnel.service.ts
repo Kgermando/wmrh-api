@@ -26,6 +26,7 @@ export class PersonnelService extends AbstractService {
         "personnels"."telephone",
         "personnels"."matricule",
         "personnels"."sexe",
+        "personnels"."update_created",
         "service_prefs"."service"
         FROM personnels
         LEFT JOIN "service_prefs" ON "service_prefs"."id" = "personnels"."servicesId"
@@ -43,6 +44,7 @@ export class PersonnelService extends AbstractService {
         "personnels"."telephone",
         "personnels"."matricule",
         "personnels"."sexe",
+        "personnels"."update_created",
         "corporate"."corporate_name"
         FROM personnels
         LEFT JOIN "corporate" ON "corporate"."id" = "personnels"."corporatesId"
@@ -65,6 +67,7 @@ export class PersonnelService extends AbstractService {
             "personnels"."sexe",
             "personnels"."salaire_base",
             "personnels"."statut_paie",
+            "personnels"."update_created",
             "site_locations"."site_location"
             FROM personnels 
             LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
@@ -89,6 +92,7 @@ export class PersonnelService extends AbstractService {
         "personnels"."sexe",
         "personnels"."salaire_base",
         "personnels"."statut_paie",
+        "personnels"."update_created",
         "site_locations"."site_location"
         FROM personnels 
         LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
@@ -126,7 +130,8 @@ export class PersonnelService extends AbstractService {
         "personnels"."matricule",
         "personnels"."sexe",
         "personnels"."salaire_base",
-        "personnels"."statut_paie"
+        "personnels"."statut_paie",
+        "personnels"."update_created"
         FROM personnels 
         WHERE
         "personnels"."code_entreprise"='${code_entreprise}' AND
@@ -178,23 +183,6 @@ export class PersonnelService extends AbstractService {
                 'site_locations',
                 'indemnites',
             ],
-            // relations: {
-            //     presences: true,
-            //     primes: true,
-            //     penalites: true,
-            //     avances_salaires: true,
-            //     heures_supp: true,
-            //     salaires: true,
-            //     performences: true,
-            //     pres_entreprises: true,
-            //     // notify: true,
-            //     corporates: true,
-            //     departements: true,
-            //     titles: true,
-            //     fonctions: true,
-            //     services: true,
-            //     site_locations: true,
-            // }
         });
     }
 

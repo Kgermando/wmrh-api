@@ -12,6 +12,13 @@ export class PresEntrepriseController {
         private presEntrepriseService: PresEntrepriseService
     ) {}
 
+    @Get('get-all-corporate-id/:id')
+    async findGetAll(
+      @Param('id') id: number,
+    ) {
+      return this.presEntrepriseService.findGetAll(id);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,

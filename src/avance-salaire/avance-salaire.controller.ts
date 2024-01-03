@@ -12,6 +12,13 @@ export class AvanceSalaireController {
         private avanceSalaireService: AvanceSalaireService
     ) {}
 
+    @Get('get-all-corporate-id/:id')
+    async findGetAll(
+      @Param('id') id: number,
+    ) {
+      return this.avanceSalaireService.findGetAll(id);
+    }
+
     @Get('get-all/:code_entreprise')
     async getAll(
       @Param('code_entreprise') code_entreprise: string,

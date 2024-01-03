@@ -1,15 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
 import { AbstractService } from 'src/common/abstract.service';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Penalite } from './models/pernalite.entity';
 
 @Injectable()
 export class PenaliteService extends AbstractService {
     constructor(
+        @InjectDataSource() private dataSource: DataSource,
         @InjectRepository(Penalite) private readonly notifyRepository: Repository<Penalite>
     ) {
         super(notifyRepository); 
+    }
+
+    findGetAll(id): Promise<any[]> {
+        return this.dataSource.query(`
+            SELECT *
+            FROM penalites 
+            WHERE "corporateId"='${id}' ORDER BY created DESC;
+        `);
     }
 
     allGet(code_entreprise): Promise<any[]> {
