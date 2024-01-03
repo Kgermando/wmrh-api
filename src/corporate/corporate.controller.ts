@@ -45,6 +45,11 @@ export class CorporateController {
       return this.corporateService.findGetOne({id});
     }
 
+    @Get('get-one/:id')
+    async getOne(@Param('id') id: number) {
+      return this.corporateService.getOne({id});
+    }
+
     @Put(':id')
     async update(
         @Param('id') id: number,

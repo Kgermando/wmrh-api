@@ -42,6 +42,12 @@ export class CorporateService extends AbstractService {
         }); 
     }
 
+    async getOne(condition): Promise<any> {
+        return await this.repository.findOne({
+            where: condition,
+        })
+    }
+
     async findGetOne(condition): Promise<any> {
         return await this.repository.findOne({
             where: condition,
