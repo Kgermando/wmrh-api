@@ -177,26 +177,26 @@ export class PersonnelController {
     }
   }
 
-  @Post('download-xlsx/:code_entreprise/:start_date/:end_date') 
+  @Post('download-xlsx/:code_entreprise/:corporate_id/:start_date/:end_date') 
   async downloadReport(
     @Res() res: Response,
     @Param('code_entreprise') code_entreprise: string,
+    @Param('corporate_id') corporate_id: number,
     @Param('start_date') start_date: Date,
     @Param('end_date') end_date: Date
     ) {
-      let result = await this.personneService.downloadExcel(code_entreprise, start_date, end_date);
-        // console.log("result", result);  
+      let result = await this.personneService.downloadExcel(code_entreprise, corporate_id, start_date, end_date);
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);
   } 
 
-  @Post('download-model-xlsx/:code_entreprise')
+  @Post('download-model-xlsx/:code_entreprise/:corporate_id')
   async downloadModelReport(
     @Res() res: Response,
     @Param('code_entreprise') code_entreprise: string,
+    @Param('corporate_id') corporate_id: number,
     ) {
-      let result = await this.personneService.downloadModelExcel(code_entreprise);
-        // console.log("result", result);  
+      let result = await this.personneService.downloadModelExcel(code_entreprise, corporate_id);
         res.set("Content-Type", "text/xlsx");
       res.download(`${result}`);
   } 

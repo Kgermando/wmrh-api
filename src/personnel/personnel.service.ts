@@ -246,7 +246,7 @@ export class PersonnelService extends AbstractService {
 
 
 
-    async downloadExcel(code_entreprise, start_date, end_date) {
+    async downloadExcel(code_entreprise, corporate_id, start_date, end_date) {
 
         let data: PersonnelExcel[] = [];
 
@@ -260,6 +260,7 @@ export class PersonnelService extends AbstractService {
             LEFT JOIN "site_locations" ON "site_locations"."id" = "personnels"."siteLocationsId"
             WHERE
             "personnels"."code_entreprise"='${code_entreprise}' AND
+            "corporatesId"='${corporate_id}' AND
             "personnels"."is_delete"='false' AND
             nom!='admin' AND
             "personnels"."created">='${start_date}' AND 
@@ -345,13 +346,14 @@ export class PersonnelService extends AbstractService {
 
 
 
-    async downloadModelExcel(code_entreprise) {
+    async downloadModelExcel(code_entreprise, corporate_id) {
 
         let data: PersonnelExcel[] = [];
 
         data = await this.dataSource.query(`
             SELECT * FROM personnels WHERE
             code_entreprise='${code_entreprise}' AND
+            "corporatesId"='${corporate_id}' AND
             nom!='admin' AND
             is_delete='false' 
             LIMIT 2;
